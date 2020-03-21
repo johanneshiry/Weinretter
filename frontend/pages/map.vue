@@ -23,7 +23,14 @@ export default Vue.extend({
       'https://unpkg.com/leaflet@1.6.0/dist/leaflet.js'
     )
     document.head.appendChild(recaptchaScript)
-    const mymap = L.map('mapid').setView([51.505, -0.09], 13)
+    const map = L.map('mapid').setView([51.163375, 10.447683], 5)
+    const tileLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, " +
+        "<a href='https://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, ",
+    });
+
+    tileLayer.addTo(map)
   }
 })
 </script>
