@@ -1,25 +1,7 @@
 <template>
-  <div>
-    <b-navbar toggleable="lg" variant="info">
-      <b-navbar-brand
-        ><nuxt-link to="/"><img src="../assets/weinretter_logo.png"/></nuxt-link
-      ></b-navbar-brand>
-      <b-navbar-toggle target="navbarSupportedContent"> </b-navbar-toggle>
-
-      <b-collapse id="navbarSupportedContent" is-nav>
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/map" class="link" right>
-            Karte ansehen
-          </b-nav-item>
-          <b-nav-item to="/signup" class="link" right>
-            Restaurant registrieren
-          </b-nav-item>
-          <b-nav-item to="/about" class="link" right>
-            About
-          </b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+  <div id="index">
+    <router-view />
+    <Navigation></Navigation>
     <div class="content">
       <div class="skew">
         <div class="skew-inner">
@@ -45,10 +27,12 @@
 <script lang="ts">
 import Vue from 'vue'
 import Logo from '../components/Logo.vue'
+import Navigation from '../components/Navigation.vue'
 
 export default Vue.extend({
   components: {
-    Logo
+    Logo,
+    Navigation
   }
 })
 </script>
@@ -94,6 +78,11 @@ export default Vue.extend({
   letter-spacing: 1px;
 }
 
+.link a {
+  padding: 10px 10px 10px 10px;
+  color: blue;
+}
+
 .highlight {
   color: red;
 }
@@ -106,19 +95,16 @@ export default Vue.extend({
   padding-bottom: 15px;
 }
 
-.links {
-  padding-top: 15px;
+.navbar {
+  background-color: white !important;
 }
 
-.link a {
-  padding: 10px 10px 10px 10px;
-  color: blue;
+.navbar-brand {
+  padding: 0;
 }
 
-.link a:hover {
-  background-color: #b12525;
-  color: #ffffff !important;
-  border-radius: 10px;
+.navbar-brand img {
+  height: 4em;
 }
 
 .navbar {
