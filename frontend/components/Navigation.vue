@@ -12,7 +12,7 @@
           <b-nav-item to="/map" class="link" right>
             Karte ansehen
           </b-nav-item>
-          <b-nav-item to="/signup" class="link" right>
+          <b-nav-item to="/offer" class="link" right>
             Restaurant registrieren
           </b-nav-item>
           <b-nav-item to="/about" class="link" right>
