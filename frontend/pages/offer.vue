@@ -33,12 +33,14 @@
         <b-button type="submit" variant="primary">Registrieren</b-button>
       </b-form>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
   import Navigation from "../components/Navigation";
+  import Footer from "../components/Footer";
   import Logo from '~/components/Logo.vue'
 
 
@@ -79,7 +81,8 @@
     },
     components: {
       Logo,
-      Navigation
+      Navigation,
+      Footer
     }
   })
 </script>

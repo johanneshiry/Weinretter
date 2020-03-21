@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 
+
 const API_ENDPOINT = 'https://weinretter.de/api';
 
 export default {
