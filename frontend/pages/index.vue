@@ -39,7 +39,11 @@ export default Vue.extend({
 
 <style>
 body,
-html {
+html,
+#__nuxt,
+#__layout,
+#index,
+.content {
   height: 100%;
 }
 
@@ -72,7 +76,7 @@ html {
 }
 
 .skew {
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -91,8 +95,9 @@ html {
 
 .hero-img {
   width: 40%;
-  background-image: url('https://images.unsplash.com/photo-1525576064846-083dce8b33ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60');
-  height: 100vh;
+  background-image: url('https://source.unsplash.com/collection/8821407');
+  background-size: cover;
+  height: 100%;
 }
 
 .title {
