@@ -6,15 +6,15 @@
       <div class="skew">
         <div class="skew-inner">
           <p class="title">
-            Rette dein <span class="highlight">Lieblingsrestaurant</span> durch
-            das Kaufen von Wein
+            Rette dein <span class="highlight">Lieblingsrestaurant</span>
+            <wbr /> durch das Kaufen von Wein
           </p>
-          <h2 class="subtitle">
-            weinretter
-          </h2>
           <div class="links">
-            <nuxt-link to="/map" class="button--green">
+            <nuxt-link to="/map" class="weinretter-button prominent">
               Karte ansehen
+            </nuxt-link>
+            <nuxt-link to="/offer" class="weinretter-button">
+              Wein anbieten
             </nuxt-link>
           </div>
         </div>
@@ -38,6 +38,34 @@ export default Vue.extend({
 </script>
 
 <style>
+body,
+html {
+  height: 100%;
+}
+
+.weinretter-button {
+  padding: 10px 20px;
+  border: 3px solid #b12525;
+  border-radius: 10px;
+  color: black;
+  margin-right: 20px;
+}
+
+.weinretter-button:hover {
+  text-decoration: none;
+  color: gray;
+}
+
+.prominent {
+  background: #b12525;
+  color: white;
+}
+
+.weinretter-button:hover {
+  text-decoration: none;
+  color: gray;
+}
+
 .content {
   display: flex;
   flex-direction: row;
@@ -48,7 +76,6 @@ export default Vue.extend({
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
   transform: skewX(-7deg) translateX(100px);
   width: 60%;
 
@@ -72,27 +99,19 @@ export default Vue.extend({
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   display: block;
-  font-weight: 300;
-  font-size: 50px;
+  font-weight: bolder;
+  font-size: 60px;
   color: #35495e;
   letter-spacing: 1px;
+  margin-block: 50px;
 }
 
 .link a {
   padding: 10px 10px 10px 10px;
-  color: blue;
 }
 
 .highlight {
-  color: red;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
+  color: #b12525;
 }
 
 .navbar {
