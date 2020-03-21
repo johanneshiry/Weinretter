@@ -5,7 +5,7 @@
       <b-navbar-toggle target="navbarSupportedContent"> </b-navbar-toggle>
 
       <b-collapse id="navbarSupportedContent" is-nav>
-        <b-navbar-nav>
+        <b-navbar-nav class="ml-auto">
           <b-nav-item href="/map" right>
               Karte ansehen
           </b-nav-item>
