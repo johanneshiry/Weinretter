@@ -49,7 +49,7 @@
   }
 
   .highlight {
-    color: red;
+    color: #B12525;
   }
 
   .subtitle {
