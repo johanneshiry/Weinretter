@@ -3,6 +3,8 @@ from flask_cors import CORS
 from pymongo import MongoClient, GEOSPHERE
 from urllib.parse import urlparse
 
+from .content_control import TelegramBot
+
 client = MongoClient('localhost', 27017)
 db = client.weinretter
 collection = db.restaurants
@@ -10,6 +12,8 @@ collection.create_index([('location', GEOSPHERE)])
 
 app = Flask(__name__)
 CORS(app)
+
+content_bot = TelegramBot()
 
 @app.route('/api/restaurant', methods=['POST'])
 def create_restaurant():
@@ -23,7 +27,12 @@ def create_restaurant():
         return '', 400
     name = body['name']
     location = (body['location']['lng'], body['location']['lat'])
-    collection.insert({'link': link, 'name': name, 'location': location})
+
+    restaurant = {'link': link, 'name': name, 'location': location}
+
+    content_bot.notify(restaurant)
+
+    collection.insert(restaurant)
 
     return '', 204
 
