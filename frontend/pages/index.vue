@@ -1,35 +1,25 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
-      <a class="navbar-brand" href="#"><img src="../assets/weinretter_logo.png"></a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <b-navbar toggleable="lg" variant="info">
+      <b-navbar-brand><nuxt-link to="/"><img src="../assets/weinretter_logo.png"></nuxt-link></b-navbar-brand>
+      <b-navbar-toggle target="navbarSupportedContent"> </b-navbar-toggle>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <nuxt-link to="/map" class="button--green">
+      <b-collapse id="navbarSupportedContent" is-nav>
+        <b-navbar-nav>
+          <b-nav-item href="/map" right>
               Karte ansehen
-            </nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/signup" class="button--green">
+          </b-nav-item>
+          <b-nav-item href="/signup" right>
               Restaurant registrieren
-            </nuxt-link>
-          </li>
-          <li class="nav-item">
-            <nuxt-link to="/about" class="button--green">
+          </b-nav-item>
+          <b-nav-item href="/about" right>
               About
-            </nuxt-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
     <div class="container">
       <div>
-        <logo/>
         <p class="title">
           Rette dein <span class="highlight">Lieblingsrestaurant</span> durch das Kaufen von Wein
         </p>
