@@ -1,6 +1,6 @@
 import Vuex from 'vuex'
 
-const API_ENDPOINT = 'http://localhost:5000/api';
+const API_ENDPOINT = 'https://weinretter.de/api';
 
 export default new Vuex.Store({
   state: {

@@ -44,6 +44,7 @@ export default {
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    'nuxt-leaflet',
   ],
   /*
   ** Axios module configuration

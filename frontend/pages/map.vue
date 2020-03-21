@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-    <div id="mapid"></div>
+    <l-map id="mapid" :zoom=6 :center="[52, 10]">
+      <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tile-layer>
+      <l-marker v-for="restaurant in restaurants" :lat-lng="[restaurant.location.lat, restaurant.location.lng]"></l-marker>
+    </l-map>
   </div>
 </template>
 
@@ -9,24 +12,12 @@ import Vue from 'vue'
 import L from 'leaflet'
 
 export default Vue.extend({
-  components: {},
-  mounted() {
-    let recaptchaScript = document.createElement('script')
-    recaptchaScript.setAttribute(
-      'src',
-      'https://unpkg.com/leaflet@1.6.0/dist/leaflet.js'
-    )
-    document.head.appendChild(recaptchaScript)
-    const map = L.map('mapid').locate({setView: true, maxZoom: 15}).setView([51.163375, 10.447683], 7);
-    const tileLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution:
-        "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, " +
-        "<a href='https://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, ",
-    });
+ data() {
+   return {
+     restaurants: [{"link":"http://google.de","location":{"lat":48.04,"lng":9.5},"name":"abc"}, {"link":"http://google.de","location":{"lat":49.04,"lng":9.7},"name":"abc"}]
 
-    tileLayer.addTo(map)
-
-  }
+   }
+ }
 })
 </script>
 
