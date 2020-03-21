@@ -1,108 +1,133 @@
 <template>
   <div>
     <b-navbar toggleable="lg" variant="info">
-      <b-navbar-brand><nuxt-link to="/"><img src="../assets/weinretter_logo.png"></nuxt-link></b-navbar-brand>
+      <b-navbar-brand
+        ><nuxt-link to="/"><img src="../assets/weinretter_logo.png"/></nuxt-link
+      ></b-navbar-brand>
       <b-navbar-toggle target="navbarSupportedContent"> </b-navbar-toggle>
 
       <b-collapse id="navbarSupportedContent" is-nav>
         <b-navbar-nav class="ml-auto">
           <b-nav-item to="/map" class="link" right>
-              Karte ansehen
+            Karte ansehen
           </b-nav-item>
           <b-nav-item to="/signup" class="link" right>
-              Restaurant registrieren
+            Restaurant registrieren
           </b-nav-item>
           <b-nav-item to="/about" class="link" right>
-              About
+            About
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
-    <div class="container">
-      <div>
-        <p class="title">
-          Rette dein <span class="highlight">Lieblingsrestaurant</span> durch das Kaufen von Wein
-        </p>
-        <h2 class="subtitle">
-          weinretter
-        </h2>
-        <div class="links">
-          <nuxt-link to="/map" class="button--green">
-            Karte ansehen
-          </nuxt-link>
+    <div class="content">
+      <div class="skew">
+        <div class="skew-inner">
+          <p class="title">
+            Rette dein <span class="highlight">Lieblingsrestaurant</span> durch
+            das Kaufen von Wein
+          </p>
+          <h2 class="subtitle">
+            weinretter
+          </h2>
+          <div class="links">
+            <nuxt-link to="/map" class="button--green">
+              Karte ansehen
+            </nuxt-link>
+          </div>
         </div>
       </div>
+      <div class="hero-img"></div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import Logo from '../components/Logo.vue'
+import Vue from 'vue'
+import Logo from '../components/Logo.vue'
 
-  export default Vue.extend({
-    components: {
-      Logo
-    }
-  })
+export default Vue.extend({
+  components: {
+    Logo
+  }
+})
 </script>
 
 <style>
-  .container {
-    margin: 0 auto;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
+.content {
+  display: flex;
+  flex-direction: row;
+}
 
-  .title {
-    font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+.skew {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transform: skewX(-7deg) translateX(100px);
+  width: 60%;
+
+  z-index: 10;
+  background: white;
+  margin: 0;
+  padding: 0;
+}
+
+.skew-inner {
+  transform: skewX(7deg) translateX(-50px);
+}
+
+.hero-img {
+  width: 40%;
+  background-image: url('https://images.unsplash.com/photo-1525576064846-083dce8b33ba?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=900&q=60');
+  height: 100vh;
+}
+
+.title {
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    display: block;
-    font-weight: 300;
-    font-size: 50px;
-    color: #35495e;
-    letter-spacing: 1px;
-  }
+  display: block;
+  font-weight: 300;
+  font-size: 50px;
+  color: #35495e;
+  letter-spacing: 1px;
+}
 
-  .highlight {
-    color: red;
-  }
+.highlight {
+  color: red;
+}
 
-  .subtitle {
-    font-weight: 300;
-    font-size: 42px;
-    color: #526488;
-    word-spacing: 5px;
-    padding-bottom: 15px;
-  }
+.subtitle {
+  font-weight: 300;
+  font-size: 42px;
+  color: #526488;
+  word-spacing: 5px;
+  padding-bottom: 15px;
+}
 
-  .links {
-    padding-top: 15px;
-  }
+.links {
+  padding-top: 15px;
+}
 
-  .link a{
-    padding: 10px 10px 10px 10px;
-    color: blue;
-  }
+.link a {
+  padding: 10px 10px 10px 10px;
+  color: blue;
+}
 
+.link a:hover {
+  background-color: #b12525;
+  color: #ffffff !important;
+  border-radius: 10px;
+}
 
-  .link a:hover {
-    background-color: #B12525;
-    color: #ffffff !important;
-    border-radius: 10px;
-  }
-
-  .navbar{
-    background-color: white !important;
-  }
-  .navbar-brand{
-    padding: 0;
-  }
-  .navbar-brand img{
-    height: 4em;
-  }
-
+.navbar {
+  background-color: white !important;
+}
+.navbar-brand {
+  padding: 0;
+}
+.navbar-brand img {
+  height: 4em;
+}
 </style>
