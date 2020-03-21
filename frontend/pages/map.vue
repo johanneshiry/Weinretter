@@ -3,10 +3,12 @@
     <router-view/>
     <Navigation></Navigation>
     <div class="container">
-      <l-map id="mapid" :zoom=6 :center="[52, 10]">
-        <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tile-layer>
+      <l-map ref="map" id="mapid" :zoom=7 :center="[51.163375, 10.447683]">
+        <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
         <l-marker v-for="restaurant in restaurants"
-                  :lat-lng="[restaurant.location.lat, restaurant.location.lng]"></l-marker>
+                  :lat-lng="[restaurant.location.lat, restaurant.location.lng]">
+        <l-popup>{{restaurant.name}} <a :href="restaurant.link">Link</a></l-popup>
+      </l-marker>
       </l-map>
     </div>
   </div>
@@ -28,6 +30,10 @@
         }, {"link": "http://google.de", "location": {"lat": 49.04, "lng": 9.7}, "name": "abc"}]
 
       }
+    },
+    mounted() {
+      const map = this.$refs["map"] as any;
+      map.mapObject.locate({setView: true, maxZoom: 15})
     },
     components: {
       Logo,
