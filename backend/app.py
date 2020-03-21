@@ -1,0 +1,41 @@
+from flask import Flask, escape, request, jsonify
+from flask_cors import CORS
+from pymongo import MongoClient, GEOSPHERE
+from urllib.parse import urlparse
+
+client = MongoClient('localhost', 27017)
+db = client.weinretter
+collection = db.restaurants
+collection.create_index([('location', GEOSPHERE)])
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/api/restaurant', methods=['POST'])
+def create_restaurant():
+    body = request.get_json()
+    
+    link = body['link']
+    # XXX URL Validation
+    try:
+        urlparse(link)
+    except:
+        return '', 400 
+    name = body['name']
+    location = (body['location']['lng'], body['location']['lat'])
+    collection.insert({'link': link, 'name': name, 'location': location})
+
+    return '', 204 
+
+@app.route('/api/restaurant')
+def fetch_restaurants():
+    left_lng = float(request.args.get('left_lng'))
+    right_lng = float(request.args.get('right_lng'))
+    bottom_lat = float(request.args.get('bottom_lat'))
+    top_lat = float(request.args.get('top_lat'))
+    
+    cursor = collection.find({'location': {'$within': {'$box': [[left_lng, bottom_lat], [right_lng, top_lat]]}}})
+
+    restaurants = [{'name': r['name'], 'link': r['link'], 'location': {'lat': r['location'][1], 'lng': r['location'][0]}} for r in cursor]
+    return jsonify(restaurants)
+

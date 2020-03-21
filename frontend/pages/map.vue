@@ -1,16 +1,36 @@
 <template>
   <div class="container">
-      <h1 class="title">
-Hier ist die Karte      </h1>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
+    <div id="mapid"></div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import Logo from '~/components/Logo.vue'
+import L from 'leaflet'
 
 export default Vue.extend({
-  components: {
+  components: {},
+  mounted() {
+    let recaptchaScript = document.createElement('script')
+    recaptchaScript.setAttribute(
+      'src',
+      'https://unpkg.com/leaflet@1.6.0/dist/leaflet.js'
+    )
+    document.head.appendChild(recaptchaScript)
+    const map = L.map('mapid').setView([51.163375, 10.447683], 5)
+    const tileLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution:
+        "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, " +
+        "<a href='https://creativecommons.org/licenses/by-sa/2.0/'>CC-BY-SA</a>, ",
+    });
+
+    tileLayer.addTo(map)
   }
 })
 </script>
@@ -25,25 +45,8 @@ export default Vue.extend({
   text-align: center;
 }
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
+#mapid {
+  height: 100vh;
+  width: 100vw;
 }
 </style>
