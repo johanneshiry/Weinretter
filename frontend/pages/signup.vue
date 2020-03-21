@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <b-form @submit="submit">
+    <b-form @submit.prevent="submit">
       <b-form-group
         id="input-group-1"
         label="Name deines Restaurant:"
@@ -9,7 +9,6 @@
         <b-form-input
           id="input-1"
           v-model="name"
-          type="email"
           required
           placeholder="La Pizza"
         />
@@ -19,6 +18,7 @@
         <b-form-input
           id="input-2"
           v-model="link"
+          type="url"
           required
           placeholder="http://lapizza.de"
         />
@@ -26,6 +26,7 @@
 
       <l-map ref="map" id="mapid" :zoom=7 :center="[51.163375, 10.447683]">
         <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
+        <l-marker v-if="location" :lat-lng="location"/>
       </l-map>
       <b-button type="submit" variant="primary">Registrieren</b-button>
     </b-form>
@@ -39,22 +40,31 @@
     data() {
       return {
         name: '',
-        link: ''
+        link: '',
+        location: null
       }
     },
     methods: {
-      submit() {
+      async submit() {
+        if(!this.location) {
+          this.$bvToast.toast('Wähle bitte den Standort deines Restaurant auf der Karte aus', {
+            title: 'Fehler',
+            autoHideDelay: 5000,
+            variant: 'danger'
+          });
+          return;
+        }
+
+        await this.$store.dispatch('createRestaurant', {name: this.name, link: this.link, location: this.location});
+        this.$bvToast.toast('Deine Restaurant wurde gespeichert', {
+          title: 'Vielen Dank',
+          autoHideDelay: 5000,
+          variant: 'success'
+        });
       }
     },
     mounted() {
-      const map = this.$refs["map"].mapObject;
-      map.on('click', function (e) {
-        var popLocation = e.latlng;
-        var popup = L.popup()
-          .setLatLng(popLocation)
-          .setContent('<p>Hello world!<br />This is a nice popup.</p>')
-          .openOn(map);
-      });
+      this.$refs["map"].mapObject.on('click', (e) => this.location = e.latlng);
     },
     head() {
       return {
@@ -64,7 +74,7 @@
   })
 </script>
 
-<style>
+<style scoped>
   .container {
     margin: 0 auto;
     min-height: 100vh;
@@ -77,5 +87,6 @@
   #mapid {
     height: 30vh;
     width: 50vw;
+    cursor: pointer;
   }
 </style>

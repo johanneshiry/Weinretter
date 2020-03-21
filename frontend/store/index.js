@@ -8,9 +8,9 @@ export default {
     fetchedAreas: new Set()
   },
   actions: {
-    createRestaurant(restaurant) {
+    createRestaurant(context, restaurant) {
       return fetch(API_ENDPOINT + "/restaurant", {
-        method: 'POST', body: JSON.stringify(restaurant)
+        method: 'POST', body: JSON.stringify(restaurant), headers: new Headers({'content-type': 'application/json'})
       })
     },
 
