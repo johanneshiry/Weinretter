@@ -3,7 +3,7 @@ from flask_cors import CORS
 from pymongo import MongoClient, GEOSPHERE
 from urllib.parse import urlparse
 
-from .content_control import TelegramBot
+from content_control import TelegramBot
 
 client = MongoClient('localhost', 27017)
 db = client.weinretter
