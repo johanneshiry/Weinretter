@@ -6,13 +6,13 @@
 
       <b-collapse id="navbarSupportedContent" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/map" right>
+          <b-nav-item to="/map" class="link" right>
               Karte ansehen
           </b-nav-item>
-          <b-nav-item to="/signup" right>
+          <b-nav-item to="/signup" class="link" right>
               Restaurant registrieren
           </b-nav-item>
-          <b-nav-item to="/about" right>
+          <b-nav-item to="/about" class="link" right>
               About
           </b-nav-item>
         </b-navbar-nav>
@@ -62,7 +62,7 @@
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     display: block;
     font-weight: 300;
-    font-size: 100px;
+    font-size: 50px;
     color: #35495e;
     letter-spacing: 1px;
   }
@@ -81,6 +81,18 @@
 
   .links {
     padding-top: 15px;
+  }
+
+  .link a{
+    padding: 10px 10px 10px 10px;
+    color: blue;
+  }
+
+
+  .link a:hover {
+    background-color: #B12525;
+    color: #ffffff !important;
+    border-radius: 10px;
   }
 
   .navbar{
