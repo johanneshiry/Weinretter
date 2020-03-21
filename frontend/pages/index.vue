@@ -6,13 +6,13 @@
 
       <b-collapse id="navbarSupportedContent" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item href="/map" right>
+          <b-nav-item to="/map" right>
               Karte ansehen
           </b-nav-item>
-          <b-nav-item href="/signup" right>
+          <b-nav-item to="/signup" right>
               Restaurant registrieren
           </b-nav-item>
-          <b-nav-item href="/about" right>
+          <b-nav-item to="/about" right>
               About
           </b-nav-item>
         </b-navbar-nav>
