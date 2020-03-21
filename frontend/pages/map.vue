@@ -1,11 +1,5 @@
 <template>
   <div class="container">
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-      crossorigin=""
-    />
     <div id="mapid"></div>
   </div>
 </template>
@@ -23,7 +17,7 @@ export default Vue.extend({
       'https://unpkg.com/leaflet@1.6.0/dist/leaflet.js'
     )
     document.head.appendChild(recaptchaScript)
-    const map = L.map('mapid').setView([51.163375, 10.447683], 5)
+    const map = L.map('mapid').locate({setView: true, maxZoom: 15}).setView([51.163375, 10.447683], 7);
     const tileLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution:
         "Map data &copy; <a href='https://www.openstreetmap.org/'>OpenStreetMap</a> contributors, " +
@@ -31,6 +25,7 @@ export default Vue.extend({
     });
 
     tileLayer.addTo(map)
+
   }
 })
 </script>
