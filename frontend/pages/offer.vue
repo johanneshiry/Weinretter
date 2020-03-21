@@ -28,6 +28,7 @@
 
         <l-map ref="map" id="mapid" :zoom=7 :center="[51.163375, 10.447683]">
           <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
+          <VGeosearch :options="geosearchOptions"/>
           <l-marker v-if="location" :lat-lng="location"/>
         </l-map>
         <b-button type="submit" variant="primary">Registrieren</b-button>
@@ -41,12 +42,17 @@
   import Vue from 'vue'
   import Navigation from "../components/Navigation";
   import Footer from "../components/Footer";
-  import Logo from '~/components/Logo.vue'
-
+  import VGeosearch from 'vue2-leaflet-geosearch';
+  import { OpenStreetMapProvider } from 'leaflet-geosearch';
+  import 'leaflet-geosearch/assets/css/leaflet.css'
 
   export default Vue.extend({
     data() {
       return {
+        geosearchOptions: {
+          showMarker: false,
+          provider: new OpenStreetMapProvider(),
+        },
         name: '',
         link: '',
         location: null
@@ -80,9 +86,9 @@
       }
     },
     components: {
-      Logo,
       Navigation,
-      Footer
+      Footer,
+      VGeosearch
     }
   })
 </script>

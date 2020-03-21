@@ -5,13 +5,12 @@
       <div v-if="zoomInRequired" class="zoom-notice">Um die Restaurants zu sehen, zoome in die Karte</div>
       <l-map ref="map" id="mapid" :zoom.sync="zoom" :center="[51.163375, 10.447683]" @update:bounds="fetchRestaurants">
         <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
+        <v-geosearch :options="geosearchOptions" ></v-geosearch>
         <l-marker
           v-for="restaurant in restaurants"
           :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
         >
-          <l-popup
-          >{{ restaurant.name }} <a :href="restaurant.link">Link</a></l-popup
-          >
+          <l-popup>{{ restaurant.name }} <a :href="restaurant.link">Link</a></l-popup>
         </l-marker>
       </l-map>
     </div>
@@ -21,11 +20,18 @@
 <script>
   import Vue from 'vue'
   import Navigation from '../components/Navigation.vue'
-  import Logo from '~/components/Logo.vue'
+  import VGeosearch from 'vue2-leaflet-geosearch';
+  import { OpenStreetMapProvider } from 'leaflet-geosearch';
+  import 'leaflet-geosearch/assets/css/leaflet.css'
 
   export default Vue.extend({
     data() {
       return {
+        geosearchOptions: {
+          provider: new OpenStreetMapProvider(),
+          showMarker: false,
+          showPopup: false,
+        },
         zoom: 7
       }
     },
@@ -57,7 +63,7 @@
       this.$refs["map"].mapObject.locate({setView: true, maxZoom: 15})
     },
     components: {
-      Logo,
+      VGeosearch,
       Navigation
     },
 
