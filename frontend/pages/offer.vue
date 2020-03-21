@@ -87,7 +87,7 @@
 <style scoped>
   .container {
     margin: 0 auto;
-    min-height: 100vh;
+    min-height: 91vh;
     display: flex;
     justify-content: center;
     align-items: center;

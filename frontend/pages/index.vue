@@ -50,7 +50,7 @@ html,
 #__layout,
 #index,
 .content {
-  height: 100%;
+  height: 92vh;
 }
 
 .weinretter-button {

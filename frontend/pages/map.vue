@@ -66,15 +66,16 @@ import Logo from '~/components/Logo.vue'
 <style scoped>
 .container {
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 92vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
+
 #mapid {
-  height: 100vh;
+  height: 92vh;
   width: 100vw;
 }
 </style>
