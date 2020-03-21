@@ -18,7 +18,8 @@
     "bootstrap-vue": "^2.0.0",
     "leaflet": "^1.6.0",
     "nuxt": "^2.0.0",
-    "nuxt-leaflet": "0.0.21"
+    "nuxt-leaflet": "0.0.21",
+    "vue2-leaflet": "^2.5.2"
   },
   "devDependencies": {
     "@nuxt/typescript-build": "^0.6.0",

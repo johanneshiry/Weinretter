@@ -128,16 +128,7 @@ html,
 }
 
 .navbar-brand img {
-  height: 4em;
-}
-
-.navbar {
-  background-color: white !important;
-}
-.navbar-brand {
-  padding: 0;
-}
-.navbar-brand img {
-  height: 4em;
+  height: 2.5em;
+  margin: 10px 30px;
 }
 </style>
