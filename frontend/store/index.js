@@ -2,7 +2,7 @@ import Vuex from 'vuex'
 
 const API_ENDPOINT = 'https://weinretter.de/api';
 
-export default new Vuex.Store({
+export default {
   state: {
     fetchedRestaurants: [],
     fetchedAreas: new Set()
@@ -15,24 +15,24 @@ export default new Vuex.Store({
     },
 
     fetchRestaurants(context, {leftLng, rightLng, bottomLat, topLat}) {
-
       // Divide area in tiles
       if (leftLng > rightLng || bottomLat > topLat) {
         return;
       }
 
-      const leftTile = Math.floor(leftLng * 10) / 10;
-      const rightTile = Math.floor(rightLng * 10) / 10;
-      const bottomTile = Math.floor(bottomLat * 10) / 10;
-      const topTile = Math.floor(topLat * 10) / 10;
+      const leftTile = Math.floor(leftLng * 2) / 2;
+      const rightTile = Math.floor(rightLng * 2) / 2;
+      const bottomTile = Math.floor(bottomLat * 2) / 2;
+      const topTile = Math.floor(topLat * 2) / 2;
 
-      for (let lng = leftTile; lng += 0.1; lng <= rightTile) {
-        for (let lat = bottomTile; lat += 0.1; lng <= topTile) {
+      for (var lng = leftTile; lng <= rightTile; lng += 0.5) {
+        for (let lat = bottomTile; lat <= topTile; lat += 0.5) {
           const tileName = `${lng}-${lat}`;
+
           if (context.state.fetchedAreas.has(tileName)) continue;
           context.commit('markAsLoaded', tileName);
 
-          fetch(API_ENDPOINT + `/restaurant?left_lng=${lng}&right_lng=${lng + 0.1}&bottomTile=${lat}&topTile=${lat + 0.1}`)
+          fetch(API_ENDPOINT + `/restaurant?left_lng=${lng}&right_lng=${lng + 0.5}&bottom_lat=${lat}&top_lat=${lat + 0.5}`)
             .then(response => response.json())
             .then(restaurants => context.commit('addFetchedRestaurants', restaurants))
         }
@@ -48,4 +48,4 @@ export default new Vuex.Store({
       state.fetchedRestaurants.push(...restaurants)
     }
   }
-})
+}

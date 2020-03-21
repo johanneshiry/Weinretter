@@ -1,9 +1,8 @@
 <template>
   <div class="map">
-    <router-view />
-    <Navigation></Navigation>
+    <Navigation/>
     <div class="container">
-      <l-map ref="map" id="mapid" :zoom="7" :center="[51.163375, 10.447683]">
+      <l-map ref="map" id="mapid" :zoom.sync="zoom" :center="[51.163375, 10.447683]" @update:bounds="fetchRestaurants" >
         <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
         <l-marker
           v-for="restaurant in restaurants"
@@ -18,38 +17,44 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
-import L from 'leaflet'
 import Navigation from '../components/Navigation.vue'
 import Logo from '~/components/Logo.vue'
 
-export default Vue.extend({
-  data() {
-    return {
-      restaurants: [
-        {
-          link: 'http://google.de',
-          location: { lat: 48.04, lng: 9.5 },
-          name: 'abc'
-        },
-        {
-          link: 'http://google.de',
-          location: { lat: 49.04, lng: 9.7 },
-          name: 'abc'
+  export default Vue.extend({
+    data() {
+      return {
+        zoom: 7
+      }
+    },
+
+    computed: {
+      restaurants() {
+        return this.$store.state.fetchedRestaurants
+      },
+
+      zoomInRequired() {
+        return this.zoom < 9;
+      }
+    },
+
+    methods: {
+      fetchRestaurants(bounds) {
+        if(!this.zoomInRequired) {
+          this.$store.dispatch('fetchRestaurants', {leftLng: bounds.getWest(), rightLng: bounds.getEast(), bottomLat: bounds.getSouth(), topLat: bounds.getNorth()})
         }
-      ]
+      }
+    },
+
+    mounted() {
+      this.$refs["map"].mapObject.locate({setView: true, maxZoom: 15})
+    },
+    components: {
+      Logo,
+      Navigation
     }
-  },
-  mounted() {
-    const map = this.$refs['map'] as any
-    map.mapObject.locate({ setView: true, maxZoom: 15 })
-  },
-  components: {
-    Logo,
-    Navigation
-  }
-})
+  })
 </script>
 
 <style>
