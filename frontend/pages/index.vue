@@ -33,6 +33,12 @@ export default Vue.extend({
   components: {
     Logo,
     Navigation
+  },
+
+  head() {
+    return {
+      title: "WeinRetter",
+    }
   }
 })
 </script>

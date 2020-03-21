@@ -9,6 +9,12 @@ import Vue from 'vue'
 
 export default Vue.extend({
   components: {},
+
+  head() {
+    return {
+      title: "Registriere dein Restaurant - WeinRetter",
+    }
+  },
 })
 </script>
 

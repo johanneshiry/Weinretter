@@ -53,6 +53,12 @@ import Logo from '~/components/Logo.vue'
     components: {
       Logo,
       Navigation
+    },
+
+    head() {
+      return {
+        title: "Finde Restaurants - WeinRetter",
+      }
     }
   })
 </script>
