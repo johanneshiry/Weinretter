@@ -20,10 +20,20 @@
             :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
             :key="'' + restaurant.location.lat + restaurant.location.lng"
           >
-            <l-popup
-              >{{ restaurant.name }}
-              <a :href="restaurant.link">Angebot ansehen</a></l-popup
-            >
+            <l-popup>
+              <b>{{ restaurant.name }}</b>
+              <br>
+              <p><i>Angebot: </i>
+                <!--
+                <span v-if="restaurant.wine"><i>Wein </i></span>
+                <span v-if="restaurant.beer"><i>Bier </i></span>
+                <span v-if="restaurant.cocktails"><i>Cocktails </i></span>
+                <span v-if="restaurant.more"><i>Weitere Lebensmittel</i></span>
+              -->
+              </p>
+              <br>
+              <a :href="restaurant.link">Angebot ansehen</a>
+            </l-popup>
           </l-marker>
         </v-marker-cluster>
       </l-map>
