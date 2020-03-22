@@ -37,7 +37,7 @@ export default Vue.extend({
 
   head() {
     return {
-      title: 'WeinRetter'
+      title: 'WeinRetter - Hol dir dein Lieblingslokal ins Wohnzimmer'
     }
   }
 })
@@ -111,7 +111,7 @@ html,
   display: block;
   font-weight: bolder;
   font-size: 60px;
-  color: #35495e;
+  color: var(--dark-grey);
   letter-spacing: 1px;
   margin-block: 50px;
   line-height: 1.1;
