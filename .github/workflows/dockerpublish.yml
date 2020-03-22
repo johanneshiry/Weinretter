@@ -100,6 +100,16 @@ jobs:
   
             docker tag wr_frontend $IMAGE_ID:$VERSION
             docker push $IMAGE_ID:$VERSION
-  
+  deploy:
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'deploy'
+
+    steps:
+      
+      - name: ssh
+        run: ssh deploy@ec2-54-86-155-155.compute-1.amazonaws.com -o StrictHostKeyChecking=no "docker-compose up -d --force-recreate"
+
+
   
   
