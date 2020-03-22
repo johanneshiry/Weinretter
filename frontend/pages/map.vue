@@ -128,7 +128,7 @@
 <style scoped>
 .container {
   margin: 0 auto;
-  max-height: 83vh;
+  max-height: 82vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -138,7 +138,7 @@
 
 #mapid {
   height: 92vh;
-  width: 100vw;
+  width: 99vw;
 }
 
 p {

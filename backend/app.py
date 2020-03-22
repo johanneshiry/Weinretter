@@ -43,7 +43,7 @@ def create_restaurant():
         return '', 400
 
     name = body['name']
-    location = (body['location']['lng'], body['location']['lat'])
+    location = (float(body['location']['lng']), float(body['location']['lat']))
 
     restaurant = {'link': link,
                   'name': name,
@@ -55,7 +55,10 @@ def create_restaurant():
 
     result = collection.insert_one(restaurant)
 
-    content_bot.notify(restaurant, result.inserted_id)
+    try:
+        content_bot.notify(restaurant, result.inserted_id)
+    except Exception as e:
+        print(e)
 
     return '', 204
 

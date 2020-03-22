@@ -47,4 +47,7 @@ class TelegramBot:
         updater.dispatcher.add_handler(CallbackQueryHandler(self.block, pattern=r'^BLOCK:'))
         updater.dispatcher.add_handler(CallbackQueryHandler(self.unblock, pattern=r'^UNBLOCK:'))
 
-        updater.start_polling()
+        try:
+            updater.start_webhook(webhook_url='https://weinretter.de/bot', port=5001)
+        except:
+            pass
