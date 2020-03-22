@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="default-layout">
   <nuxt/>
   <Footer/>
   </div>
@@ -70,5 +70,12 @@
   .button--grey:hover {
     color: #fff;
     background-color: #35495e;
+  }
+
+  .default-layout {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 </style>

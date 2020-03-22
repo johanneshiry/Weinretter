@@ -14,7 +14,6 @@
     <b-row>
       <b-col class="copyright"> © 2020 Copyright - WeinRetterTeam</b-col>
     </b-row>
-
   </b-container>
 </template>
 
