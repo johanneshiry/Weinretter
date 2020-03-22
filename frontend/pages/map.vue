@@ -3,27 +3,40 @@
     <Navigation />
     <div class="container">
       <div v-if="zoomInRequired" class="zoom-notice">
-        Um die Restaurants zu sehen, zoome in die Karte
+        Um dein <span class="highlight"><b>Lieblingsrestaurant</b></span> zu finden, zoome in die Karte
       </div>
       <l-map
         ref="map"
         id="mapid"
+        :min-zoom=5
         :zoom.sync="zoom"
-        :center="[51.163375, 10.447683]"
         @update:bounds="fetchRestaurants"
       >
         <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
-        <v-geosearch :options="geosearchOptions"></v-geosearch>
+        <v-geosearch :options="geosearchOptions"/>
         <v-marker-cluster>
           <l-marker
             v-for="restaurant in restaurants"
             :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
             :key="'' + restaurant.location.lat + restaurant.location.lng"
           >
-            <l-popup
-              >{{ restaurant.name }}
-              <a :href="restaurant.link">Angebot ansehen</a></l-popup
-            >
+            <l-popup>
+              <b>{{ restaurant.name }}</b>
+              <br>
+              <p v-if="restaurant.tags && restaurant.tags.length > 0"><i>Angebot: </i>
+                <b-form-tag
+                  v-for="tag in restaurant.tags"
+                  :key="tag"
+                  :title="tag"
+                  variant="dark"
+                  disabled
+                  class="mr-1 tag">
+                  {{ tag }}
+                </b-form-tag>
+              </p>
+              <br>
+              <a :href="restaurant.link" target="_blank">Angebot ansehen &#8594;</a>
+            </l-popup>
           </l-marker>
         </v-marker-cluster>
       </l-map>
@@ -78,7 +91,7 @@ export default Vue.extend({
   },
 
   mounted() {
-    this.$refs['map'].mapObject.locate({ setView: true, maxZoom: 15 })
+    this.$refs['map'].mapObject.locate({ setView: true, maxZoom: 15 }).setView([51.163375, 10.447683], 7);
   },
   components: {
     VGeosearch,

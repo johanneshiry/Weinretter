@@ -7,7 +7,7 @@
         <div class="skew-inner">
           <p class="title">
             Rette dein <span class="highlight">Lieblingsrestaurant</span>
-            <wbr /> durch das Kaufen von Wein
+            <wbr />durch das Kaufen von Wein
           </p>
           <div class="links">
             <nuxt-link to="/map" class="weinretter-button prominent">
@@ -71,11 +71,6 @@ html,
   color: white;
 }
 
-.weinretter-button:hover {
-  text-decoration: none;
-  color: gray;
-}
-
 .content {
   display: flex;
   flex-direction: row;
@@ -137,5 +132,37 @@ html,
 .navbar-brand img {
   height: 2.5em;
   margin: 10px 30px;
+}
+
+/* Tablet Styles */
+@media screen and (max-width: 899px) {
+  .hero-img {
+    display: none;
+  }
+  .skew,
+  .skew-inner {
+    transform: none;
+  }
+  .skew {
+    width: 100%;
+    margin: 0 50px;
+  }
+}
+
+/* Phone Styles */
+@media screen and (max-width: 649px) {
+  .highlight {
+    display: inline;
+  }
+  .title {
+    display: block;
+    word-wrap: break-word;
+    white-space: normal;
+    width: calc(100vw - 60px);
+    font-size: 30px;
+  }
+  .skew {
+    margin: 0 30px;
+  }
 }
 </style>
