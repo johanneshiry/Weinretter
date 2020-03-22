@@ -33,8 +33,8 @@ def create_restaurant():
     tags = body.get('tags')
     telephone = body.get('telephone')
 
-    #if not verify_captcha(body['captcha']):
-    #    return '', 403
+    if not verify_captcha(body['captcha']):
+       return '', 403
 
     # XXX URL Validation
     try:
@@ -55,7 +55,7 @@ def create_restaurant():
 
     result = collection.insert_one(restaurant)
 
-    #content_bot.notify(restaurant, result.inserted_id)
+    content_bot.notify(restaurant, result.inserted_id)
 
     return '', 204
 
