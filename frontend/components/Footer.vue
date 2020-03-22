@@ -35,7 +35,7 @@
   }
 
   .social {
-    margin: 5px 0px;
+    margin: 3px 0px;
     text-align: center;
   }
 

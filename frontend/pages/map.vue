@@ -109,7 +109,7 @@ export default Vue.extend({
 <style scoped>
 .container {
   margin: 0 auto;
-  max-height: 86vh;
+  max-height: 83vh;
   display: flex;
   justify-content: center;
   align-items: center;
