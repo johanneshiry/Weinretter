@@ -59,7 +59,8 @@ export default Vue.extend({
       geosearchOptions: {
         provider: new OpenStreetMapProvider(),
         showMarker: false,
-        showPopup: false
+        showPopup: false,
+        style: 'bar'
       },
       zoom: 7
     }
@@ -91,7 +92,9 @@ export default Vue.extend({
   },
 
   mounted() {
-    this.$refs['map'].mapObject.locate({ setView: true, maxZoom: 15 }).setView([51.163375, 10.447683], 7);
+    this.$refs['map'].mapObject
+      .locate({ setView: true, maxZoom: 15 })
+      .setView([51.163375, 10.447683], 7);
   },
   components: {
     VGeosearch,
@@ -134,5 +137,9 @@ p {
 <style>
   .leaflet-popup-content-wrapper {
     border-radius: 6px !important;
+  }
+
+  .leaflet-control-geosearch.bar {
+    margin: 10px 50px 0 !important;
   }
 </style>
