@@ -90,7 +90,7 @@
 
         <b-form-group id="input-group-tags" label="Tags:">
           <div>
-            <b-badge v-for="tag in availableTags" @click="addTag(tag)" variant="info" class="tag">{{tag}} +</b-badge>
+            <b-badge v-for="tag in availableTags" @click="addTag(tag)" variant="info" class="tag" :key="tag">{{tag}} +</b-badge>
           </div>
           <br/>
           <div>
