@@ -12,7 +12,7 @@
       <b-col class="imp">Impressum - Datenschutz</b-col>
     </b-row>
     <b-row>
-      <b-col class="copyright"> © 2020 Copyright - WeinRetterTeam</b-col>
+      <b-col class="copyright">© 2020 Copyright - WeinRetterTeam</b-col>
     </b-row>
 
   </b-container>
