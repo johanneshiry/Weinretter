@@ -30,7 +30,7 @@
           href="https://www.instagram.com/weinretter_de"
           target="_blank"
         >
-          <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'instagram' }" />Instagram.
+          <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'instagram' }" /> Instagram.
         </a>
       </p>
       <img class="wvvlogo" src="../assets/Logo_WirVsVirus.png" alt="#WirVsVirus Logo" />
