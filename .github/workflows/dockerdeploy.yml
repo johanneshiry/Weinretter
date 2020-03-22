@@ -1,0 +1,23 @@
+name: deploy
+
+on:
+  push:
+    branches:
+     #- master
+      - deploy
+
+
+jobs:
+  deploy:
+
+      runs-on: ubuntu-latest
+      if: github.event_name == 'push'
+
+      steps:
+
+        - name: ssh
+          run: |
+              mkdir -p ~/.ssh
+              eval $(ssh-agent -s)
+              bash -c 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
+              ssh deploy@ec2-54-86-155-155.compute-1.amazonaws.com -o StrictHostKeyChecking=no "docker-compose up -d --force-recreate"
