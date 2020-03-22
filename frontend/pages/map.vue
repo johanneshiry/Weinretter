@@ -10,7 +10,6 @@
         id="mapid"
         :min-zoom=5
         :zoom.sync="zoom"
-        :center="[51.163375, 10.447683]"
         @update:bounds="fetchRestaurants"
       >
         <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
@@ -33,7 +32,7 @@
               -->
               </p>
               <br>
-              <a :href="restaurant.link">Angebot ansehen</a>
+              <a :href="restaurant.link">Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
         </v-marker-cluster>
@@ -89,7 +88,7 @@ export default Vue.extend({
   },
 
   mounted() {
-    this.$refs['map'].mapObject.locate({ setView: true, maxZoom: 15 })
+    this.$refs['map'].mapObject.locate({ setView: true, maxZoom: 15 }).setView([51.163375, 10.447683], 7);
   },
   components: {
     VGeosearch,
