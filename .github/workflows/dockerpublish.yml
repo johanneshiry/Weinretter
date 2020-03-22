@@ -23,29 +23,29 @@ env:
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test:
-    runs-on: ubuntu-latest
+  # test:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      # - name: Run tests
-      #   run: |
-      #     if [ -f docker-compose.test.yml ]; then
-      #       docker-compose --file docker-compose.test.yml build
-      #       docker-compose --file docker-compose.test.yml run sut
-      #     else
-      #       docker build . --file Dockerfile
-      #     fi
+  #     # - name: Run tests
+  #     #   run: |
+  #     #     if [ -f docker-compose.test.yml ]; then
+  #     #       docker-compose --file docker-compose.test.yml build
+  #     #       docker-compose --file docker-compose.test.yml run sut
+  #     #     else
+  #     #       docker build . --file Dockerfile
+  #     #     fi
       
-      - name: test build
-        run: |
-          docker-compose build
+  #     - name: test build
+  #       run: |
+  #         docker-compose build
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     # Ensure test job passes before pushing image.
-    needs: test
+    # needs: test
 
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
@@ -54,10 +54,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build backend image
-        run: docker build backend --file Dockerfile --tag wr_backend
+        run: docker build backend --file backend/Dockerfile --tag wr_backend
 
       - name: Build frontend image
-        run: docker build frontend --file Dockerfile --tag wr_frontend
+        run: docker build frontend --file frontend/Dockerfile --tag wr_frontend
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
