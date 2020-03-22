@@ -1,0 +1,63 @@
+<template>
+  <div id="about">
+    <router-view/>
+    <Navigation></Navigation>
+    <div class="about">
+    <h2 class="about-title">
+      Über WeinRetter
+    </h2>
+    <p>
+      Die COVID-19-Krise trifft insbesondere Restaurants schwer. Durch die behördlich verordneten
+      Schließungen oder beschränkten Öffnungszeiten erleiden viele einen erheblichen Umsatzrückgang,
+      bis hin zum vollständigen Umsatzausfall.
+    </p>
+    <p>
+      Gleichzeitig verfügen viele Restaurants über ungenutztes Potenzial: volle Weinkeller. Indem diese Bestände
+      verkauft werden, können Restaurants einen Teil ihrer laufenden Kosten decken und ihre wirtschaftliche Lage
+      verbessern.
+    </p>
+    <p>
+      Trage zum Fortbestand deines Lieblingsrestaurants bei, indem du Wein aus dessen Lagerbestand kaufst!
+    </p>
+    <p>
+      Diese Seite wurde innerhalb des <a href="https://wirvsvirushackathon.org/" target="_blank">#WirVsVirus Hackathons</a>
+      erstellt und basiert auf dem Vorbild von <a href="https://cellars.nyc" target="_blank">Cellars.NYC</a>.
+    </p>
+      <img class="wvvlogo" src="../assets/Logo_WirVsVirus.png" alt="#WirVsVirus Logo"/>
+  </div>
+  </div>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue';
+  import Navigation from '../components/Navigation.vue';
+
+  export default Vue.extend({
+    components: {
+      Navigation
+    },
+
+    head() {
+      return {
+        title: 'Über uns - WeinRetter'
+      };
+    }
+  });
+</script>
+
+<style scoped>
+  .wvvlogo {
+    width: 100%;
+  }
+
+  .about-title {
+    margin-bottom: 0.5em;
+  }
+
+  .about {
+    max-width: 45em;
+    width: 90%;
+    margin-left: 5%;
+    padding: 1em;
+  }
+</style>

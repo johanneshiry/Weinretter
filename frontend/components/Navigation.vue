@@ -16,7 +16,7 @@
             Restaurant registrieren
           </b-nav-item>
           <b-nav-item to="/about" class="link" right>
-            About
+            Über uns
           </b-nav-item>
         </b-navbar-nav>
       </b-collapse>
