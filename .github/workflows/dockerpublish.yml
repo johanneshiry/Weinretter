@@ -64,7 +64,7 @@ jobs:
 
       - name: Push image wr_backend
         run: |
-          IMAGE_ID=docker.pkg.github.com/weinretter/$BACKEND_IMAGE_NAME
+          IMAGE_ID=docker.pkg.github.com/johanneshiry/weinretter/$BACKEND_IMAGE_NAME
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
@@ -84,7 +84,7 @@ jobs:
 
       - name: Push image wr_frontend
         run: |
-            IMAGE_ID=docker.pkg.github.com/weinretter/$FRONTEND_IMAGE_NAME
+            IMAGE_ID=docker.pkg.github.com/johanneshiry/weinretter/$FRONTEND_IMAGE_NAME
   
             # Strip git ref prefix from version
             VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
