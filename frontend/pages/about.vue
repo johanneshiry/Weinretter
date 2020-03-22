@@ -29,14 +29,14 @@
           href="https://cellars.nyc"
           target="_blank"
         >Cellars.NYC</a>.
+
         Bei Fragen kontaktiere uns einfach auf
         <a
           href="https://www.instagram.com/weinretter_de"
           target="_blank"
         >
           <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'instagram' }"/>
-          Instagram.
-        </a>
+          Instagram</a> oder per E-Mail an <a href="mailto:weinretterde@gmail.com">weinretterde@gmail.com</a>.
       </p>
       <img class="wvvlogo" src="../assets/Logo_WirVsVirus.png" alt="#WirVsVirus Logo"/>
     </div>
