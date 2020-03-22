@@ -27,6 +27,8 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     box-sizing: border-box;
+    /* To stop the page from jumping when some pages need to scroll and some don't */
+    overflow-y: scroll;
   }
 
   :root {

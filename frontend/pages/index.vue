@@ -13,7 +13,7 @@
               Karte ansehen
             </nuxt-link>
             <nuxt-link to="/offer" class="weinretter-button">
-              Wein anbieten
+              Restaurant eintragen
             </nuxt-link>
           </div>
         </div>

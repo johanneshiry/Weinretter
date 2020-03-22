@@ -13,7 +13,7 @@
             Karte ansehen
           </b-nav-item>
           <b-nav-item to="/offer" class="link" right>
-            Restaurant registrieren
+            Restaurant eintragen
           </b-nav-item>
           <b-nav-item to="/about" class="link" right>
             Über uns
@@ -23,3 +23,9 @@
     </b-navbar>
   </div>
 </template>
+
+<style scoped>
+  .link {
+    font-weight: bold;
+  }
+</style>
