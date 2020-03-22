@@ -1,10 +1,10 @@
 const API_ENDPOINT = 'https://weinretter.de/api';
 
 export default {
-  state: {
+  state: () => ({
     fetchedRestaurants: [],
     fetchedAreas: new Set()
-  },
+  }),
   actions: {
     createRestaurant(context, restaurant) {
       return fetch(API_ENDPOINT + "/restaurant", {

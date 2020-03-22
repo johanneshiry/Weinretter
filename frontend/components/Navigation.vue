@@ -3,7 +3,7 @@
     <b-navbar toggleable="lg" variant="info">
       <b-navbar-brand
         ><nuxt-link to="/"
-          ><img src="../assets/logo_wein_retter_1.png"/></nuxt-link
+          ><img src="../assets/logo_wein_retter_1_small.png"/></nuxt-link
       ></b-navbar-brand>
       <b-navbar-toggle target="navbarSupportedContent"> </b-navbar-toggle>
 
