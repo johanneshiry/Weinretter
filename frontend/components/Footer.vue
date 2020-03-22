@@ -9,6 +9,9 @@
       </b-col>
     </b-row>
     <b-row>
+      <b-col class="imp">Impressum - Datenschutz</b-col>
+    </b-row>
+    <b-row>
       <b-col class="copyright"> © 2020 Copyright - WeinRetterTeam</b-col>
     </b-row>
 
@@ -42,6 +45,14 @@
     color: var(--dark-grey);
     margin-bottom: 5px;
     text-align: center;
+    font-size: 12px;
+  }
+
+  .imp {
+    color: var(--dark-grey);
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 12px;
   }
 
 </style>
