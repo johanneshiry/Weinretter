@@ -25,11 +25,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Logo from '../components/Logo.vue'
-import Navigation from '../components/Navigation.vue'
+  import Vue from 'vue';
+  import Logo from '../components/Logo.vue';
+  import Navigation from '../components/Navigation.vue';
 
-export default Vue.extend({
+  export default Vue.extend({
   components: {
     Logo,
     Navigation
@@ -115,6 +115,7 @@ html,
   color: #35495e;
   letter-spacing: 1px;
   margin-block: 50px;
+  line-height: 1.1;
 }
 
 .link a {
