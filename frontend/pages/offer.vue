@@ -57,13 +57,13 @@
               :key="tag"
               :title="tag"
               variant="dark"
-              class="mr-1 tag"
-            >{{ tag }}
+              class="mr-1 tag selected"
+            ><b>{{ tag }}</b>
             </b-form-tag>
           </div>
         </b-form-group>
 
-        <b-button type="submit" variant="primary" class="submit">Registrieren</b-button>
+        <b-button type="submit" class="submit">Registrieren</b-button>
       </b-form>
     </div>
     <Footer/>
@@ -174,14 +174,28 @@
   .submit {
     margin: 10px auto;
     width: 100%;
+    color: #b12525;
+    background-color: transparent;
+  }
+
+  .submit:hover{
+    background-color: #b12525;
+    color: white;
   }
 
   .tag {
     font-size: 15px;
+    border: 2px solid #b12525;
     cursor: pointer;
     padding: 6px;
+    background-color:transparent;
+    color: #b12525;
   }
 
+  .selected{
+    background-color: #b12525;
+    color: white;
+  }
   .tag + .tag {
     margin: 5px;
   }
