@@ -2,6 +2,8 @@
   <div id="about">
     <div class="about">
       <h2 class="about-title">Über WeinRetter</h2>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/aVk9_ipRQ9Q" frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <p>
         Die COVID-19-Krise trifft insbesondere Restaurants schwer. Durch die behördlich verordneten
         Schließungen oder beschränkten Öffnungszeiten erleiden viele einen erheblichen Umsatzrückgang,
