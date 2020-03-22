@@ -82,7 +82,7 @@
         </b-form-group>
         <b-form-group v-else id="input-group-4" label="Standort auf der Karte auswählen:" label-for="mapid">
           <l-map ref="map" id="mapid" :zoom=7 :center="[51.163375, 10.447683]">
-            <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
+            <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
             <VGeosearch :options="geosearchOptions"/>
             <l-marker v-if="location" :lat-lng="location"/>
           </l-map>
@@ -90,7 +90,7 @@
 
         <b-form-group id="input-group-tags" label="Tags:">
           <div>
-            <b-badge v-for="tag in availableTags" @click="addTag(tag)" variant="info" class="tag">{{tag}} +</b-badge>
+            <b-badge v-for="tag in availableTags" @click="addTag(tag)" variant="info" class="tag" :key="tag">{{tag}} +</b-badge>
           </div>
           <br/>
           <div>

@@ -11,11 +11,12 @@
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
       >
-        <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
+        <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
         <v-geosearch :options="geosearchOptions"/>
         <v-marker-cluster>
           <l-marker
             v-for="restaurant in restaurants"
+            :icon="icon"
             :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
             :key="'' + restaurant.location.lat + restaurant.location.lng"
           >
@@ -54,15 +55,16 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Navigation from '../components/Navigation.vue'
-import VGeosearch from 'vue2-leaflet-geosearch'
-import { OpenStreetMapProvider } from 'leaflet-geosearch'
-import 'leaflet-geosearch/assets/css/leaflet.css'
-import 'leaflet.markercluster/dist/MarkerCluster.css'
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+  import Vue from 'vue'
+  import Navigation from '../components/Navigation.vue'
+  import VGeosearch from 'vue2-leaflet-geosearch'
+  import { OpenStreetMapProvider } from 'leaflet-geosearch'
+  import 'leaflet-geosearch/assets/css/leaflet.css'
+  import 'leaflet.markercluster/dist/MarkerCluster.css'
+  import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+  import L from 'leaflet';
 
-export default Vue.extend({
+  export default Vue.extend({
   data() {
     return {
       geosearchOptions: {
@@ -71,7 +73,12 @@ export default Vue.extend({
         showPopup: false,
         style: 'bar'
       },
-      zoom: 7
+      zoom: 7,
+      icon: L.icon({
+        iconUrl: require('../assets/marker.png'),
+        iconSize: [50, 78],
+        iconAnchor: [25, 52]
+      })
     }
   },
 
