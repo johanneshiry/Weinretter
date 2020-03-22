@@ -41,14 +41,12 @@
         </v-marker-cluster>
       </l-map>
     </div>
-    <Footer/>
   </div>
 </template>
 
 <script>
 import Vue from 'vue'
 import Navigation from '../components/Navigation.vue'
-import Footer from "../components/Footer";
 import VGeosearch from 'vue2-leaflet-geosearch'
 import { OpenStreetMapProvider } from 'leaflet-geosearch'
 import 'leaflet-geosearch/assets/css/leaflet.css'
@@ -98,7 +96,6 @@ export default Vue.extend({
   components: {
     VGeosearch,
     Navigation,
-    Footer
   },
 
   head() {
