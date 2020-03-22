@@ -1,20 +1,20 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from pymongo import MongoClient, GEOSPHERE
+from pymongo import MongoClient, GEOSPHERE, ASCENDING
 from urllib.parse import urlparse
 import requests
 
 from content_control import TelegramBot
 
-client = MongoClient('localhost', 27017)
+client = MongoClient('mongocontainer', 27017)
 db = client.weinretter
 collection = db.restaurants
-collection.create_index([('location', GEOSPHERE)])
+collection.create_index([('location', GEOSPHERE), ('blocked', ASCENDING)])
 
 app = Flask(__name__)
 CORS(app)
 
-content_bot = TelegramBot()
+content_bot = TelegramBot(collection)
 
 
 def verify_captcha(token):
@@ -31,14 +31,16 @@ def create_restaurant():
     address = body.get('address')
     description = body.get('description')
     tags = body.get('tags')
+    telephone = body.get('telephone')
+
+    if not verify_captcha(body['captcha']):
+        return '', 403
+
     # XXX URL Validation
     try:
         urlparse(link)
     except:
         return '', 400
-
-    if not verify_captcha(body['captcha']):
-        return '', 403
 
     name = body['name']
     location = (body['location']['lng'], body['location']['lat'])
@@ -47,10 +49,13 @@ def create_restaurant():
                   'name': name,
                   'location': location,
                   'address': address,
+                  'telephone': telephone,
                   'description': description,
                   'tags': tags}
-    content_bot.notify(restaurant)
-    collection.insert(restaurant)
+
+    result = collection.insert_one(restaurant)
+
+    content_bot.notify(restaurant, result.inserted_id)
 
     return '', 204
 
@@ -62,13 +67,26 @@ def fetch_restaurants():
     bottom_lat = float(request.args.get('bottom_lat'))
     top_lat = float(request.args.get('top_lat'))
 
-    cursor = collection.find({'location': {'$within': {'$box': [[left_lng, bottom_lat], [right_lng, top_lat]]}}})
+    cursor = collection.find({
+        '$and': [{
+            'location': {
+                '$within': {
+                    '$box': [[left_lng, bottom_lat], [right_lng, top_lat]]
+                }
+            }
+        }, {
+            'blocked': {
+                '$not': {'$eq': True}
+            }
+        }]
+    })
 
     restaurants = [{'name': r['name'],
                     'link': r['link'],
                     'location': {'lat': r['location'][1], 'lng': r['location'][0]},
                     'address': r['address'],
-                    'description': r['description'],
-                    'tags': r['tags']
+                    'telephone': r.get('telephone'),
+                    'description': r.get('description'),
+                    'tags': r.get('tags')
                     } for r in cursor]
     return jsonify(restaurants)
