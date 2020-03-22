@@ -1,4 +1,4 @@
-const API_ENDPOINT = 'https://weinretter.de/api';
+const API_ENDPOINT = '/api';
 
 export default {
   state: () => ({
