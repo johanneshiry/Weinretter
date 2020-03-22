@@ -73,7 +73,7 @@
           </div>
         </b-form-group>
 
-        <b-button type="submit" class="submit">Registrieren</b-button>
+        <b-button type="submit" class="submit"><b>Registrieren</b></b-button>
       </b-form>
     </div>
     <Footer/>
