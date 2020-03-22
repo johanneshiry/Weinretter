@@ -55,19 +55,19 @@ html,
 
 .weinretter-button {
   padding: 10px 20px;
-  border: 3px solid #b12525;
+  border: 3px solid var(--highlight-red);
   border-radius: 10px;
-  color: black;
+  color: var(--dark-grey);
   margin-right: 20px;
 }
 
 .weinretter-button:hover {
   text-decoration: none;
-  color: gray;
+  color: var(--light-grey);
 }
 
 .prominent {
-  background: #b12525;
+  background: var(--highlight-red);
   color: white;
 }
 
@@ -118,7 +118,7 @@ html,
 }
 
 .highlight {
-  color: #b12525;
+  color: var(--highlight-red);
 }
 
 .navbar {
