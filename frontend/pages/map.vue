@@ -11,7 +11,7 @@
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
       >
-        <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
+        <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
         <v-geosearch :options="geosearchOptions"/>
         <v-marker-cluster>
           <l-marker
