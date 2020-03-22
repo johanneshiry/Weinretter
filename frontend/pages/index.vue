@@ -1,7 +1,7 @@
 <template>
   <div id="index">
     <Navigation/>
-    <div class="content">
+    <div class="index-content">
       <div class="skew">
         <div class="skew-inner">
           <p class="title">
@@ -24,10 +24,10 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Navigation from '../components/Navigation.vue'
+  import Vue from 'vue';
+  import Navigation from '../components/Navigation.vue';
 
-export default Vue.extend({
+  export default Vue.extend({
   components: {
     Navigation
   },
@@ -44,10 +44,12 @@ export default Vue.extend({
 body,
 html,
 #__nuxt,
-#__layout,
-#index,
-.content {
+#__layout {
   height: 92vh;
+}
+.index-content, #index {
+  height: 100vh;
+  margin-bottom: 5em;
 }
 
 .grecaptcha-badge {
@@ -73,7 +75,7 @@ html,
   color: white;
 }
 
-.content {
+.index-content {
   display: flex;
   flex-direction: row;
 }
