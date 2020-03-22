@@ -110,14 +110,12 @@
         <b-button v-else type="submit" class="submit">Weiter</b-button>
       </b-form>
     </div>
-    <Footer/>
   </div>
 </template>
 
 <script>
   import Vue from 'vue'
   import Navigation from "../components/Navigation";
-  import Footer from "../components/Footer";
   import VGeosearch from 'vue2-leaflet-geosearch';
   import {OpenStreetMapProvider} from 'leaflet-geosearch';
   import 'leaflet-geosearch/assets/css/leaflet.css'
@@ -214,7 +212,6 @@
     },
     components: {
       Navigation,
-      Footer,
       VGeosearch
     }
   })

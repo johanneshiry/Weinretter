@@ -31,9 +31,7 @@
 
   .footer {
     background-color: #fff;
-    margin-top: 10px;
-    position: fixed;
-    bottom: 0;
+    margin-top: 1em;
   }
 
   .social {
