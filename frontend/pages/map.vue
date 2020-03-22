@@ -33,7 +33,7 @@
               -->
               </p>
               <br>
-              <a :href="restaurant.link">Angebot ansehen</a>
+              <a :href="restaurant.link">Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
         </v-marker-cluster>
