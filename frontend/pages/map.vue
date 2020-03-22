@@ -8,12 +8,13 @@
       <l-map
         ref="map"
         id="mapid"
+        :min-zoom=5
         :zoom.sync="zoom"
         :center="[51.163375, 10.447683]"
         @update:bounds="fetchRestaurants"
       >
         <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
-        <v-geosearch :options="geosearchOptions"></v-geosearch>
+        <v-geosearch :options="geosearchOptions"/>
         <v-marker-cluster>
           <l-marker
             v-for="restaurant in restaurants"
