@@ -27,9 +27,9 @@
   }
 
   .footer {
-    /*background-color: blue;*/
+    background-color: #fff;
     margin-top: 10px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
   }
 
