@@ -35,6 +35,16 @@
                   {{ tag }}
                 </b-form-tag>
               </p>
+              <p v-if="restaurant.address"><i>Adresse: </i>
+                <br>
+                <template v-if="typeof restaurant.address === 'string'">
+                  {{restaurant.address}}
+                </template>
+                <template v-else>
+                  {{restaurant.address.street}} {{restaurant.address.housenumber}} <br>
+                  {{restaurant.address.city}} {{restaurant.address.plz}}
+                </template>
+              </p>
               <a :href="restaurant.link" target="_blank">Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
