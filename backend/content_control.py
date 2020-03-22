@@ -13,7 +13,6 @@ class TelegramBot:
         self.bot.send_message(text=restaurant["link"], chat_id=-1001467998540, reply_markup=reply_markup)
 
     def block(self, update, ctx):
-        print(update)
         query = update.callback_query
         rid = query.data.split("BLOCK:")[1]
 
