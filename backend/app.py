@@ -30,6 +30,7 @@ def create_restaurant():
     link = body['link']
     address = body.get('address')
     description = body.get('description')
+    tags = body.get('tags')
     # XXX URL Validation
     try:
         urlparse(link)
@@ -42,7 +43,12 @@ def create_restaurant():
     name = body['name']
     location = (body['location']['lng'], body['location']['lat'])
 
-    restaurant = {'link': link, 'name': name, 'location': location, 'address': address, 'description': description}
+    restaurant = {'link': link,
+                  'name': name,
+                  'location': location,
+                  'address': address,
+                  'description': description,
+                  'tags': tags}
     content_bot.notify(restaurant)
     collection.insert(restaurant)
 
@@ -62,5 +68,7 @@ def fetch_restaurants():
                     'link': r['link'],
                     'location': {'lat': r['location'][1], 'lng': r['location'][0]},
                     'address': r['address'],
-                    'description': r['description']} for r in cursor]
+                    'description': r['description'],
+                    'tags': r['tags']
+                    } for r in cursor]
     return jsonify(restaurants)
