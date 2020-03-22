@@ -148,9 +148,9 @@
           this.addressEntered = true;
           Vue.nextTick(() => this.$refs["map"].mapObject.on('click', (e) => this.location = e.latlng));
           let result = await this.$store.dispatch('addressLookup', this.address);
-          if(result && !this.location) {
+          if(result) {
             this.location = result;
-            this.$refs["map"].mapObject.setView([result.lat, result.lng], 9)
+            Vue.nextTick(() => this.$refs["map"].mapObject.setView([result.lat, result.lng], 15));
           }
 
           return;
@@ -175,7 +175,7 @@
           tags: this.selectedTags,
           captcha
         });
-        this.$bvToast.toast('Deine Restaurant wurde gespeichert', {
+        this.$bvToast.toast('Dein Restaurant wurde gespeichert', {
           title: 'Vielen Dank',
           autoHideDelay: 5000,
           variant: 'success'
