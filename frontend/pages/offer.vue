@@ -106,7 +106,6 @@
             </b-form-tag>
           </div>
         </b-form-group>
-
         <b-button v-if="addressEntered" type="submit" class="submit"><b>Registrieren</b></b-button>
         <b-button v-else type="submit" class="submit">Weiter</b-button>
       </b-form>

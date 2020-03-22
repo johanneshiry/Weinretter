@@ -3,11 +3,13 @@
   <b-container fluid class="footer">
     <b-row>
       <b-col class="social">
-        <a href="https://www.instagram.com/weinretter_de" target="_blank"><font-awesome-icon :icon="{ prefix: 'fab', iconName: 'instagram' }"/></a>
+        <a href="https://www.instagram.com/weinretter_de" target="_blank">
+          <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'instagram' }"/>
+        </a>
       </b-col>
     </b-row>
     <b-row>
-      <b-col class="copyright"> © 2020 Copyright - WeinRetter Team</b-col>
+      <b-col class="copyright"> © 2020 Copyright - WeinRetterTeam</b-col>
     </b-row>
 
   </b-container>
@@ -20,7 +22,7 @@
     color: var(--dark-grey);
   }
 
-  a:hover{
+  a:hover {
     color: var(--highlight-red);
   }
 
