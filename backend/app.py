@@ -2,8 +2,8 @@ from flask import Flask, escape, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient, GEOSPHERE
 from urllib.parse import urlparse
-
-from content_control import TelegramBot
+from .captcha import verify_captcha
+from .content_control import TelegramBot
 
 client = MongoClient('localhost', 27017)
 db = client.weinretter
@@ -27,6 +27,10 @@ def create_restaurant():
         urlparse(link)
     except:
         return '', 400
+
+    if not verify_captcha(body['captcha']):
+        return '', 403
+
     name = body['name']
     location = (body['location']['lng'], body['location']['lat'])
 

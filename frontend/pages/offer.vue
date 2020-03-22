@@ -43,7 +43,7 @@
   import Navigation from "../components/Navigation";
   import Footer from "../components/Footer";
   import VGeosearch from 'vue2-leaflet-geosearch';
-  import { OpenStreetMapProvider } from 'leaflet-geosearch';
+  import {OpenStreetMapProvider} from 'leaflet-geosearch';
   import 'leaflet-geosearch/assets/css/leaflet.css'
 
   export default Vue.extend({
@@ -69,16 +69,29 @@
           return;
         }
 
-        await this.$store.dispatch('createRestaurant', {name: this.name, link: this.link, location: this.location});
+        let grecaptcha = await window.recaptcha;
+        let captcha = await grecaptcha.execute('6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_', {action: 'homepage'});
+        await this.$store.dispatch('createRestaurant', {name: this.name, link: this.link, location: this.location, captcha});
         this.$bvToast.toast('Deine Restaurant wurde gespeichert', {
           title: 'Vielen Dank',
           autoHideDelay: 5000,
           variant: 'success'
         });
-      }
+      },
     },
     mounted() {
       this.$refs["map"].mapObject.on('click', (e) => this.location = e.latlng);
+      if (!window.recaptcha) {
+        let recaptchaScript = document.createElement('script');
+        recaptchaScript.setAttribute('src', 'https://www.google.com/recaptcha/api.js?render=6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_');
+        recaptchaScript.async = true;
+        window.recaptcha = new Promise((resolve) => {
+          recaptchaScript.onload = () => {
+            grecaptcha.ready(() => resolve(grecaptcha))
+          };
+        });
+        document.head.appendChild(recaptchaScript);
+      }
     },
     head() {
       return {
