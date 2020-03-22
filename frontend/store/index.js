@@ -35,6 +35,15 @@ export default {
             .then(restaurants => context.commit('addFetchedRestaurants', restaurants))
         }
       }
+    },
+    async addressLookup(context, {street, housenumber, city, plz}) {
+      const response = await fetch('https://nominatim.openstreetmap.org/search?' +
+        `street=${encodeURIComponent(street)}%20${encodeURIComponent(housenumber)}` +
+        `&city=${encodeURIComponent(city)}&postalcode=${encodeURIComponent(plz)}&country=Germany&format=json`);
+      const result = await response.json();
+      if (result && result.length) {
+        return {lat: result[0].lat, lng: result[0].lon}
+      }
     }
   },
   mutations: {

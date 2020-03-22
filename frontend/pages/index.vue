@@ -53,6 +53,10 @@ html,
   height: 92vh;
 }
 
+.grecaptcha-badge {
+  visibility: collapse !important;
+}
+
 .weinretter-button {
   padding: 10px 20px;
   border: 3px solid var(--highlight-red);

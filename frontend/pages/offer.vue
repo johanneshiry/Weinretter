@@ -150,6 +150,12 @@
         if (!this.addressEntered) {
           this.addressEntered = true;
           Vue.nextTick(() => this.$refs["map"].mapObject.on('click', (e) => this.location = e.latlng));
+          let result = await this.$store.dispatch('addressLookup', this.address);
+          if(result && !this.location) {
+            this.location = result;
+            this.$refs["map"].mapObject.setView([result.lat, result.lng], 9)
+          }
+
           return;
         }
         if (this.addressEntered && !this.location) {
@@ -168,6 +174,7 @@
           link: this.link,
           location: this.location,
           telephone: this.telephone,
+          address: this.address,
           tags: this.selectedTags,
           captcha
         });
@@ -176,6 +183,7 @@
           autoHideDelay: 5000,
           variant: 'success'
         });
+        this.$router.push("/")
       },
       addTag(tag) {
         this.availableTags = this.availableTags.filter(t => t !== tag);
