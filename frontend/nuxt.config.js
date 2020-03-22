@@ -23,11 +23,13 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: [  ],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    {src: "~/plugins/vue2-leaflet-markercluster.js", mode: "client"}
+  ],
   /*
    ** Nuxt.js dev-modules
    */
