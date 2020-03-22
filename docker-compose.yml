@@ -1,27 +1,31 @@
 version: "3"
 services:
   backend:
+    image: docker.pkg.github.com/johanneshiry/weinretter/wr_backend:latest
+    container_name: wrbackend
     build: 
       context: ./backend
     restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "127.0.0.1:5000:5000"
     depends_on:
       - mongo
 
   frontend: 
+    image: docker.pkg.github.com/johanneshiry/weinretter/wr_frontend:latest
+    container_name: wrfrontend
     build: 
       context: ./frontend
     restart: unless-stopped
     ports:
-      - "3000:3000"   
+      - "127.0.0.1:3000:3000"
     
   mongo:
     image: mongo
     container_name: mongocontainer
     restart: unless-stopped
     ports:
-      - "27017:27017"
+      - "127.0.0.1:27017:27017"
     volumes:
       - /data/db:/data/db
 
