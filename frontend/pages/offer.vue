@@ -4,12 +4,12 @@
     <div class="container">
       <b-form @submit.prevent="submit">
         <b-form-group
-          id="input-group-1"
+          id="input-group-name"
           label="Name deines Restaurants:"
-          label-for="input-1"
+          label-for="input-name"
         >
           <b-form-input
-            id="input-1"
+            id="input-name"
             class="input"
             v-model="name"
             required
@@ -17,14 +17,24 @@
           />
         </b-form-group>
 
-        <b-form-group id="input-group-2" label="Link zu deinem Angebot:" label-for="input-2">
+        <b-form-group id="input-group-url" label="Link zu deinem Angebot:" label-for="input-url">
           <b-form-input
-            id="input-2"
+            id="input-url"
             class="input"
             v-model="link"
             type="url"
             required
             placeholder="http://lapizza.de"
+          />
+        </b-form-group>
+
+        <b-form-group id="input-group-tel" label="(Optional) Telefonnummer" label-for="input-tel">
+          <b-form-input
+            id="input-2"
+            class="input"
+            v-model="telephone"
+            type="tel"
+            placeholder="030 123456"
           />
         </b-form-group>
 
@@ -88,6 +98,7 @@
         name: '',
         link: '',
         description: '',
+        telephone: '',
         availableTags: ['Lieferung', 'Selbstabholung', 'Wein', 'Bier', 'Cocktails', 'Meal Kits', 'weitere Lebensmittel'],
         selectedTags: [],
         location: null
@@ -110,6 +121,7 @@
           name: this.name,
           link: this.link,
           location: this.location,
+          telephone: this.telephone,
           tags: this.selectedTags,
           captcha
         });

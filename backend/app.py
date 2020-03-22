@@ -31,14 +31,16 @@ def create_restaurant():
     address = body.get('address')
     description = body.get('description')
     tags = body.get('tags')
+    telephone = body.get('telephone')
+
+    if not verify_captcha(body['captcha']):
+        return '', 403
+
     # XXX URL Validation
     try:
         urlparse(link)
     except:
         return '', 400
-
-    if not verify_captcha(body['captcha']):
-        return '', 403
 
     name = body['name']
     location = (body['location']['lng'], body['location']['lat'])
@@ -47,6 +49,7 @@ def create_restaurant():
                   'name': name,
                   'location': location,
                   'address': address,
+                  'telephone': telephone,
                   'description': description,
                   'tags': tags}
     content_bot.notify(restaurant)
@@ -68,7 +71,8 @@ def fetch_restaurants():
                     'link': r['link'],
                     'location': {'lat': r['location'][1], 'lng': r['location'][0]},
                     'address': r['address'],
-                    'description': r['description'],
+                    'telephone': r.get('telephone'),
+                    'description': r.get('description'),
                     'tags': r.get('tags')
                     } for r in cursor]
     return jsonify(restaurants)
