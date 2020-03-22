@@ -13,7 +13,7 @@
               Karte ansehen
             </nuxt-link>
             <nuxt-link to="/offer" class="weinretter-button">
-              Wein anbieten
+              Restaurant eintragen
             </nuxt-link>
           </div>
         </div>
@@ -60,6 +60,7 @@ html,
   border-radius: 10px;
   color: var(--dark-grey);
   margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .weinretter-button:hover {
@@ -76,6 +77,11 @@ html,
   display: flex;
   flex-direction: row;
 }
+
+.links {
+  display: flex;
+}
+
 
 .skew {
   min-height: 100%;
@@ -164,6 +170,11 @@ html,
   }
   .skew {
     margin: 0 30px;
+  }
+
+  .links {
+    flex-direction: column;
+    align-items: start;
   }
 }
 </style>

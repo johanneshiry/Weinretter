@@ -14,7 +14,17 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }],
+    script: [
+      {
+        src:"https://sa.weinretter.de/app.js",
+        body: true
+      }
+    ],
+    noscript: [
+      { innerHTML: '<img src="https://sa.weinretter.de/image.gif" alt="">' }
+    ],
+    __dangerouslyDisableSanitizers: ["noscript"]
   },
   /*
    ** Customize the progress-bar color
@@ -44,7 +54,7 @@ export default {
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    //'@nuxtjs/axios',
     'nuxt-leaflet'
   ],
   /*

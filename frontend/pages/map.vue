@@ -35,6 +35,16 @@
                   {{ tag }}
                 </b-form-tag>
               </p>
+              <p v-if="restaurant.address"><i>Adresse: </i>
+                <br>
+                <template v-if="typeof restaurant.address === 'string'">
+                  {{restaurant.address}}
+                </template>
+                <template v-else>
+                  {{restaurant.address.street}} {{restaurant.address.housenumber}} <br>
+                  {{restaurant.address.city}} {{restaurant.address.plz}}
+                </template>
+              </p>
               <a :href="restaurant.link" target="_blank">Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
@@ -59,7 +69,8 @@ export default Vue.extend({
       geosearchOptions: {
         provider: new OpenStreetMapProvider(),
         showMarker: false,
-        showPopup: false
+        showPopup: false,
+        style: 'bar'
       },
       zoom: 7
     }
@@ -91,7 +102,9 @@ export default Vue.extend({
   },
 
   mounted() {
-    this.$refs['map'].mapObject.locate({ setView: true, maxZoom: 15 }).setView([51.163375, 10.447683], 7);
+    this.$refs['map'].mapObject
+      .locate({ setView: true, maxZoom: 15 })
+      .setView([51.163375, 10.447683], 7);
   },
   components: {
     VGeosearch,
@@ -134,5 +147,9 @@ p {
 <style>
   .leaflet-popup-content-wrapper {
     border-radius: 6px !important;
+  }
+
+  .leaflet-control-geosearch.bar {
+    margin: 10px 50px 0 !important;
   }
 </style>
