@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from pymongo import MongoClient, GEOSPHERE
+from pymongo import MongoClient, GEOSPHERE, ASCENDING
 from urllib.parse import urlparse
 import requests
 
@@ -9,7 +9,7 @@ from content_control import TelegramBot
 client = MongoClient('mongocontainer', 27017)
 db = client.weinretter
 collection = db.restaurants
-collection.create_index([('location', GEOSPHERE)])
+collection.create_index([('location', GEOSPHERE), ('blocked', ASCENDING)])
 
 app = Flask(__name__)
 CORS(app)
@@ -67,7 +67,19 @@ def fetch_restaurants():
     bottom_lat = float(request.args.get('bottom_lat'))
     top_lat = float(request.args.get('top_lat'))
 
-    cursor = collection.find({'location': {'$within': {'$box': [[left_lng, bottom_lat], [right_lng, top_lat]]}}})
+    cursor = collection.find({
+        '$and': [{
+            'location': {
+                '$within': {
+                    '$box': [[left_lng, bottom_lat], [right_lng, top_lat]]
+                }
+            }
+        }, {
+            'blocked': {
+                '$not': {'$eq': True}
+            }
+        }]
+    })
 
     restaurants = [{'name': r['name'],
                     'link': r['link'],
