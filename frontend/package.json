@@ -1,8 +1,8 @@
 {
-  "name": "Weinretter - Hol dir dein Lieblingslokal ins Wohnzimmer",
+  "name": "weinretter",
   "version": "1.0.0",
-  "description": "weinretter",
-  "author": "tatellos",
+  "description": "Weinretter - Hol dir dein Lieblingslokal ins Wohnzimmer",
+  "author": "Das Weinretter.de Team",
   "private": true,
   "scripts": {
     "dev": "nuxt",
