@@ -10,7 +10,7 @@
           v-for="restaurant in restaurants"
           :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
         >
-          <l-popup>{{ restaurant.name }} <a :href="restaurant.link">Link</a></l-popup>
+          <l-popup>{{ restaurant.name }} <a :href="restaurant.link">Angebot ansehen</a></l-popup>
         </l-marker>
       </l-map>
     </div>

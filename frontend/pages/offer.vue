@@ -16,7 +16,7 @@
           />
         </b-form-group>
 
-        <b-form-group id="input-group-2" label="Website zu deinem Restaurant:" label-for="input-2">
+        <b-form-group id="input-group-2" label="Link zu deinem Angebot:" label-for="input-2">
           <b-form-input
             id="input-2"
             v-model="link"
