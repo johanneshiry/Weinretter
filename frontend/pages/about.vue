@@ -2,8 +2,11 @@
   <div id="about">
     <div class="about">
       <h2 class="about-title">Über WeinRetter</h2>
-      <iframe width="560" height="315" src="https://www.youtube.com/embed/aVk9_ipRQ9Q" frameborder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <div style="text-align:center; margin: 10px">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/aVk9_ipRQ9Q" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
       <p>
         Die COVID-19-Krise trifft insbesondere Restaurants schwer. Durch die behördlich verordneten
         Schließungen oder beschränkten Öffnungszeiten erleiden viele einen erheblichen Umsatzrückgang,
@@ -31,53 +34,56 @@
           href="https://www.instagram.com/weinretter_de"
           target="_blank"
         >
-          <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'instagram' }" /> Instagram.
+          <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'instagram' }"/>
+          Instagram.
         </a>
       </p>
-      <img class="wvvlogo" src="../assets/Logo_WirVsVirus.png" alt="#WirVsVirus Logo" />
+      <img class="wvvlogo" src="../assets/Logo_WirVsVirus.png" alt="#WirVsVirus Logo"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Navigation from '../components/Navigation.vue'
+  import Vue from 'vue'
+  import Navigation from '../components/Navigation.vue'
 
-export default Vue.extend({
-  components: {
-    Navigation
-  },
+  export default Vue.extend({
+    components: {
+      Navigation
+    },
 
-  head() {
-    return {
-      title: 'Über uns - WeinRetter'
+    head() {
+      return {
+        title: 'Über uns - WeinRetter'
+      }
     }
-  }
-})
+  })
 </script>
 
 <style scoped>
-a {
-  color: var(--highlight-red);
-  text-decoration: none;
-}
-a:hover {
-  color: var(--highlight-red);
-  text-decoration: underline;
-}
-.wvvlogo {
-  width: 100%;
-}
+  a {
+    color: var(--highlight-red);
+    text-decoration: none;
+  }
 
-.about-title {
-  margin-bottom: 0.5em;
-}
+  a:hover {
+    color: var(--highlight-red);
+    text-decoration: underline;
+  }
 
-.about {
-  max-width: 45em;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 1em;
-}
+  .wvvlogo {
+    width: 100%;
+  }
+
+  .about-title {
+    margin-bottom: 0.5em;
+  }
+
+  .about {
+    max-width: 45em;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1em;
+  }
 </style>

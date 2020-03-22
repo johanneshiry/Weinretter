@@ -48,7 +48,7 @@ html,
 }
 .index-content, #index {
   height: 100vh;
-  margin-bottom: 5em;
+  margin-bottom: 0em;
 }
 
 .grecaptcha-badge {
