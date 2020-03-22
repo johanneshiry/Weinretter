@@ -56,7 +56,8 @@
   .about {
     max-width: 45em;
     width: 90%;
-    margin-left: 5%;
+    margin-left: auto;
+    margin-right: auto;
     padding: 1em;
   }
 </style>
