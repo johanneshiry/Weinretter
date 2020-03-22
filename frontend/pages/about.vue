@@ -25,16 +25,19 @@
     </p>
       <img class="wvvlogo" src="../assets/Logo_WirVsVirus.png" alt="#WirVsVirus Logo"/>
   </div>
+    <Footer />
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import Navigation from '../components/Navigation.vue';
+  import Footer from '../components/Footer.vue';
 
   export default Vue.extend({
     components: {
-      Navigation
+      Navigation,
+      Footer
     },
 
     head() {
