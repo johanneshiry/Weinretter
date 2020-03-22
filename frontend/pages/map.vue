@@ -42,7 +42,9 @@
       },
 
       zoomInRequired() {
-        return this.zoom < 9;
+        // For the wow effect at the hackathon, show all restaurants always.
+        // When we actually have a lot of data, remove the `false` from here.
+        return false && this.zoom < 9;
       }
     },
 
