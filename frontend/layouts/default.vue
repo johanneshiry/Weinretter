@@ -40,6 +40,12 @@
     --dark-grey: #5e5757;
   }
 
+  web-info-widget {
+    right:1.5rem;
+    bottom: 1.5rem;
+    --color-primary: var(--highlight-red);
+  }
+
   *,
   *:before,
   *:after {
