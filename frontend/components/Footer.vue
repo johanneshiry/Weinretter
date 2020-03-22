@@ -9,14 +9,20 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col class="imp">Impressum - Datenschutz</b-col>
+      <b-col class="imp">
+        <nuxt-link to="/impressum" class="impressum">
+          Impressum
+        </nuxt-link>
+        -
+        <nuxt-link to="/datenschutz" class="datenschutz">Datenschutz
+        </nuxt-link>
+      </b-col>
     </b-row>
     <b-row>
       <b-col class="copyright">© 2020 Copyright - WeinRetterTeam</b-col>
     </b-row>
   </b-container>
 </template>
-
 
 <style scoped>
 
