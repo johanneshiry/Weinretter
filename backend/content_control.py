@@ -1,6 +1,7 @@
 import os
+from bson.objectid import ObjectId
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CallbackQueryHandler, CommandHandler
+from telegram.ext import Updater, CallbackQueryHandler
 
 TOKEN = os.environ.get('TELEGRAM_TOKEN')
 
@@ -12,27 +13,28 @@ class TelegramBot:
         self.bot.send_message(text=restaurant["link"], chat_id=-1001467998540, reply_markup=reply_markup)
 
     def block(self, update, ctx):
-        print(update)
         query = update.callback_query
         rid = query.data.split("BLOCK:")[1]
 
-        # TODO block in DB
+        self.collection.update_one({'_id': ObjectId(rid)}, {'$set': {'blocked': True}})
+        restaurant = self.collection.find_one({'_id': ObjectId(rid)})
 
         keyboard = [[InlineKeyboardButton("Unblock", callback_data='UNBLOCK:' + str(rid))]]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
-        query.edit_message_text("Now blocked: " + query.message.text, reply_markup=reply_markup)
+        query.edit_message_text("Now blocked: " + restaurant["link"], reply_markup=reply_markup)
 
     def unblock(self, update, ctx):
         query = update.callback_query
         rid = query.data.split("UNBLOCK:")[1]
 
-        # TODO unblock in DB
+        self.collection.update_one({'_id': ObjectId(rid)}, {'$set': {'blocked': False}})
+        restaurant = self.collection.find_one({'_id': ObjectId(rid)})
 
         keyboard = [[InlineKeyboardButton("Block", callback_data='BLOCK:' + str(rid))]]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
-        query.edit_message_text("TODO load restaurant link", reply_markup=reply_markup)
+        query.edit_message_text(restaurant["link"], reply_markup=reply_markup)
 
     def __init__(self, collection):
         if not TOKEN: return
