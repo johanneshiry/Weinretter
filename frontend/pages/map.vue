@@ -76,8 +76,8 @@
       zoom: 7,
       icon: L.icon({
         iconUrl: require('../assets/marker.png'),
-        iconSize: [24, 74],
-        iconAnchor: [16, 37]
+        iconSize: [50, 78],
+        iconAnchor: [25, 52]
       })
     }
   },
