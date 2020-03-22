@@ -101,10 +101,10 @@ jobs:
             docker tag wr_frontend $IMAGE_ID:$VERSION
             docker push $IMAGE_ID:$VERSION
   deploy:
-
+    
     runs-on: ubuntu-latest
-    if: github.event_name == 'deploy'
-
+    if: github.event_name == 'push'
+    
     steps:
       
       - name: ssh
