@@ -1,15 +1,16 @@
 <template>
   <div class="offer">
-    <Navigation></Navigation>
+    <Navigation/>
     <div class="container">
       <b-form @submit.prevent="submit">
         <b-form-group
           id="input-group-1"
-          label="Name deines Restaurant:"
+          label="Name deines Restaurants:"
           label-for="input-1"
         >
           <b-form-input
             id="input-1"
+            class="input"
             v-model="name"
             required
             placeholder="La Pizza"
@@ -19,6 +20,7 @@
         <b-form-group id="input-group-2" label="Link zu deinem Angebot:" label-for="input-2">
           <b-form-input
             id="input-2"
+            class="input"
             v-model="link"
             type="url"
             required
@@ -26,15 +28,27 @@
           />
         </b-form-group>
 
-        <l-map ref="map" id="mapid" :zoom=7 :center="[51.163375, 10.447683]">
-          <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
-          <VGeosearch :options="geosearchOptions"/>
-          <l-marker v-if="location" :lat-lng="location"/>
-        </l-map>
-        <b-button type="submit" variant="primary">Registrieren</b-button>
+        <b-form-group id="input-group-3" label="(Optional) Kurze Beschreibung:" label-for="input-2">
+          <b-form-textarea
+            id="textarea"
+            v-model="description"
+            rows="3"
+            max-rows="6"
+          />
+        </b-form-group>
+
+        <b-form-group id="input-group-4" label="Standort auf der Karte auswählen:" label-for="mapid">
+          <l-map ref="map" id="mapid" :zoom=7 :center="[51.163375, 10.447683]">
+            <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
+            <VGeosearch :options="geosearchOptions"/>
+            <l-marker v-if="location" :lat-lng="location"/>
+          </l-map>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary" class="submit">Registrieren</b-button>
       </b-form>
     </div>
-    <Footer></Footer>
+    <Footer/>
   </div>
 </template>
 
@@ -55,6 +69,7 @@
         },
         name: '',
         link: '',
+        description: '',
         location: null
       }
     },
@@ -71,7 +86,12 @@
 
         let grecaptcha = await window.recaptcha;
         let captcha = await grecaptcha.execute('6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_', {action: 'homepage'});
-        await this.$store.dispatch('createRestaurant', {name: this.name, link: this.link, location: this.location, captcha});
+        await this.$store.dispatch('createRestaurant', {
+          name: this.name,
+          link: this.link,
+          location: this.location,
+          captcha
+        });
         this.$bvToast.toast('Deine Restaurant wurde gespeichert', {
           title: 'Vielen Dank',
           autoHideDelay: 5000,
@@ -108,17 +128,24 @@
 
 <style scoped>
   .container {
-    margin: 0 auto;
-    min-height: 91vh;
     display: flex;
+    margin: 0 auto;
     justify-content: center;
     align-items: center;
-    text-align: center;
   }
 
+
   #mapid {
+    position: relative;
     height: 30vh;
     width: 50vw;
+    min-height: 300px;
+    min-width: 400px;
     cursor: pointer;
+  }
+
+  .submit {
+    margin: 10px auto;
+    width: 100%;
   }
 </style>
