@@ -69,6 +69,6 @@ def fetch_restaurants():
                     'location': {'lat': r['location'][1], 'lng': r['location'][0]},
                     'address': r['address'],
                     'description': r['description'],
-                    'tags': r['tags']
+                    'tags': r.get('tags')
                     } for r in cursor]
     return jsonify(restaurants)

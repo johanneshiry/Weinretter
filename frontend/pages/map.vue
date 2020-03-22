@@ -3,7 +3,7 @@
     <Navigation />
     <div class="container">
       <div v-if="zoomInRequired" class="zoom-notice">
-        Um die Restaurants zu sehen, zoome in die Karte
+        Um dein <span class="highlight"><b>Lieblingsrestaurant</b></span> zu finden, zoome in die Karte
       </div>
       <l-map
         ref="map"
@@ -23,16 +23,19 @@
             <l-popup>
               <b>{{ restaurant.name }}</b>
               <br>
-              <p><i>Angebot: </i>
-                <!--
-                <span v-if="restaurant.wine"><i>Wein </i></span>
-                <span v-if="restaurant.beer"><i>Bier </i></span>
-                <span v-if="restaurant.cocktails"><i>Cocktails </i></span>
-                <span v-if="restaurant.more"><i>Weitere Lebensmittel</i></span>
-              -->
+              <p v-if="restaurant.tags && restaurant.tags.length > 0"><i>Angebot: </i>
+                <b-form-tag
+                  v-for="tag in restaurant.tags"
+                  :key="tag"
+                  :title="tag"
+                  variant="dark"
+                  disabled
+                  class="mr-1 tag">
+                  {{ tag }}
+                </b-form-tag>
               </p>
               <br>
-              <a :href="restaurant.link">Angebot ansehen &#8594;</a>
+              <a :href="restaurant.link" target="_blank">Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
         </v-marker-cluster>

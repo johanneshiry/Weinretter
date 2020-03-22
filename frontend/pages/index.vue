@@ -7,7 +7,7 @@
         <div class="skew-inner">
           <p class="title">
             Rette dein <span class="highlight">Lieblingsrestaurant</span>
-            <wbr /> durch das Kaufen von Wein
+            <wbr />durch das Kaufen von Wein
           </p>
           <div class="links">
             <nuxt-link to="/map" class="weinretter-button prominent">
