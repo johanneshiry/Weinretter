@@ -5,8 +5,8 @@
       <h2>Impressum</h2>
       <p>Decker Internet UG (haftungsbeschränkt)<br />
         Habersaathstr. 17A<br />10115 Berlin</p>
-      <p>Telefon: +4912312312312312312<br />
-        E-Mail: <a href="mailto:dummyMail@gmail.com">dummyMail@gmail.com</a><br />
+      <p>Telefon: +49 151 41 91 29 66<br />
+        E-Mail: <a href="mailto:weinretterde@gmail.com">weinretterde@gmail.com</a><br />
       </p>
       <p><strong>Vertreten durch:</strong><br />Geschäftsführer Michael Decker</p><br /><h2>Hinweis gem&auml;&szlig; Online-Streitbeilegungs-Verordnung</h2><p>Nach geltendem Recht sind wir verpflichtet, Verbraucher auf die Existenz der Europ&auml;ischen Online-Streitbeilegungs-Plattform hinzuweisen, die f&uuml;r die Beilegung von Streitigkeiten genutzt werden kann, ohne dass ein Gericht eingeschaltet werden muss. F&uuml;r die Einrichtung der Plattform ist die Europ&auml;ische Kommission zust&auml;ndig. Die Europ&auml;ische Online-Streitbeilegungs-Plattform ist hier zu finden: <a href="http://ec.europa.eu/odr" target="_blank" rel="nofollow">http://ec.europa.eu/odr</a>. Unsere E-Mail lautet: <a href="mailto:dummyMail@gmail.com">dummyMail@gmail.com</a></p><p>Wir weisen aber darauf hin, dass wir nicht bereit sind, uns am Streitbeilegungsverfahren im Rahmen der Europ&auml;ischen Online-Streitbeilegungs-Plattform zu beteiligen. Nutzen Sie zur Kontaktaufnahme bitte unsere obige E-Mail und Telefonnummer.</p><br /><br /><h2>Disclaimer – rechtliche Hinweise</h2>
       § 1 Warnhinweis zu Inhalten<br />
