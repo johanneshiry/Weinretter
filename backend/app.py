@@ -14,7 +14,7 @@ collection.create_index([('location', GEOSPHERE)])
 app = Flask(__name__)
 CORS(app)
 
-content_bot = TelegramBot()
+content_bot = TelegramBot(collection)
 
 
 def verify_captcha(token):
@@ -52,8 +52,10 @@ def create_restaurant():
                   'telephone': telephone,
                   'description': description,
                   'tags': tags}
-    content_bot.notify(restaurant)
-    collection.insert(restaurant)
+
+    result = collection.insert_one(restaurant)
+
+    content_bot.notify(restaurant, result.inserted_id)
 
     return '', 204
 
