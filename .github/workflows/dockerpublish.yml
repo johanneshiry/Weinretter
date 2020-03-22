@@ -16,25 +16,27 @@ on:
 
 env:
   # TODO: Change variable to your image's name.
-  IMAGE_NAME: weinretter
+  FRONTEND_IMAGE_NAME: wr_frontend
+  BACKEND_IMAGE_NAME: wr_backend
+
 
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test:
-    runs-on: ubuntu-latest
+  # test:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
+  #   steps:
+  #     - uses: actions/checkout@v2
 
-      - name: Run tests
-        run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . --file Dockerfile
-          fi
+  #     - name: Run tests
+  #       run: |
+  #         if [ -f docker-compose.test.yml ]; then
+  #           docker-compose --file docker-compose.test.yml build
+  #           docker-compose --file docker-compose.test.yml run sut
+  #         else
+  #           docker build . --file Dockerfile
+  #         fi
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
@@ -48,15 +50,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build image
-        run: docker build . --file Dockerfile --tag image
+      - name: Build backend image
+        run: docker build backend --file Dockerfile --tag wr_backend
+
+      - name: Build frontend image
+        run: docker build frontend --file Dockerfile --tag wr_frontend
 
       - name: Log into registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
 
-      - name: Push image
+      - name: Push image wr_backend
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$BACKEND_IMAGE_NAME
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
@@ -70,5 +75,28 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
 
-          docker tag image $IMAGE_ID:$VERSION
+          docker tag wr_backend $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+
+
+      - name: Push image wr_frontend
+        run: |
+            IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$FRONTEND_IMAGE_NAME
+  
+            # Strip git ref prefix from version
+            VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+  
+            # Strip "v" prefix from tag name
+            [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+  
+            # Use Docker `latest` tag convention
+            [ "$VERSION" == "master" ] && VERSION=latest
+  
+            echo IMAGE_ID=$IMAGE_ID
+            echo VERSION=$VERSION
+  
+            docker tag wr_frontend $IMAGE_ID:$VERSION
+            docker push $IMAGE_ID:$VERSION
+  
+  
+  
