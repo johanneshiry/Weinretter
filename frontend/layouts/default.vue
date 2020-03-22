@@ -15,12 +15,18 @@ html {
   box-sizing: border-box;
 }
 
+:root {
+  --highlight-red: #b12525;
+}
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
   margin: 0;
 }
+
+
 
 .button--green {
   display: inline-block;
