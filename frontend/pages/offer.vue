@@ -38,16 +38,50 @@
           />
         </b-form-group>
 
-        <b-form-group id="input-group-3" label="(Optional) Kurze Beschreibung:" label-for="input-2">
+        <b-form-group id="input-group-description" label="(Optional) Kurze Beschreibung:" label-for="input-description">
           <b-form-textarea
-            id="textarea"
+            id="input-description"
             v-model="description"
             rows="3"
             max-rows="6"
           />
         </b-form-group>
 
-        <b-form-group id="input-group-4" label="Standort auf der Karte auswählen:" label-for="mapid">
+        <b-form-group v-if="!addressEntered" id="input-group-address" label="Addresse:" label-for="input-2">
+          <div id="input-group-address-inner">
+            <b-form-input
+              id="input-street"
+              class="input"
+              v-model="address.street"
+              type="tel"
+              required
+              placeholder="Friedrichstraße"
+            />
+            <b-form-input
+              id="input-housenumber"
+              class="input"
+              v-model="address.housenumber"
+              required
+              type="tel"
+              placeholder="5B"
+            />
+            <b-form-input
+              id="input-plz"
+              class="input"
+              v-model="address.plz"
+              required
+              placeholder="10115"
+            />
+            <b-form-input
+              id="input-city"
+              class="input"
+              v-model="address.city"
+              required
+              placeholder="Berlin"
+            />
+          </div>
+        </b-form-group>
+        <b-form-group v-else id="input-group-4" label="Standort auf der Karte auswählen:" label-for="mapid">
           <l-map ref="map" id="mapid" :zoom=7 :center="[51.163375, 10.447683]">
             <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"/>
             <VGeosearch :options="geosearchOptions"/>
@@ -73,7 +107,8 @@
           </div>
         </b-form-group>
 
-        <b-button type="submit" class="submit"><b>Registrieren</b></b-button>
+        <b-button v-if="addressEntered" type="submit" class="submit"><b>Registrieren</b></b-button>
+        <b-button v-else type="submit" class="submit">Weiter</b-button>
       </b-form>
     </div>
     <Footer/>
@@ -99,14 +134,26 @@
         link: '',
         description: '',
         telephone: '',
+        address: {
+          street: '',
+          housenumber: '',
+          plz: '',
+          city: ''
+        },
         availableTags: ['Lieferung', 'Selbstabholung', 'Wein', 'Bier', 'Cocktails', 'Meal Kits', 'weitere Lebensmittel'],
         selectedTags: [],
-        location: null
+        location: null,
+        addressEntered: false
       }
     },
     methods: {
       async submit() {
-        if (!this.location) {
+        if (!this.addressEntered) {
+          this.addressEntered = true;
+          Vue.nextTick(() => this.$refs["map"].mapObject.on('click', (e) => this.location = e.latlng));
+          return;
+        }
+        if (this.addressEntered && !this.location) {
           this.$bvToast.toast('Wähle bitte den Standort deines Restaurant auf der Karte aus', {
             title: 'Fehler',
             autoHideDelay: 5000,
@@ -141,7 +188,6 @@
       }
     },
     mounted() {
-      this.$refs["map"].mapObject.on('click', (e) => this.location = e.latlng);
       if (!window.recaptcha) {
         let recaptchaScript = document.createElement('script');
         recaptchaScript.setAttribute('src', 'https://www.google.com/recaptcha/api.js?render=6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_');
@@ -202,6 +248,43 @@
     padding: 6px;
     background-color:transparent;
     color: #b12525;
+  }
+
+  #input-group-address-inner {
+    display: grid;
+    grid-template-columns: 90px auto 70px;
+    grid-column-gap: 10px;
+    grid-row-gap: 15px;
+  }
+
+
+  #input-street {
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  #input-housenumber {
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 3;
+    grid-column-end: 4;
+  }
+
+  #input-plz {
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 1;
+
+  }
+
+  #input-city {
+    grid-row-start: 2;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 4;
   }
 
   .selected{
