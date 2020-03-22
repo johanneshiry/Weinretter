@@ -3,7 +3,7 @@
     <Navigation />
     <div class="container">
       <div v-if="zoomInRequired" class="zoom-notice">
-        Um die Restaurants zu sehen, zoome in die Karte
+        Um dein <span class="highlight"><b>Lieblingsrestaurant</b></span> zu finden, zoome in die Karte
       </div>
       <l-map
         ref="map"
