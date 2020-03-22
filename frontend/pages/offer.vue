@@ -214,6 +214,8 @@
 </script>
 
 <style scoped>
+
+
   .container {
     margin: 0 auto;
     justify-content: center;

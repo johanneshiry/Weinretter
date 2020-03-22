@@ -1,7 +1,7 @@
 {
   "name": "weinretter",
   "version": "1.0.0",
-  "description": "Weinretter - Hol dir dein Lieblingslokal ins Wohnzimmer",
+  "description": "WeinRetter - Hol dir dein Lieblingslokal ins Wohnzimmer",
   "author": "Das Weinretter.de Team",
   "private": true,
   "scripts": {
