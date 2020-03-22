@@ -1,5 +1,4 @@
 <template>
-
   <b-container fluid class="footer">
     <b-row>
       <b-col class="social">

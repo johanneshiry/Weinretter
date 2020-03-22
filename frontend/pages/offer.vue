@@ -1,6 +1,5 @@
 <template>
   <div class="offer">
-    <Navigation/>
     <div class="container">
       <b-form @submit.prevent="submit">
         <b-form-group

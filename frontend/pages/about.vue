@@ -1,6 +1,5 @@
 <template>
   <div id="about">
-    <Navigation />
     <div class="about">
       <h2 class="about-title">Über WeinRetter</h2>
       <p>

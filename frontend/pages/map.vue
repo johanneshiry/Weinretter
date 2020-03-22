@@ -1,6 +1,5 @@
 <template>
   <div class="map">
-    <Navigation />
     <div class="container">
       <div v-if="zoomInRequired" class="zoom-notice">
         Um dein <span class="highlight"><b>Lieblingsrestaurant</b></span> zu finden, zoome in die Karte

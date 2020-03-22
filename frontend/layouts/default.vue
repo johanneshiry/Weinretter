@@ -1,17 +1,20 @@
 <template>
   <div class="default-layout">
-  <nuxt/>
-  <Footer/>
+    <Navigation/>
+    <nuxt/>
+    <Footer/>
   </div>
 </template>
 
 <script>
   import Footer from "../components/Footer";
+  import Navigation from '../components/Navigation.vue'
   import Vue from 'vue';
 
   export default Vue.extend({
     components: {
-      Footer
+      Footer,
+      Navigation
     }
   });
 </script>

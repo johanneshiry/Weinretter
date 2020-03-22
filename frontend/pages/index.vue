@@ -1,6 +1,5 @@
 <template>
   <div id="index">
-    <Navigation/>
     <div class="content">
       <div class="skew">
         <div class="skew-inner">
