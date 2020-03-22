@@ -6,6 +6,9 @@
         <a href="https://www.instagram.com/weinretter_de" target="_blank">
           <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'instagram' }"/>
         </a>
+        <a href="https://www.youtube.com/watch?v=aVk9_ipRQ9Q" target="_blank">
+          <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'youtube' }"/>
+        </a>
       </b-col>
     </b-row>
     <b-row>
