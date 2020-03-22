@@ -45,6 +45,24 @@
           </l-map>
         </b-form-group>
 
+        <b-form-group id="input-group-tags" label="Tags:">
+          <div>
+            <b-badge v-for="tag in availableTags" @click="addTag(tag)" variant="info" class="tag">{{tag}} +</b-badge>
+          </div>
+          <br/>
+          <div>
+            <b-form-tag
+              v-for="tag in selectedTags"
+              @remove="removeTag(tag)"
+              :key="tag"
+              :title="tag"
+              variant="dark"
+              class="mr-1 tag"
+            >{{ tag }}
+            </b-form-tag>
+          </div>
+        </b-form-group>
+
         <b-button type="submit" variant="primary" class="submit">Registrieren</b-button>
       </b-form>
     </div>
@@ -70,6 +88,8 @@
         name: '',
         link: '',
         description: '',
+        availableTags: ['Lieferung', 'Selbstabholung', 'Wein', 'Bier', 'Cocktails', 'Meal Kits', 'weitere Lebensmittel'],
+        selectedTags: [],
         location: null
       }
     },
@@ -90,6 +110,7 @@
           name: this.name,
           link: this.link,
           location: this.location,
+          tags: this.selectedTags,
           captcha
         });
         this.$bvToast.toast('Deine Restaurant wurde gespeichert', {
@@ -98,6 +119,14 @@
           variant: 'success'
         });
       },
+      addTag(tag) {
+        this.availableTags = this.availableTags.filter(t => t !== tag);
+        this.selectedTags.push(tag);
+      },
+      removeTag(tag) {
+        this.selectedTags = this.selectedTags.filter(t => t !== tag);
+        this.availableTags.push(tag)
+      }
     },
     mounted() {
       this.$refs["map"].mapObject.on('click', (e) => this.location = e.latlng);
@@ -128,7 +157,6 @@
 
 <style scoped>
   .container {
-    display: flex;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
@@ -138,7 +166,6 @@
   #mapid {
     position: relative;
     height: 30vh;
-    width: 50vw;
     min-height: 300px;
     min-width: 400px;
     cursor: pointer;
@@ -148,4 +175,15 @@
     margin: 10px auto;
     width: 100%;
   }
+
+  .tag {
+    font-size: 15px;
+    cursor: pointer;
+    padding: 6px;
+  }
+
+  .tag + .tag {
+    margin: 5px;
+  }
+
 </style>

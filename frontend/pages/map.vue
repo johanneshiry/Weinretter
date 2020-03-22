@@ -8,22 +8,33 @@
       <l-map
         ref="map"
         id="mapid"
+        :min-zoom=5
         :zoom.sync="zoom"
         :center="[51.163375, 10.447683]"
         @update:bounds="fetchRestaurants"
       >
         <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png" />
-        <v-geosearch :options="geosearchOptions"></v-geosearch>
+        <v-geosearch :options="geosearchOptions"/>
         <v-marker-cluster>
           <l-marker
             v-for="restaurant in restaurants"
             :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
             :key="'' + restaurant.location.lat + restaurant.location.lng"
           >
-            <l-popup
-              >{{ restaurant.name }}
-              <a :href="restaurant.link">Angebot ansehen</a></l-popup
-            >
+            <l-popup>
+              <b>{{ restaurant.name }}</b>
+              <br>
+              <p><i>Angebot: </i>
+                <!--
+                <span v-if="restaurant.wine"><i>Wein </i></span>
+                <span v-if="restaurant.beer"><i>Bier </i></span>
+                <span v-if="restaurant.cocktails"><i>Cocktails </i></span>
+                <span v-if="restaurant.more"><i>Weitere Lebensmittel</i></span>
+              -->
+              </p>
+              <br>
+              <a :href="restaurant.link">Angebot ansehen</a>
+            </l-popup>
           </l-marker>
         </v-marker-cluster>
       </l-map>
