@@ -1,7 +1,7 @@
 import os
 from bson.objectid import ObjectId
 from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Updater, CallbackQueryHandler, CommandHandler
+from telegram.ext import Updater, CallbackQueryHandler
 
 TOKEN = os.environ.get('TELEGRAM_TOKEN')
 
