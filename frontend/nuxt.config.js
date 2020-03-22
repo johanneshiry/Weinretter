@@ -23,12 +23,15 @@ export default {
   /*
    ** Global CSS
    */
-  css: [  ],
+  css: [
+    '@fortawesome/fontawesome-svg-core/styles.css'
+  ],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
-    {src: "~/plugins/vue2-leaflet-markercluster.js", mode: "client"}
+    { src: "~/plugins/vue2-leaflet-markercluster.js", mode: "client" },
+    '~/plugins/fontawesome.js'
   ],
   /*
    ** Nuxt.js dev-modules
@@ -56,6 +59,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) {
+    }
   }
 }
