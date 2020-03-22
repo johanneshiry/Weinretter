@@ -233,22 +233,23 @@
   .submit {
     margin: 10px auto;
     width: 100%;
-    color: #b12525;
+    font-weight: bold;
+    color: var(--highlight-red);
     background-color: transparent;
   }
 
   .submit:hover{
-    background-color: #b12525;
-    color: white;
+    background-color: var(--highlight-red);
+    color: var(--light-grey);
   }
 
   .tag {
     font-size: 15px;
-    border: 2px solid #b12525;
+    border: 2px solid var(--highlight-red);
     cursor: pointer;
     padding: 6px;
     background-color:transparent;
-    color: #b12525;
+    color: var(--highlight-red);
   }
 
   #input-group-address-inner {
@@ -289,8 +290,8 @@
   }
 
   .selected{
-    background-color: #b12525;
-    color: white;
+    background-color: var(--highlight-red);
+    color: var(--light-grey);
   }
   .tag + .tag {
     margin: 5px;
