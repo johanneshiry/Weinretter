@@ -113,7 +113,6 @@ jobs:
               mkdir -p ~/.ssh
               eval $(ssh-agent -s)
               bash -c 'ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}")'
-              cd ../../
               ssh deploy@ec2-54-86-155-155.compute-1.amazonaws.com -o StrictHostKeyChecking=no "docker-compose up -d --force-recreate"
 
   
