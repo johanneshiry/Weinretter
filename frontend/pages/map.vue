@@ -23,6 +23,7 @@
             <l-popup>
               <b>{{ restaurant.name }}</b>
               <br>
+              <p v-if="restaurant.description">{{restaurant.description}}</p>
               <p v-if="restaurant.tags && restaurant.tags.length > 0"><i>Angebot: </i>
                 <b-form-tag
                   v-for="tag in restaurant.tags"
@@ -34,7 +35,6 @@
                   {{ tag }}
                 </b-form-tag>
               </p>
-              <br>
               <a :href="restaurant.link" target="_blank">Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
@@ -125,7 +125,17 @@ export default Vue.extend({
   width: 100vw;
 }
 
+p {
+  margin: 5px 0;
+}
+
 .zoom-notice {
   margin: 10px;
 }
+</style>
+
+<style>
+  .leaflet-popup-content-wrapper {
+    border-radius: 6px !important;
+  }
 </style>

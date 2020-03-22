@@ -1,7 +1,6 @@
 <template>
   <div id="index">
-    <router-view />
-    <Navigation></Navigation>
+    <Navigation/>
     <div class="content">
       <div class="skew">
         <div class="skew-inner">
