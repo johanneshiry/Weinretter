@@ -61,6 +61,10 @@
 </script>
 
 <style scoped>
+  iframe {
+    max-width: 100%;
+  }
+
   a {
     color: var(--highlight-red);
     text-decoration: none;
