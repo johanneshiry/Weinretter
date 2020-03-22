@@ -59,10 +59,13 @@ def create_restaurant():
 
 @app.route('/api/restaurant')
 def fetch_restaurants():
-    left_lng = float(request.args.get('left_lng'))
-    right_lng = float(request.args.get('right_lng'))
-    bottom_lat = float(request.args.get('bottom_lat'))
-    top_lat = float(request.args.get('top_lat'))
+    try:
+        left_lng = float(request.args.get('left_lng'))
+        right_lng = float(request.args.get('right_lng'))
+        bottom_lat = float(request.args.get('bottom_lat'))
+        top_lat = float(request.args.get('top_lat'))
+    except ValueError:
+        return '', 400
 
     cursor = collection.find({
         '$and': [{
