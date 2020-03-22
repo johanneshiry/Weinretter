@@ -1,8 +1,9 @@
-from flask import Flask, escape, request, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from pymongo import MongoClient, GEOSPHERE
 from urllib.parse import urlparse
-from captcha import verify_captcha
+import requests
+
 from content_control import TelegramBot
 
 client = MongoClient('localhost', 27017)
@@ -14,6 +15,13 @@ app = Flask(__name__)
 CORS(app)
 
 content_bot = TelegramBot()
+
+
+def verify_captcha(token):
+    r = requests.post('https://www.google.com/recaptcha/api/siteverify',
+                      {'response': token, 'secret': '6Le3Kp4UAAAAAMkPcidI-o8gDu807ZnqzLr9Axqb'})
+    return r.json()["success"]
+
 
 @app.route('/api/restaurant', methods=['POST'])
 def create_restaurant():
@@ -35,12 +43,11 @@ def create_restaurant():
     location = (body['location']['lng'], body['location']['lat'])
 
     restaurant = {'link': link, 'name': name, 'location': location, 'address': address, 'description': description}
-
     content_bot.notify(restaurant)
-
     collection.insert(restaurant)
 
     return '', 204
+
 
 @app.route('/api/restaurant')
 def fetch_restaurants():
