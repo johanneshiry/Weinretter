@@ -18,19 +18,19 @@ export default {
         return;
       }
 
-      const leftTile = Math.floor(leftLng * 2) / 2;
-      const rightTile = Math.floor(rightLng * 2) / 2;
-      const bottomTile = Math.floor(bottomLat * 2) / 2;
-      const topTile = Math.floor(topLat * 2) / 2;
+      const leftTile = Math.floor(leftLng * 0.1) / 0.1;
+      const rightTile = Math.floor(rightLng * 0.1) / 0.1;
+      const bottomTile = Math.floor(bottomLat * 0.1) / 0.1;
+      const topTile = Math.floor(topLat * 0.1) / 0.1;
 
-      for (var lng = leftTile; lng <= rightTile; lng += 0.5) {
-        for (let lat = bottomTile; lat <= topTile; lat += 0.5) {
+      for (var lng = leftTile; lng <= rightTile; lng += 10) {
+        for (let lat = bottomTile; lat <= topTile; lat += 10) {
           const tileName = `${lng}-${lat}`;
 
           if (context.state.fetchedAreas.has(tileName)) continue;
           context.commit('markAsLoaded', tileName);
 
-          fetch(API_ENDPOINT + `/restaurant?left_lng=${lng}&right_lng=${lng + 0.5}&bottom_lat=${lat}&top_lat=${lat + 0.5}`)
+          fetch(API_ENDPOINT + `/restaurant?left_lng=${lng}&right_lng=${lng + 10}&bottom_lat=${lat}&top_lat=${lat + 10}`)
             .then(response => response.json())
             .then(restaurants => context.commit('addFetchedRestaurants', restaurants))
         }
