@@ -1,7 +1,6 @@
 <template>
   <div id="about">
-    <router-view/>
-    <Navigation></Navigation>
+    <Navigation/>
     <div class="about">
     <h2 class="about-title">
       Über WeinRetter
