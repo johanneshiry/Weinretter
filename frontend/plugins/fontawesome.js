@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
 
 
 // This is important, we are going to let Nuxt.js worry about the CSS
@@ -14,6 +15,7 @@ config.autoAddCss = false
 library.add(fas)
 library.add(faInstagram)
 library.add(faYoutube)
+library.add(faGithub)
 
 
 // Register the component globally
