@@ -40,7 +40,6 @@ import { VueTyper } from 'vue-typer'
 
 export default Vue.extend({
   components: {
-    Navigation,
     VueTyper
   },
 

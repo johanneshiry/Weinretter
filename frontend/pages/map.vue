@@ -114,7 +114,6 @@
   },
   components: {
     VGeosearch,
-    Navigation,
   },
 
   head() {

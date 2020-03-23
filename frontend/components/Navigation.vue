@@ -25,7 +25,7 @@
 </template>
 
 <style scoped>
-  .link {
-    font-weight: bold;
-  }
+.link {
+  font-weight: bold;
+}
 </style>
