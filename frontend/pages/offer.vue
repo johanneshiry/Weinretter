@@ -153,7 +153,7 @@
           plz: '',
           city: ''
         },
-        availableTags: ['Lieferung', 'Selbstabholung', 'Wein', 'Bier', 'Cocktails', 'Meal Kits', 'weitere Lebensmittel'],
+        availableTags: ['Lieferung', 'Selbstabholung', 'Wein', 'Bier', 'Cocktails', 'Meal Kits', 'Speisen', 'Tee/Kaffee', 'weitere Lebensmittel'],
         selectedTags: [],
         location: null,
         addressEntered: false,

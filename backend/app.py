@@ -31,10 +31,10 @@ def create_restaurant():
         return '', 403
 
     # XXX URL Validation
-    try:
-        urlparse(link)
-    except:
-        return '', 400
+    # try:
+    #    urlparse(link)
+    # except:
+    #    return '', 400
 
     name = body['name']
     location = (float(body['location']['lng']), float(body['location']['lat']))
