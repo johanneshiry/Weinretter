@@ -52,7 +52,6 @@
               id="input-street"
               class="input"
               v-model="address.street"
-              type="tel"
               required
               placeholder="Friedrichstraße"
             />
@@ -61,13 +60,13 @@
               class="input"
               v-model="address.housenumber"
               required
-              type="tel"
               placeholder="5B"
             />
             <b-form-input
               id="input-plz"
               class="input"
               v-model="address.plz"
+              type="tel"
               required
               placeholder="10115"
             />

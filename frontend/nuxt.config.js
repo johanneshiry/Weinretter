@@ -57,15 +57,13 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
-    // Doc: https://axios.nuxtjs.org/usage
-    //'@nuxtjs/axios',
-    'nuxt-leaflet'
+    'nuxt-leaflet',
+    'nuxt-purgecss',
   ],
-  /*
-   ** Axios module configuration
-   ** See https://axios.nuxtjs.org/options
-   */
-  axios: {},
+
+  purgeCSS: {
+    mode: 'postcss'
+  },
   /*
    ** Build configuration
    */
