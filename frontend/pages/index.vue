@@ -135,9 +135,6 @@ html,
 
 .vue-typer {
   color: var(--dark-grey);
-  font-size: 60px;
-  letter-spacing: 1px;
-  line-height: 1.1;
 }
 
 .link a {
