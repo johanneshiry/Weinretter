@@ -13,7 +13,8 @@
                 'Bier',
                 'Lebensmitteln',
                 'Cocktails',
-                'To-Go-Essen'
+                'To-Go-Essen',
+                'Eis'
               ]"
               :shuffle="true"
             ></vue-typer>
