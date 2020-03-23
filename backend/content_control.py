@@ -14,16 +14,20 @@ class TelegramBot:
         self.bot.send_message(text=restaurant["link"], chat_id=-1001467998540, reply_markup=reply_markup)
 
     def block(self, update, ctx):
+        print("new block request")
         query = update.callback_query
-        rid = query.data.split("BLOCK:")[1]
+        try:
+            rid = query.data.split("BLOCK:")[1]
 
-        collection.update_one({'_id': ObjectId(rid)}, {'$set': {'blocked': True}})
-        restaurant = collection.find_one({'_id': ObjectId(rid)})
+            collection.update_one({'_id': ObjectId(rid)}, {'$set': {'blocked': True}})
+            restaurant = collection.find_one({'_id': ObjectId(rid)})
 
-        keyboard = [[InlineKeyboardButton("Unblock", callback_data='UNBLOCK:' + str(rid))]]
-        reply_markup = InlineKeyboardMarkup(keyboard)
+            keyboard = [[InlineKeyboardButton("Unblock", callback_data='UNBLOCK:' + str(rid))]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
 
-        query.edit_message_text("Now blocked: " + restaurant["link"], reply_markup=reply_markup)
+            query.edit_message_text("Now blocked: " + restaurant["link"], reply_markup=reply_markup)
+        except Exception:
+            query.edit_message_text("Error")
 
     def unblock(self, update, ctx):
         query = update.callback_query
@@ -41,15 +45,17 @@ class TelegramBot:
         if not TOKEN: return
 
         if webhook:
-            updater = Updater(TOKEN, use_context=False)
+            updater = Updater(TOKEN, use_context=True)
             self.bot = updater.bot
             updater.dispatcher.add_handler(CallbackQueryHandler(self.block, pattern=r'^BLOCK:'))
             updater.dispatcher.add_handler(CallbackQueryHandler(self.unblock, pattern=r'^UNBLOCK:'))
-            updater.start_webhook(webhook_url='https://weinretter.de/bot', port=5001)
-            print("HERE")
+            updater.start_webhook(url_path='/bot', listen='0.0.0.0', port=5001)
+            self.bot.set_webhook(url='https://weinretter.de/bot')
         else:
             self.bot = Bot(TOKEN)
 
 
 if __name__ == '__main__':
-    TelegramBot(webhook=True)
+    t = TelegramBot(webhook=True)
+    from threading import Event
+    Event().wait()
