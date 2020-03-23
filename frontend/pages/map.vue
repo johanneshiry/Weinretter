@@ -2,47 +2,54 @@
   <div class="map">
     <div class="container">
       <div v-if="zoomInRequired" class="zoom-notice">
-        Um dein <span class="highlight"><b>Lieblingsrestaurant</b></span> zu finden, zoome in die Karte
+        Um dein <span class="highlight"><b>Lieblingsrestaurant</b></span> zu
+        finden, zoome in die Karte
       </div>
       <l-map
-        ref="map"
         id="mapid"
-        :min-zoom=5
+        ref="map"
+        :min-zoom="5"
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
       >
         <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
-        <v-geosearch :options="geosearchOptions"/>
+        <v-geosearch :options="geosearchOptions" />
         <v-marker-cluster>
           <l-marker
             v-for="restaurant in restaurants"
+            :key="'' + restaurant.location.lat + restaurant.location.lng"
             :icon="icon"
             :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
-            :key="'' + restaurant.location.lat + restaurant.location.lng"
           >
             <l-popup>
               <b>{{ restaurant.name }}</b>
               <br>
-              <p v-if="restaurant.description">{{restaurant.description}}</p>
-              <p v-if="restaurant.tags && restaurant.tags.length > 0"><i>Angebot: </i>
+              <p v-if="restaurant.description">
+                {{ restaurant.description }}
+              </p>
+              <p v-if="restaurant.tags && restaurant.tags.length > 0">
+                <i>Angebot: </i>
                 <b-form-tag
                   v-for="tag in restaurant.tags"
                   :key="tag"
                   :title="tag"
                   variant="dark"
                   disabled
-                  class="mr-1 tag">
+                  class="mr-1 tag"
+                >
                   {{ tag }}
                 </b-form-tag>
               </p>
-              <p v-if="restaurant.address"><i>Adresse: </i>
+              <p v-if="restaurant.address">
+                <i>Adresse: </i>
                 <br>
                 <template v-if="typeof restaurant.address === 'string'">
-                  {{restaurant.address}}
+                  {{ restaurant.address }}
                 </template>
                 <template v-else>
-                  {{restaurant.address.street}} {{restaurant.address.housenumber}} <br>
-                  {{restaurant.address.city}} {{restaurant.address.plz}}
+                  {{ restaurant.address.street }}
+                  {{ restaurant.address.housenumber }} <br>
+                  {{ restaurant.address.city }} {{ restaurant.address.plz }}
                 </template>
               </p>
               <a :href="restaurant.link" target="_blank">Angebot ansehen &#8594;</a>
@@ -55,16 +62,18 @@
 </template>
 
 <script>
-  import Vue from 'vue'
-  import Navigation from '../components/Navigation.vue'
-  import VGeosearch from 'vue2-leaflet-geosearch'
-  import { OpenStreetMapProvider } from 'leaflet-geosearch'
-  import 'leaflet-geosearch/assets/css/leaflet.css'
-  import 'leaflet.markercluster/dist/MarkerCluster.css'
-  import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-  import L from 'leaflet';
+import Vue from 'vue';
+import VGeosearch from 'vue2-leaflet-geosearch';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import 'leaflet-geosearch/assets/css/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+import L from 'leaflet';
 
-  export default Vue.extend({
+export default Vue.extend({
+  components: {
+    VGeosearch,
+  },
   data() {
     return {
       geosearchOptions: {
@@ -79,12 +88,12 @@
         iconSize: [50, 78],
         iconAnchor: [25, 52]
       })
-    }
+    };
   },
 
   computed: {
     restaurants() {
-      return this.$store.state.fetchedRestaurants
+      return this.$store.state.fetchedRestaurants;
     },
 
     zoomInRequired() {
@@ -92,6 +101,12 @@
       // When we actually have a lot of data, remove the `false` from here.
       return false && this.zoom < 9;
     }
+  },
+
+  mounted() {
+    this.$refs['map'].mapObject
+      .locate({ setView: true, maxZoom: 15 })
+      .setView([51.163375, 10.447683], 7);
   },
 
   methods: {
@@ -102,27 +117,17 @@
           rightLng: bounds.getEast(),
           bottomLat: bounds.getSouth(),
           topLat: bounds.getNorth()
-        })
+        });
       }
     }
-  },
-
-  mounted() {
-    this.$refs['map'].mapObject
-      .locate({ setView: true, maxZoom: 15 })
-      .setView([51.163375, 10.447683], 7);
-  },
-  components: {
-    VGeosearch,
-    Navigation,
   },
 
   head() {
     return {
       title: 'Finde Restaurants - WeinRetter'
-    }
+    };
   }
-})
+});
 </script>
 
 <style scoped>
@@ -151,11 +156,11 @@ p {
 </style>
 
 <style>
-  .leaflet-popup-content-wrapper {
-    border-radius: 6px !important;
-  }
+.leaflet-popup-content-wrapper {
+  border-radius: 6px !important;
+}
 
-  .leaflet-control-geosearch.bar {
-    margin: 10px 50px 0 !important;
-  }
+.leaflet-control-geosearch.bar {
+  margin: 10px 50px 0 !important;
+}
 </style>
