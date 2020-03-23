@@ -17,18 +17,18 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }],
     script: [
       {
-        src:"https://sa.weinretter.de/app.js",
+        src: 'https://sa.weinretter.de/app.js',
         body: true
       },
       {
-        src:"https://webcomponent.coverified.info/build/embed.js",
+        src: 'https://webcomponent.coverified.info/build/embed.js',
         body: true
       }
     ],
     noscript: [
       { innerHTML: '<img src="https://sa.weinretter.de/image.gif" alt="">' }
     ],
-    __dangerouslyDisableSanitizers: ["noscript"]
+    __dangerouslyDisableSanitizers: ['noscript']
   },
   /*
    ** Customize the progress-bar color
@@ -37,14 +37,12 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    '@fortawesome/fontawesome-svg-core/styles.css'
-  ],
+  css: ['@fortawesome/fontawesome-svg-core/styles.css'],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
-    { src: "~/plugins/vue2-leaflet-markercluster.js", mode: "client" },
+    { src: '~/plugins/vue2-leaflet-markercluster.js', mode: 'client' },
     '~/plugins/fontawesome.js'
   ],
   /*
@@ -57,13 +55,9 @@ export default {
   modules: [
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
-    'nuxt-leaflet',
-    'nuxt-purgecss',
+    'nuxt-leaflet'
   ],
 
-  purgeCSS: {
-    mode: 'postcss'
-  },
   /*
    ** Build configuration
    */
@@ -71,7 +65,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {
-    }
+    extend(config, ctx) {}
   }
 }

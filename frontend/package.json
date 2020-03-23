@@ -36,7 +36,6 @@
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
     "jest": "^24.1.0",
-    "nuxt-purgecss": "^0.2.1",
     "prettier": "^1.19.1",
     "ts-jest": "^25.0.0",
     "vue-jest": "^4.0.0-0"

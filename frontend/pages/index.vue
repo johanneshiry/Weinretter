@@ -7,11 +7,24 @@
             Rette dein
             <span class="highlight">Lieblingsrestaurant</span>
             <wbr />durch das Kaufen von
-            <vue-typer :text="[Wein, Bier, Lebensmitteln, Cocktails, To-Go-Essen]" :shuffle="true"></vue-typer>
+            <vue-typer
+              :text="[
+                'Wein',
+                'Bier',
+                'Lebensmitteln',
+                'Cocktails',
+                'To-Go-Essen'
+              ]"
+              :shuffle="true"
+            ></vue-typer>
           </p>
           <div class="links">
-            <nuxt-link to="/map" class="weinretter-button prominent">Karte ansehen</nuxt-link>
-            <nuxt-link to="/offer" class="weinretter-button">Restaurant eintragen</nuxt-link>
+            <nuxt-link to="/map" class="weinretter-button prominent"
+              >Karte ansehen</nuxt-link
+            >
+            <nuxt-link to="/offer" class="weinretter-button"
+              >Restaurant eintragen</nuxt-link
+            >
           </div>
         </div>
       </div>
@@ -115,9 +128,15 @@ html,
   display: block;
   font-weight: bolder;
   font-size: 60px;
-  color: var(--dark-grey);
   letter-spacing: 1px;
   margin-block: 50px;
+  line-height: 1.1;
+}
+
+.vue-typer {
+  color: var(--dark-grey);
+  font-size: 60px;
+  letter-spacing: 1px;
   line-height: 1.1;
 }
 
