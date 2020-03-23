@@ -1,7 +1,7 @@
 version: "3"
 services:
   backend:
-    container_name: wrbackend
+    container_name: wrbackend_dev
     build: 
       context: ./backend
     restart: unless-stopped
@@ -14,7 +14,7 @@ services:
       - mongo
 
   frontend: 
-    container_name: wrfrontend
+    container_name: wrfrontend_dev
     build: 
       context: ./frontend
     restart: unless-stopped
