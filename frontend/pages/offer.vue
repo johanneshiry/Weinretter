@@ -89,7 +89,8 @@
 
         <b-form-group id="input-group-tags" label="Tags:">
           <div>
-            <b-badge v-for="tag in availableTags" @click="addTag(tag)" variant="info" class="tag" :key="tag">{{tag}} +</b-badge>
+            <b-badge v-for="tag in availableTags" @click="addTag(tag)" variant="info" class="tag" :key="tag">{{tag}} +
+            </b-badge>
           </div>
           <br/>
           <div>
@@ -107,6 +108,23 @@
         <b-button v-if="addressEntered" type="submit" class="submit"><b>Registrieren</b></b-button>
         <b-button v-else type="submit" class="submit">Weiter</b-button>
       </b-form>
+
+      <b-alert
+        v-model="mapMarkerMissing"
+        class="position-fixed fixed-bottom m-0 rounded-0"
+        style="z-index: 2000;"
+        variant="danger"
+        dismissible>
+        Wähle bitte den Standort deines Restaurant auf der Karte aus
+      </b-alert>
+      <b-alert
+        v-model="error"
+        class="position-fixed fixed-bottom m-0 rounded-0"
+        style="z-index: 2000;"
+        variant="danger"
+        dismissible>
+        Da ist leider etwas schief gelaufen
+      </b-alert>
     </div>
   </div>
 </template>
@@ -138,48 +156,51 @@
         availableTags: ['Lieferung', 'Selbstabholung', 'Wein', 'Bier', 'Cocktails', 'Meal Kits', 'weitere Lebensmittel'],
         selectedTags: [],
         location: null,
-        addressEntered: false
+        addressEntered: false,
+        mapMarkerMissing: false,
+        error: false
       }
     },
     methods: {
       async submit() {
         if (!this.addressEntered) {
           this.addressEntered = true;
-          Vue.nextTick(() => this.$refs["map"].mapObject.on('click', (e) => this.location = e.latlng));
+          Vue.nextTick(() => this.$refs["map"].mapObject.on('click', (e) => {
+            this.location = e.latlng;
+            this.mapMarkerMissing = false;
+          }));
           let result = await this.$store.dispatch('addressLookup', this.address);
-          if(result) {
+          if (result) {
             this.location = result;
             Vue.nextTick(() => this.$refs["map"].mapObject.setView([result.lat, result.lng], 15));
           }
-
           return;
         }
         if (this.addressEntered && !this.location) {
-          this.$bvToast.toast('Wähle bitte den Standort deines Restaurant auf der Karte aus', {
-            title: 'Fehler',
-            autoHideDelay: 5000,
-            variant: 'danger'
-          });
+          this.mapMarkerMissing = true;
           return;
         }
-
-        let grecaptcha = await window.recaptcha;
-        let captcha = await grecaptcha.execute('6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_', {action: 'homepage'});
-        await this.$store.dispatch('createRestaurant', {
-          name: this.name,
-          link: this.link,
-          location: this.location,
-          telephone: this.telephone,
-          address: this.address,
-          tags: this.selectedTags,
-          captcha
-        });
-        this.$bvToast.toast('Dein Restaurant wurde gespeichert', {
-          title: 'Vielen Dank',
-          autoHideDelay: 5000,
-          variant: 'success'
-        });
-        this.$router.push("/")
+        try {
+          let grecaptcha = await window.recaptcha;
+          let captcha = await grecaptcha.execute('6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_', {action: 'homepage'});
+          await this.$store.dispatch('createRestaurant', {
+            name: this.name,
+            link: this.link,
+            location: this.location,
+            telephone: this.telephone,
+            address: this.address,
+            tags: this.selectedTags,
+            captcha
+          });
+          this.$root.$bvToast.toast('Dein Restaurant wurde gespeichert', {
+            title: 'Vielen Dank',
+            autoHideDelay: 5000,
+            variant: 'success'
+          });
+          this.$router.push("/");
+        } catch (e) {
+          this.error = true;
+        }
       },
       addTag(tag) {
         this.availableTags = this.availableTags.filter(t => t !== tag);
@@ -241,7 +262,7 @@
     background-color: transparent;
   }
 
-  .submit:hover{
+  .submit:hover {
     background-color: var(--highlight-red);
     color: var(--light-grey);
   }
@@ -251,7 +272,7 @@
     border: 2px solid var(--highlight-red);
     cursor: pointer;
     padding: 6px;
-    background-color:transparent;
+    background-color: transparent;
     color: var(--highlight-red);
   }
 
@@ -292,12 +313,14 @@
     grid-column-end: 4;
   }
 
-  .selected{
+  .selected {
     background-color: var(--highlight-red);
     color: var(--light-grey);
   }
-  .tag + .tag {
-    margin: 5px;
+
+  .tag {
+    margin-right: 5px;
+    margin-bottom: 5px;
   }
 
 </style>

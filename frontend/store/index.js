@@ -6,10 +6,13 @@ export default {
     fetchedAreas: new Set()
   }),
   actions: {
-    createRestaurant(context, restaurant) {
-      return fetch(API_ENDPOINT + "/restaurant", {
+    async createRestaurant(context, restaurant) {
+      const response = await fetch(API_ENDPOINT + "/restaurant", {
         method: 'POST', body: JSON.stringify(restaurant), headers: new Headers({'content-type': 'application/json'})
-      })
+      });
+      if(!response.ok) {
+        throw new Error(await response.json())
+      }
     },
 
     fetchRestaurants(context, {leftLng, rightLng, bottomLat, topLat}) {
