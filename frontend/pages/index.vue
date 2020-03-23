@@ -17,7 +17,7 @@
                 'Eis'
               ]"
               :shuffle="true"
-            ></vue-typer>
+            />
           </p>
           <div class="links">
             <nuxt-link to="/map" class="weinretter-button prominent"

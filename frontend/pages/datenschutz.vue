@@ -1,6 +1,5 @@
 <template>
   <div class="imp">
-    <Navigation />
     <div class="container">
       <h4>Datenschutzerklärung</h4>
 
