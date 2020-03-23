@@ -13,9 +13,10 @@
                 'Bier',
                 'Lebensmitteln',
                 'Cocktails',
-                'To-Go-Essen'
+                'To-Go-Essen',
+                'Wein',
               ]"
-              :shuffle="true"
+              :repeat="0"
             ></vue-typer>
           </p>
           <div class="links">
