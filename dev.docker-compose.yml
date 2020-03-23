@@ -1,0 +1,32 @@
+version: "3"
+services:
+  backend:
+    container_name: wrbackend
+    build: 
+      context: ./backend
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_TOKEN # Variable is provided by host
+    ports:
+      - "127.0.0.1:5005:5005"
+      - "127.0.0.1:5006:5006"
+    depends_on:
+      - mongo
+
+  frontend: 
+    container_name: wrfrontend
+    build: 
+      context: ./frontend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3001"
+    
+  mongo:
+    image: mongo
+    container_name: mongocontainer
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - /data/db:/data/db
+
