@@ -8,6 +8,9 @@
         <a href="https://www.youtube.com/watch?v=aVk9_ipRQ9Q" target="_blank">
           <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'youtube' }"/>
         </a>
+        <a href="https://github.com/johanneshiry/Weinretter" target="_blank">
+          <font-awesome-icon :icon="{ prefix: 'fab', iconName: 'github' }"/>
+        </a>
       </b-col>
     </b-row>
     <b-row>
