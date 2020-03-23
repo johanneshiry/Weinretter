@@ -42,7 +42,7 @@ export default {
         `&city=${encodeURIComponent(city)}&postalcode=${encodeURIComponent(plz)}&country=Germany&format=json`);
       const result = await response.json();
       if (result && result.length) {
-        return {lat: result[0].lat, lng: result[0].lon}
+        return {lat: parseFloat(result[0].lat), lng: parseFloat(result[0].lon)}
       }
     }
   },

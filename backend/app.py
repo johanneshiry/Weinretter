@@ -1,20 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from pymongo import MongoClient, GEOSPHERE, ASCENDING
 from urllib.parse import urlparse
 import requests
-
+from db import collection
 from content_control import TelegramBot
-
-client = MongoClient('mongocontainer', 27017)
-db = client.weinretter
-collection = db.restaurants
-collection.create_index([('location', GEOSPHERE), ('blocked', ASCENDING)])
 
 app = Flask(__name__)
 CORS(app)
 
-content_bot = TelegramBot(collection)
+content_bot = TelegramBot()
 
 
 def verify_captcha(token):
@@ -34,16 +28,16 @@ def create_restaurant():
     telephone = body.get('telephone')
 
     if not verify_captcha(body['captcha']):
-       return '', 403
+        return '', 403
 
     # XXX URL Validation
-    try:
-        urlparse(link)
-    except:
-        return '', 400
+    # try:
+    #    urlparse(link)
+    # except:
+    #    return '', 400
 
     name = body['name']
-    location = (body['location']['lng'], body['location']['lat'])
+    location = (float(body['location']['lng']), float(body['location']['lat']))
 
     restaurant = {'link': link,
                   'name': name,
@@ -55,17 +49,23 @@ def create_restaurant():
 
     result = collection.insert_one(restaurant)
 
-    content_bot.notify(restaurant, result.inserted_id)
+    try:
+        content_bot.notify(restaurant, result.inserted_id)
+    except Exception as e:
+        print(e)
 
     return '', 204
 
 
 @app.route('/api/restaurant')
 def fetch_restaurants():
-    left_lng = float(request.args.get('left_lng'))
-    right_lng = float(request.args.get('right_lng'))
-    bottom_lat = float(request.args.get('bottom_lat'))
-    top_lat = float(request.args.get('top_lat'))
+    try:
+        left_lng = float(request.args.get('left_lng'))
+        right_lng = float(request.args.get('right_lng'))
+        bottom_lat = float(request.args.get('bottom_lat'))
+        top_lat = float(request.args.get('top_lat'))
+    except ValueError:
+        return '', 400
 
     cursor = collection.find({
         '$and': [{

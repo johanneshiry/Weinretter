@@ -4,16 +4,27 @@
       <div class="skew">
         <div class="skew-inner">
           <p class="title">
-            Rette dein <span class="highlight">Lieblingsrestaurant</span>
-            <wbr />durch das Kaufen von Wein
+            Rette dein
+            <span class="highlight">Lieblingsrestaurant</span>
+            <wbr />durch das Kaufen von
+            <vue-typer
+              :text="[
+                'Wein',
+                'Bier',
+                'Lebensmitteln',
+                'Cocktails',
+                'To-Go-Essen'
+              ]"
+              :shuffle="true"
+            ></vue-typer>
           </p>
           <div class="links">
-            <nuxt-link to="/map" class="weinretter-button prominent">
-              Karte ansehen
-            </nuxt-link>
-            <nuxt-link to="/offer" class="weinretter-button">
-              Restaurant eintragen
-            </nuxt-link>
+            <nuxt-link to="/map" class="weinretter-button prominent"
+              >Karte ansehen</nuxt-link
+            >
+            <nuxt-link to="/offer" class="weinretter-button"
+              >Restaurant eintragen</nuxt-link
+            >
           </div>
         </div>
       </div>
@@ -23,12 +34,14 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import Navigation from '../components/Navigation.vue';
+import Vue from 'vue'
+import Navigation from '../components/Navigation.vue'
+import { VueTyper } from 'vue-typer'
 
-  export default Vue.extend({
+export default Vue.extend({
   components: {
-    Navigation
+    Navigation,
+    VueTyper
   },
 
   head() {
@@ -46,7 +59,8 @@ html,
 #__layout {
   height: 92vh;
 }
-.index-content, #index {
+.index-content,
+#index {
   height: 100vh;
   margin-bottom: 0em;
 }
@@ -83,7 +97,6 @@ html,
   display: flex;
 }
 
-
 .skew {
   min-height: 100%;
   display: flex;
@@ -115,10 +128,13 @@ html,
   display: block;
   font-weight: bolder;
   font-size: 60px;
-  color: var(--dark-grey);
   letter-spacing: 1px;
   margin-block: 50px;
   line-height: 1.1;
+}
+
+.vue-typer {
+  color: var(--dark-grey);
 }
 
 .link a {
