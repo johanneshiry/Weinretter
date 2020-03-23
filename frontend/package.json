@@ -10,7 +10,13 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "test": "jest",
-    "lintfix": "prettier --write */**.vue"
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lintfix"
+    }
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
@@ -32,9 +38,14 @@
     "@nuxt/typescript-build": "^0.6.0",
     "@types/leaflet": "^1.5.12",
     "@vue/test-utils": "^1.0.0-beta.27",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^24.1.0",
-    "eslint-config-prettier": "^6.10.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-loader": "^3.0.3",
     "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "husky": "^4.2.3",
     "jest": "^24.1.0",
     "prettier": "^1.19.1",
     "ts-jest": "^25.0.0",

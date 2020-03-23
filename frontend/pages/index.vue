@@ -6,7 +6,7 @@
           <p class="title">
             Rette dein
             <span class="highlight">Lieblingsrestaurant</span>
-            <wbr />durch das Kaufen von
+            <wbr>durch das Kaufen von
             <vue-typer
               :text="[
                 'Wein',
@@ -14,43 +14,41 @@
                 'Lebensmitteln',
                 'Cocktails',
                 'To-Go-Essen',
-                'Wein',
+                'Wein'
               ]"
               :repeat="0"
-            ></vue-typer>
+            />
           </p>
           <div class="links">
-            <nuxt-link to="/map" class="weinretter-button prominent"
-              >Karte ansehen</nuxt-link
-            >
-            <nuxt-link to="/offer" class="weinretter-button"
-              >Restaurant eintragen</nuxt-link
-            >
+            <nuxt-link to="/map" class="weinretter-button prominent">
+              Karte ansehen
+            </nuxt-link>
+            <nuxt-link to="/offer" class="weinretter-button">
+              Restaurant eintragen
+            </nuxt-link>
           </div>
         </div>
       </div>
-      <div class="hero-img"></div>
+      <div class="hero-img" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  import Vue from 'vue';
-  import { VueTyper } from 'vue-typer';
-  import Navigation from '../components/Navigation.vue';
+import Vue from 'vue';
+import { VueTyper } from 'vue-typer';
 
-  export default Vue.extend({
+export default Vue.extend({
   components: {
-    Navigation,
     VueTyper
   },
 
   head() {
     return {
       title: 'WeinRetter - Hol dir dein Lieblingslokal ins Wohnzimmer'
-    }
+    };
   }
-})
+});
 </script>
 
 <style>

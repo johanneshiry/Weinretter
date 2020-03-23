@@ -15,7 +15,7 @@ export default {
       }
     },
 
-    fetchRestaurants(context, {leftLng, rightLng, bottomLat, topLat}) {
+    fetchRestaurants(context, { leftLng, rightLng, bottomLat, topLat }) {
       // Divide area in tiles
       if (leftLng > rightLng || bottomLat > topLat) {
         return;
@@ -33,29 +33,44 @@ export default {
           if (context.state.fetchedAreas.has(tileName)) continue;
           context.commit('markAsLoaded', tileName);
 
-          fetch(API_ENDPOINT + `/restaurant?left_lng=${lng}&right_lng=${lng + 10}&bottom_lat=${lat}&top_lat=${lat + 10}`)
+          fetch(
+            API_ENDPOINT +
+              `/restaurant?left_lng=${lng}&right_lng=${lng +
+                10}&bottom_lat=${lat}&top_lat=${lat + 10}`
+          )
             .then(response => response.json())
-            .then(restaurants => context.commit('addFetchedRestaurants', restaurants))
+            .then(restaurants =>
+              context.commit('addFetchedRestaurants', restaurants)
+            );
         }
       }
     },
-    async addressLookup(context, {street, housenumber, city, plz}) {
-      const response = await fetch('https://nominatim.openstreetmap.org/search?' +
-        `street=${encodeURIComponent(street)}%20${encodeURIComponent(housenumber)}` +
-        `&city=${encodeURIComponent(city)}&postalcode=${encodeURIComponent(plz)}&country=Germany&format=json`);
+    async addressLookup(context, { street, housenumber, city, plz }) {
+      const response = await fetch(
+        'https://nominatim.openstreetmap.org/search?' +
+          `street=${encodeURIComponent(street)}%20${encodeURIComponent(
+            housenumber
+          )}` +
+          `&city=${encodeURIComponent(city)}&postalcode=${encodeURIComponent(
+            plz
+          )}&country=Germany&format=json`
+      );
       const result = await response.json();
       if (result && result.length) {
-        return {lat: parseFloat(result[0].lat), lng: parseFloat(result[0].lon)}
+        return {
+          lat: parseFloat(result[0].lat),
+          lng: parseFloat(result[0].lon)
+        };
       }
     }
   },
   mutations: {
     markAsLoaded(state, tileName) {
-      state.fetchedAreas.add(tileName)
+      state.fetchedAreas.add(tileName);
     },
 
     addFetchedRestaurants(state, restaurants) {
-      state.fetchedRestaurants.push(...restaurants)
+      state.fetchedRestaurants.push(...restaurants);
     }
   }
-}
+};
