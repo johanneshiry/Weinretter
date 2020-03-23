@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" variant="info">
+    <b-navbar toggleable="lg">
       <b-navbar-brand
         ><nuxt-link to="/"
           ><img src="../assets/logo_wein_retter_1_small.png"/></nuxt-link
@@ -27,5 +27,14 @@
 <style scoped>
   .link {
     font-weight: bold;
+  }
+
+  .navbar-brand {
+    padding: 0;
+  }
+
+  .navbar-brand img {
+    height: 2.5em;
+    margin: 10px 30px;
   }
 </style>

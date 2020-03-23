@@ -35,11 +35,11 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import Navigation from '../components/Navigation.vue'
-import { VueTyper } from 'vue-typer'
+  import Vue from 'vue';
+  import { VueTyper } from 'vue-typer';
+  import Navigation from '../components/Navigation.vue';
 
-export default Vue.extend({
+  export default Vue.extend({
   components: {
     Navigation,
     VueTyper
@@ -144,19 +144,6 @@ html,
 
 .highlight {
   color: var(--highlight-red);
-}
-
-.navbar {
-  background-color: white !important;
-}
-
-.navbar-brand {
-  padding: 0;
-}
-
-.navbar-brand img {
-  height: 2.5em;
-  margin: 10px 30px;
 }
 
 /* Tablet Styles */
