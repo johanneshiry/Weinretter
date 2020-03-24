@@ -12,7 +12,7 @@
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
       >
-        <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
+        <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
         <v-geosearch :options="geosearchOptions" />
         <v-marker-cluster>
           <l-marker
@@ -101,7 +101,7 @@ export default Vue.extend({
     zoomInRequired() {
       // For the wow effect at the hackathon, show all restaurants always.
       // When we actually have a lot of data, remove the `false` from here.
-      return false && this.zoom < 9
+      return false && this.zoom < 9;
     }
   },
 
@@ -127,7 +127,7 @@ export default Vue.extend({
   mounted() {
     this.$refs['map'].mapObject
       .locate({ setView: true, maxZoom: 15 })
-      .setView([51.163375, 10.447683], 7)
+      .setView([51.163375, 10.447683], 7);
   },
   components: {
     VGeosearch,
