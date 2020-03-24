@@ -39,7 +39,7 @@ class CreateRestaurantRequest(Model):
     address = ModelType(AddressType, required=True)
 
 
-@app.route('/api/restaurant', methods=['POST'])
+@app.route('/api/restaurants', methods=['POST'])
 def create_restaurant():
     try:
         r = CreateRestaurantRequest(request.get_json())
@@ -73,7 +73,7 @@ def create_restaurant():
     return jsonify({'restaurant_id': str(rid), 'passcode': passcode}), 201
 
 
-@app.route('/api/restaurant')
+@app.route('/api/restaurants')
 def fetch_restaurants():
     try:
         left_lng = float(request.args.get('left_lng'))
