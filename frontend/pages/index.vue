@@ -14,10 +14,11 @@
                 'Lebensmitteln',
                 'Cocktails',
                 'To-Go-Essen',
-                'Wein',
+                'Eis',
+                'Wein'
               ]"
               :repeat="0"
-            ></vue-typer>
+            />
           </p>
           <div class="links">
             <nuxt-link to="/map" class="weinretter-button prominent"
