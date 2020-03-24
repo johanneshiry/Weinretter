@@ -12,11 +12,8 @@ $ npm install
 $ npm run dev
 
 # build for production and launch server
-$ npm run buildhttps://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html
+$ npm run generate --fail-on-error
 $ npm run start
-
-# generate static project
-$ npm run generate
 ```
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
