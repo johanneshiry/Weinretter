@@ -141,7 +141,7 @@ export default Vue.extend({
 <style scoped>
 .container {
   margin: 0 auto;
-  max-height: 82vh;
+  max-height: 83vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,7 +151,7 @@ export default Vue.extend({
 
 #mapid {
   height: 92vh;
-  width: 99vw;
+  width: 100vw;
 }
 
 p {
