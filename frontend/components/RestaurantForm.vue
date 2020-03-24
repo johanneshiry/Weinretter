@@ -215,12 +215,14 @@ export default Vue.extend({
             }
           )
         );
-        let result = await this.$store.dispatch('addressLookup', this.address);
-        if (result) {
-          this.location = result;
-          Vue.nextTick(() =>
-            this.$refs['map'].mapObject.setView([result.lat, result.lng], 15)
-          );
+        if (!this.location) {
+          let result = await this.$store.dispatch('addressLookup', this.address);
+          if (result) {
+            this.location = result;
+            Vue.nextTick(() =>
+              this.$refs['map'].mapObject.setView([result.lat, result.lng], 15)
+            );
+          }
         }
         return
       }
