@@ -1,0 +1,3 @@
+provider: virtualbox
+ram: 2048
+cpu: 2

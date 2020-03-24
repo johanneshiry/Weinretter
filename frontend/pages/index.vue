@@ -14,6 +14,7 @@
                 'Lebensmitteln',
                 'Cocktails',
                 'To-Go-Essen',
+                'Eis',
                 'Wein'
               ]"
               :repeat="0"

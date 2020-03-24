@@ -108,7 +108,7 @@
             :zoom="7"
             :center="[51.163375, 10.447683]"
           >
-            <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
+            <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
             <VGeosearch :options="geosearchOptions" />
             <l-marker v-if="location" :lat-lng="location" />
           </l-map>
@@ -242,42 +242,39 @@ export default Vue.extend({
         return;
       }
 
-      let grecaptcha = await window.recaptcha;
-      let captcha = await grecaptcha.execute(
-        '6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_',
-        { action: 'homepage' }
-      );
-      await this.$store.dispatch('createRestaurant', {
-        name: this.name,
-        link: this.link,
-        location: this.location,
-        telephone: this.telephone,
-        address: this.address,
-        tags: this.selectedTags,
-        captcha
-      });
-      this.$bvToast.toast('Dein Restaurant wurde gespeichert', {
-        title: 'Vielen Dank',
-        autoHideDelay: 5000,
-        variant: 'success'
-      });
-      this.$router.push('/');
+        let grecaptcha = await window.recaptcha;
+        let captcha = await grecaptcha.execute('6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_', {action: 'homepage'});
+        await this.$store.dispatch('createRestaurant', {
+          name: this.name,
+          link: this.link,
+          location: this.location,
+          telephone: this.telephone,
+          address: this.address,
+          tags: this.selectedTags,
+          captcha
+        });
+        this.$bvToast.toast('Dein Restaurant wurde gespeichert', {
+          title: 'Vielen Dank',
+          autoHideDelay: 5000,
+          variant: 'success'
+        });
+        this.$router.push("/")
+      },
+      addTag(tag) {
+        this.availableTags = this.availableTags.filter(t => t !== tag);
+        this.selectedTags.push(tag);
+      },
+      removeTag(tag) {
+        this.selectedTags = this.selectedTags.filter(t => t !== tag);
+        this.availableTags.push(tag)
+      }
     },
-    addTag(tag) {
-      this.availableTags = this.availableTags.filter(t => t !== tag);
-      this.selectedTags.push(tag);
+    head() {
+      return {
+        title: "Registriere dein Restaurant - WeinRetter",
+      }
     },
-    removeTag(tag) {
-      this.selectedTags = this.selectedTags.filter(t => t !== tag);
-      this.availableTags.push(tag);
-    }
-  },
-  head() {
-    return {
-      title: 'Registriere dein Restaurant - WeinRetter'
-    };
-  }
-});
+  })
 </script>
 
 <style scoped>
