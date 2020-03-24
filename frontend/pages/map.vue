@@ -68,16 +68,13 @@
 
 <script>
 import Vue from 'vue';
-import VGeosearch from 'vue2-leaflet-geosearch';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import 'leaflet-geosearch/assets/css/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import L from 'leaflet'
 
 export default Vue.extend({
   components: {
-    VGeosearch,
   },
   data() {
     return {
@@ -88,7 +85,7 @@ export default Vue.extend({
         style: 'bar'
       },
       zoom: 7,
-      icon: L.icon({
+      icon: this.$L && this.$L.icon({
         iconUrl: require('../assets/marker.png'),
         iconSize: [50, 78],
         iconAnchor: [25, 52]

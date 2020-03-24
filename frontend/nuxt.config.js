@@ -1,5 +1,5 @@
 export default {
-  mode: 'spa',
+  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -43,6 +43,8 @@ export default {
    */
   plugins: [
     { src: '~/plugins/vue2-leaflet-markercluster.js', mode: 'client' },
+    { src: '~/plugins/vue-typer.js', mode: 'client' },
+    { src: '~/plugins/vue-leaflet-geosearch.js', mode: 'client' },
     { src: '~/plugins/simpleanalytics.js', mode: 'client' },
     '~/plugins/fontawesome.js'
   ],

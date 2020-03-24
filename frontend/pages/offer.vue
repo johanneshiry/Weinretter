@@ -109,7 +109,7 @@
             :center="[51.163375, 10.447683]"
           >
             <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
-            <VGeosearch :options="geosearchOptions" />
+            <v-geosearch :options="geosearchOptions" />
             <l-marker v-if="location" :lat-lng="location" />
           </l-map>
         </b-form-group>
@@ -153,13 +153,11 @@
 
 <script>
 import Vue from 'vue';
-import VGeosearch from 'vue2-leaflet-geosearch';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import 'leaflet-geosearch/assets/css/leaflet.css';
 
 export default Vue.extend({
   components: {
-    VGeosearch
   },
   data() {
     return {
