@@ -10,7 +10,7 @@ with open('/Users/christophwalcher/Weinretter.csv', newline='') as csvfile:
         if not r[4]:
             continue
         print(r)
-        req = urllib.request.Request("https://weinretter.de/api/restaurant")
+        req = urllib.request.Request("https://weinretter.de/api/restaurants")
         req.add_header('Content-Type', 'application/json; charset=utf-8')
         address = None
         description = None

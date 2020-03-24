@@ -7,7 +7,7 @@ export default {
   }),
   actions: {
     async createRestaurant(context, restaurant) {
-      const response = await fetch(API_ENDPOINT + "/restaurant", {
+      const response = await fetch(API_ENDPOINT + "/restaurants", {
         method: 'POST', body: JSON.stringify(restaurant), headers: new Headers({'content-type': 'application/json'})
       });
       if(!response.ok) {
@@ -35,7 +35,7 @@ export default {
 
           fetch(
             API_ENDPOINT +
-              `/restaurant?left_lng=${lng}&right_lng=${lng +
+              `/restaurants?left_lng=${lng}&right_lng=${lng +
                 10}&bottom_lat=${lat}&top_lat=${lat + 10}`
           )
             .then(response => response.json())

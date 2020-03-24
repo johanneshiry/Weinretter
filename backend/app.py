@@ -1,14 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from urllib.parse import urlparse
 
 from schematics.exceptions import DataError
 
-from db import collection
+from db import collection, passcode_collection
 from telegram_bot import TelegramBot
 from validation import validate_captcha
 from schematics.models import Model
 from schematics.types import StringType, FloatType, URLType, ListType, ModelType
+from secrets import token_hex
 
 app = Flask(__name__)
 CORS(app)
@@ -39,7 +39,7 @@ class CreateRestaurantRequest(Model):
     address = ModelType(AddressType, required=True)
 
 
-@app.route('/api/restaurant', methods=['POST'])
+@app.route('/api/restaurants', methods=['POST'])
 def create_restaurant():
     try:
         r = CreateRestaurantRequest(request.get_json())
@@ -62,16 +62,18 @@ def create_restaurant():
 
     result = collection.insert_one(restaurant)
     rid = result.inserted_id
+    passcode = token_hex(12)
+    passcode_collection.insert_one({'restaurant_id': str(rid), 'passcode': passcode})
 
     try:
         content_bot.notify(rid=rid, name=r.name, link=r.link)
     except Exception as e:
         print(e)
 
-    return '', 204
+    return jsonify({'restaurant_id': str(rid), 'passcode': passcode}), 201
 
 
-@app.route('/api/restaurant')
+@app.route('/api/restaurants')
 def fetch_restaurants():
     try:
         left_lng = float(request.args.get('left_lng'))
