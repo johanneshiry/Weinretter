@@ -27,10 +27,14 @@ Vagrant.configure("2") do |config|
             lv.memory = rconfig['ram']
             lv.cpus = rconfig['cpu']
         end
-    elsif rconfig['provider'] == 'virtualbox'
+    else
         config.vm.provider :virtualbox do |vb|
             vb.memory = rconfig['ram']
             vb.cpus = rconfig['cpu']
+            vb.customize [
+                                    "modifyvm", :id,
+                                    "--memory", '%d' % [rconfig['ram']]
+                                  ]
         end
     end
 
