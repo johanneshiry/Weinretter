@@ -1,5 +1,5 @@
 export default {
-  mode: 'spa',
+  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -17,11 +17,7 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }],
     script: [
       {
-        src: 'https://sa.weinretter.de/app.js',
-        body: true
-      },
-      {
-        src: 'https://webcomponent.coverified.info/build/embed.js',
+        src: 'https://sa.weinretter.de/latest.js',
         body: true
       }
     ],
@@ -43,6 +39,9 @@ export default {
    */
   plugins: [
     { src: '~/plugins/vue2-leaflet-markercluster.js', mode: 'client' },
+    { src: '~/plugins/vue-typer.js', mode: 'client' },
+    { src: '~/plugins/vue-leaflet-geosearch.js', mode: 'client' },
+    { src: '~/plugins/simpleanalytics.js', mode: 'client' },
     '~/plugins/fontawesome.js'
   ],
   /*

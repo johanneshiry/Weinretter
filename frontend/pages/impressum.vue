@@ -1,6 +1,5 @@
 <template>
   <div class="imp">
-    <Navigation />
     <div class="container">
       <h2>Impressum</h2>
       <p>

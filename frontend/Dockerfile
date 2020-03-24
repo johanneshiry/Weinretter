@@ -7,7 +7,7 @@ COPY package*.json /app/
 RUN npm install
 COPY ./ /app/
 
-RUN npm run-script build
+RUN npm run generate --fail-on-error
 
 FROM nginx:alpine
 COPY --from=build-stage /app/dist/ /usr/share/nginx/html

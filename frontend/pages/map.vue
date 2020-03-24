@@ -12,7 +12,7 @@
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
       >
-        <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
+        <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
         <v-geosearch :options="geosearchOptions" />
         <v-marker-cluster>
           <l-marker
@@ -20,6 +20,7 @@
             :key="'' + restaurant.location.lat + restaurant.location.lng"
             :icon="icon"
             :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
+            @click="trackMarkerClick"
           >
             <l-popup>
               <b>{{ restaurant.name }}</b>
@@ -52,7 +53,11 @@
                   {{ restaurant.address.city }} {{ restaurant.address.plz }}
                 </template>
               </p>
-              <a :href="restaurant.link" target="_blank">Angebot ansehen &#8594;</a>
+              <a
+                :href="restaurant.link + '?ref=weinretter.de'"
+                target="_blank"
+                @click="trackRestaurantClick"
+              >Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
         </v-marker-cluster>
@@ -63,16 +68,13 @@
 
 <script>
 import Vue from 'vue';
-import VGeosearch from 'vue2-leaflet-geosearch';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import 'leaflet-geosearch/assets/css/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import L from 'leaflet';
 
 export default Vue.extend({
   components: {
-    VGeosearch,
   },
   data() {
     return {
@@ -83,7 +85,7 @@ export default Vue.extend({
         style: 'bar'
       },
       zoom: 7,
-      icon: L.icon({
+      icon: this.$L && this.$L.icon({
         iconUrl: require('../assets/marker.png'),
         iconSize: [50, 78],
         iconAnchor: [25, 52]
@@ -119,6 +121,12 @@ export default Vue.extend({
           topLat: bounds.getNorth()
         });
       }
+    },
+    trackRestaurantClick() {
+      this.$sa_event('clicked_restaurant_link')
+    },
+    trackMarkerClick() {
+      this.$sa_event('clicked_marker')
     }
   },
 
@@ -133,7 +141,7 @@ export default Vue.extend({
 <style scoped>
 .container {
   margin: 0 auto;
-  max-height: 82vh;
+  max-height: 83vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,7 +151,7 @@ export default Vue.extend({
 
 #mapid {
   height: 92vh;
-  width: 99vw;
+  width: 100vw;
 }
 
 p {

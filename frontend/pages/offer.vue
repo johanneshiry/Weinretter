@@ -108,8 +108,8 @@
             :zoom="7"
             :center="[51.163375, 10.447683]"
           >
-            <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
-            <VGeosearch :options="geosearchOptions" />
+            <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
+            <v-geosearch :options="geosearchOptions" />
             <l-marker v-if="location" :lat-lng="location" />
           </l-map>
         </b-form-group>
@@ -166,108 +166,131 @@
 
 <script>
 import Vue from 'vue';
-import VGeosearch from 'vue2-leaflet-geosearch';
 import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import 'leaflet-geosearch/assets/css/leaflet.css';
 
-  export default Vue.extend({
-    components: {
-      VGeosearch
-    },
-    data() {
-      return {
-        geosearchOptions: {
-          showMarker: false,
-          provider: new OpenStreetMapProvider(),
-        },
-        name: '',
-        link: '',
-        description: '',
-        telephone: '',
-        address: {
-          street: '',
-          housenumber: '',
-          plz: '',
-          city: ''
-        },
-        availableTags: ['Lieferung', 'Selbstabholung', 'Wein', 'Bier', 'Cocktails', 'Meal Kits', 'Speisen', 'Tee/Kaffee', 'weitere Lebensmittel'],
-        selectedTags: [],
-        location: null,
-        addressEntered: false,
-        mapMarkerMissing: false,
-        error: false
-      }
-    },
-    mounted() {
-      if (!window.recaptcha) {
-        let recaptchaScript = document.createElement('script');
-        recaptchaScript.setAttribute('src', 'https://www.google.com/recaptcha/api.js?render=6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_');
-        recaptchaScript.async = true;
-        window.recaptcha = new Promise((resolve) => {
-          recaptchaScript.onload = () => {
-            //eslint-disable-next-line no-undef
-            grecaptcha.ready(() => resolve(grecaptcha))
-          };
-        });
-        document.head.appendChild(recaptchaScript);
-      }
-    },
-    methods: {
-      async submit() {
-        if (!this.addressEntered) {
-          this.addressEntered = true;
-          Vue.nextTick(() => this.$refs["map"].mapObject.on('click', (e) => {
-            this.location = e.latlng;
-            this.mapMarkerMissing = false;
-          }));
-          let result = await this.$store.dispatch('addressLookup', this.address);
-          if (result) {
-            this.location = result;
-            Vue.nextTick(() => this.$refs["map"].mapObject.setView([result.lat, result.lng], 15));
-          }
-          return;
-        }
-        if (this.addressEntered && !this.location) {
-          this.mapMarkerMissing = true;
-          return;
-        }
-        try {
-          let grecaptcha = await window.recaptcha;
-          let captcha = await grecaptcha.execute('6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_', {action: 'homepage'});
-          await this.$store.dispatch('createRestaurant', {
-            name: this.name,
-            link: this.link,
-            location: this.location,
-            telephone: this.telephone,
-            address: this.address,
-            tags: this.selectedTags,
-            captcha
-          });
-          this.$root.$bvToast.toast('Dein Restaurant wurde gespeichert', {
-            title: 'Vielen Dank',
-            autoHideDelay: 5000,
-            variant: 'success'
-          });
-          this.$router.push("/");
-        } catch (e) {
-          this.error = true;
-        }
+export default Vue.extend({
+  components: {
+  },
+  data() {
+    return {
+      geosearchOptions: {
+        showMarker: false,
+        provider: new OpenStreetMapProvider()
       },
-      addTag(tag) {
-        this.availableTags = this.availableTags.filter(t => t !== tag);
-        this.selectedTags.push(tag);
+      name: '',
+      link: '',
+      description: '',
+      telephone: '',
+      address: {
+        street: '',
+        housenumber: '',
+        plz: '',
+        city: ''
       },
-      removeTag(tag) {
-        this.selectedTags = this.selectedTags.filter(t => t !== tag);
-        this.availableTags.push(tag)
-      }
-    },
-    head() {
-      return {
-        title: "Registriere dein Restaurant - WeinRetter",
-      }
+      availableTags: [
+        'Lieferung',
+        'Selbstabholung',
+        'Wein',
+        'Bier',
+        'Cocktails',
+        'Meal Kits',
+        'Speisen',
+        'Tee/Kaffee',
+        'weitere Lebensmittel'
+      ],
+      selectedTags: [],
+      location: null,
+      addressEntered: false,
+      mapMarkerMissing: false,
+      error: false
+    };
+  },
+  mounted() {
+    if (!window.recaptcha) {
+      let recaptchaScript = document.createElement('script');
+      recaptchaScript.setAttribute(
+        'src',
+        'https://www.google.com/recaptcha/api.js?render=6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_'
+      );
+      recaptchaScript.async = true;
+      window.recaptcha = new Promise(resolve => {
+        recaptchaScript.onload = () => {
+          //eslint-disable-next-line no-undef
+          grecaptcha.ready(() => resolve(grecaptcha));
+        };
+      });
+      document.head.appendChild(recaptchaScript);
     }
-  })
+  },
+  methods: {
+    async submit() {
+      if (!this.addressEntered) {
+        this.addressEntered = true;
+        Vue.nextTick(() =>
+          this.$refs['map'].mapObject.on(
+            'click',
+            e => {
+              this.location = e.latlng;
+              this.mapMarkerMissing = false;
+            }
+          )
+        );
+        let result = await this.$store.dispatch('addressLookup', this.address);
+        if (result) {
+          this.location = result;
+          Vue.nextTick(() =>
+            this.$refs['map'].mapObject.setView([result.lat, result.lng], 15)
+          );
+        }
+
+        return;
+      }
+      if (this.addressEntered && !this.location) {
+        this.mapMarkerMissing = true;
+        return;
+      }
+
+      try {
+        let grecaptcha = await window.recaptcha;
+      let captcha = await grecaptcha.execute(
+        '6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_',
+        { action: 'homepage' }
+      );
+      await this.$store.dispatch('createRestaurant', {
+        name: this.name,
+        link: this.link,
+        location: this.location,
+        telephone: this.telephone,
+        address: this.address,
+        tags: this.selectedTags,
+        captcha
+      });
+        this.$root.$bvToast.toast('Dein Restaurant wurde gespeichert', {
+        title: 'Vielen Dank',
+        autoHideDelay: 5000,
+        variant: 'success'
+      });
+      this.$router.push('/');
+      } catch (e) {
+        this.error = true;
+      }
+    },
+    addTag(tag) {
+      this.availableTags = this.availableTags.filter(t => t !== tag);
+      this.selectedTags.push(tag);
+    },
+    removeTag(tag) {
+      this.selectedTags = this.selectedTags.filter(t => t !== tag);
+      this.availableTags.push(tag);
+    }
+  },
+  head() {
+    return {
+      title: 'Registriere dein Restaurant - WeinRetter'
+    };
+  }
+});
 </script>
 
 <style scoped>

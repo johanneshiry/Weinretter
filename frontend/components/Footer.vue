@@ -20,7 +20,7 @@
         </nuxt-link>
         -
         <nuxt-link to="/datenschutz" class="datenschutz">
-          > Datenschutz
+          Datenschutz
         </nuxt-link>
       </b-col>
     </b-row>
