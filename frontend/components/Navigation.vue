@@ -1,11 +1,12 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" variant="info">
-      <b-navbar-brand
-        ><nuxt-link to="/"
-          ><img src="../assets/logo_wein_retter_1_small.png"/></nuxt-link
-      ></b-navbar-brand>
-      <b-navbar-toggle target="navbarSupportedContent"> </b-navbar-toggle>
+    <b-navbar toggleable="lg">
+      <b-navbar-brand>
+        <nuxt-link to="/">
+          <img src="../assets/logo_wein_retter_1_small.png">
+        </nuxt-link>
+      </b-navbar-brand>
+      <b-navbar-toggle target="navbarSupportedContent" />
 
       <b-collapse id="navbarSupportedContent" is-nav>
         <b-navbar-nav class="ml-auto">
@@ -25,7 +26,16 @@
 </template>
 
 <style scoped>
-  .link {
-    font-weight: bold;
-  }
+.link {
+  font-weight: bold;
+}
+
+.navbar-brand {
+  padding: 0;
+}
+
+.navbar-brand img {
+  height: 2.5em;
+  margin: 10px 30px;
+}
 </style>

@@ -6,8 +6,8 @@
         finden, zoome in die Karte
       </div>
       <l-map
-        ref="map"
         id="mapid"
+        ref="map"
         :min-zoom="5"
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
@@ -17,15 +17,17 @@
         <v-marker-cluster>
           <l-marker
             v-for="restaurant in restaurants"
+            :key="'' + restaurant.location.lat + restaurant.location.lng"
             :icon="icon"
             :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
-            :key="'' + restaurant.location.lat + restaurant.location.lng"
             @click="trackMarkerClick"
           >
             <l-popup>
               <b>{{ restaurant.name }}</b>
-              <br />
-              <p v-if="restaurant.description">{{ restaurant.description }}</p>
+              <br>
+              <p v-if="restaurant.description">
+                {{ restaurant.description }}
+              </p>
               <p v-if="restaurant.tags && restaurant.tags.length > 0">
                 <i>Angebot: </i>
                 <b-form-tag
@@ -41,13 +43,13 @@
               </p>
               <p v-if="restaurant.address">
                 <i>Adresse: </i>
-                <br />
+                <br>
                 <template v-if="typeof restaurant.address === 'string'">
                   {{ restaurant.address }}
                 </template>
                 <template v-else>
                   {{ restaurant.address.street }}
-                  {{ restaurant.address.housenumber }} <br />
+                  {{ restaurant.address.housenumber }} <br>
                   {{ restaurant.address.city }} {{ restaurant.address.plz }}
                 </template>
               </p>
@@ -55,8 +57,7 @@
                 :href="restaurant.link + '?ref=weinretter.de'"
                 target="_blank"
                 @click="trackRestaurantClick"
-                >Angebot ansehen &#8594;</a
-              >
+              >Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
         </v-marker-cluster>
@@ -66,16 +67,15 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import Navigation from '../components/Navigation.vue'
-import VGeosearch from 'vue2-leaflet-geosearch'
-import { OpenStreetMapProvider } from 'leaflet-geosearch'
-import 'leaflet-geosearch/assets/css/leaflet.css'
-import 'leaflet.markercluster/dist/MarkerCluster.css'
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import L from 'leaflet'
+import Vue from 'vue';
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+import 'leaflet-geosearch/assets/css/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 export default Vue.extend({
+  components: {
+  },
   data() {
     return {
       geosearchOptions: {
@@ -85,17 +85,17 @@ export default Vue.extend({
         style: 'bar'
       },
       zoom: 7,
-      icon: L.icon({
+      icon: this.$L && this.$L.icon({
         iconUrl: require('../assets/marker.png'),
         iconSize: [50, 78],
         iconAnchor: [25, 52]
       })
-    }
+    };
   },
 
   computed: {
     restaurants() {
-      return this.$store.state.fetchedRestaurants
+      return this.$store.state.fetchedRestaurants;
     },
 
     zoomInRequired() {
@@ -103,6 +103,12 @@ export default Vue.extend({
       // When we actually have a lot of data, remove the `false` from here.
       return false && this.zoom < 9;
     }
+  },
+
+  mounted() {
+    this.$refs['map'].mapObject
+      .locate({ setView: true, maxZoom: 15 })
+      .setView([51.163375, 10.447683], 7);
   },
 
   methods: {
@@ -113,39 +119,29 @@ export default Vue.extend({
           rightLng: bounds.getEast(),
           bottomLat: bounds.getSouth(),
           topLat: bounds.getNorth()
-        })
+        });
       }
     },
     trackRestaurantClick() {
-      sa_event('clicked_restaurant_link')
+      this.$sa_event('clicked_restaurant_link')
     },
     trackMarkerClick() {
-      sa_event('clicked_marker')
+      this.$sa_event('clicked_marker')
     }
-  },
-
-  mounted() {
-    this.$refs['map'].mapObject
-      .locate({ setView: true, maxZoom: 15 })
-      .setView([51.163375, 10.447683], 7);
-  },
-  components: {
-    VGeosearch,
-    Navigation
   },
 
   head() {
     return {
       title: 'Finde Restaurants - WeinRetter'
-    }
+    };
   }
-})
+});
 </script>
 
 <style scoped>
 .container {
   margin: 0 auto;
-  max-height: 82vh;
+  max-height: 83vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,7 +151,7 @@ export default Vue.extend({
 
 #mapid {
   height: 92vh;
-  width: 99vw;
+  width: 100vw;
 }
 
 p {

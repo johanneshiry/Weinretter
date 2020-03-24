@@ -1,9 +1,14 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from urllib.parse import urlparse
-import requests
+
+from schematics.exceptions import DataError
+
 from db import collection
-from content_control import TelegramBot
+from telegram_bot import TelegramBot
+from validation import validate_captcha
+from schematics.models import Model
+from schematics.types import StringType, FloatType, URLType, ListType, ModelType
 
 app = Flask(__name__)
 CORS(app)
@@ -11,46 +16,55 @@ CORS(app)
 content_bot = TelegramBot()
 
 
-def verify_captcha(token):
-    r = requests.post('https://www.google.com/recaptcha/api/siteverify',
-                      {'response': token, 'secret': '6Le3Kp4UAAAAAMkPcidI-o8gDu807ZnqzLr9Axqb'})
-    return r.json()["success"]
+class LocationType(Model):
+    lat = FloatType(required=True)
+    lng = FloatType(required=True)
+
+
+class AddressType(Model):
+    housenumber = StringType(required=True, max_length=5)
+    street = StringType(required=True)
+    city = StringType(required=True)
+    plz = StringType(required=True, min_length=4, max_length=5)
+
+
+class CreateRestaurantRequest(Model):
+    name = StringType(required=True)
+    link = URLType(required=True)
+    tags = ListType(StringType)
+    telephone = StringType()
+    description = StringType()
+    captcha = StringType(required=True, validators=[validate_captcha])
+    location = ModelType(LocationType, required=True)
+    address = ModelType(AddressType, required=True)
 
 
 @app.route('/api/restaurant', methods=['POST'])
 def create_restaurant():
-    body = request.get_json()
+    try:
+        r = CreateRestaurantRequest(request.get_json())
+        r.validate()
+    except DataError as e:
+        return jsonify(e.to_primitive()), 400
 
-    link = body['link']
-    address = body.get('address')
-    description = body.get('description')
-    tags = body.get('tags')
-    telephone = body.get('telephone')
-
-    if not verify_captcha(body['captcha']):
-        return '', 403
-
-    # XXX URL Validation
-    # try:
-    #    urlparse(link)
-    # except:
-    #    return '', 400
-
-    name = body['name']
-    location = (float(body['location']['lng']), float(body['location']['lat']))
-
-    restaurant = {'link': link,
-                  'name': name,
-                  'location': location,
-                  'address': address,
-                  'telephone': telephone,
-                  'description': description,
-                  'tags': tags}
+    restaurant = {'link': r.link,
+                  'name': r.name,
+                  'location': (r.location.lng, r.location.lat),
+                  'address': {
+                      'housenumber': r.address.housenumber,
+                      'street': r.address.street,
+                      'plz': r.address.plz,
+                      'city': r.address.city
+                  },
+                  'telephone': r.telephone,
+                  'description': r.description,
+                  'tags': r.tags}
 
     result = collection.insert_one(restaurant)
+    rid = result.inserted_id
 
     try:
-        content_bot.notify(restaurant, result.inserted_id)
+        content_bot.notify(rid=rid, name=r.name, link=r.link)
     except Exception as e:
         print(e)
 
@@ -90,3 +104,7 @@ def fetch_restaurants():
                     'tags': r.get('tags')
                     } for r in cursor]
     return jsonify(restaurants)
+
+
+if __name__ == '__main__':
+    app.run()

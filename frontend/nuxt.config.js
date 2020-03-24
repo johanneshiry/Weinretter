@@ -1,5 +1,5 @@
 export default {
-  mode: 'spa',
+  mode: 'universal',
   /*
    ** Headers of the page
    */
@@ -19,14 +19,6 @@ export default {
       {
         src: 'https://sa.weinretter.de/latest.js',
         body: true
-      },
-      {
-        src: 'https://webcomponent.coverified.info/build/embed.js',
-        body: true
-      },
-      {
-        innerHTML:
-          'window.sa_event=window.sa_event||function(){a=[].slice.call(arguments);sa_event.q?sa_event.q.push(a):sa_event.q=[a]};'
       }
     ],
     noscript: [
@@ -47,6 +39,9 @@ export default {
    */
   plugins: [
     { src: '~/plugins/vue2-leaflet-markercluster.js', mode: 'client' },
+    { src: '~/plugins/vue-typer.js', mode: 'client' },
+    { src: '~/plugins/vue-leaflet-geosearch.js', mode: 'client' },
+    { src: '~/plugins/simpleanalytics.js', mode: 'client' },
     '~/plugins/fontawesome.js'
   ],
   /*
@@ -60,15 +55,5 @@ export default {
     // Doc: https://bootstrap-vue.js.org
     'bootstrap-vue/nuxt',
     'nuxt-leaflet'
-  ],
-
-  /*
-   ** Build configuration
-   */
-  build: {
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
-  }
-}
+  ]
+};
