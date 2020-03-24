@@ -8,10 +8,10 @@ TOKEN = os.environ.get('TELEGRAM_TOKEN')
 
 
 class TelegramBot:
-    def notify(self, restaurant, rid):
+    def notify(self, rid, link, name):
         keyboard = [[InlineKeyboardButton("Block", callback_data='BLOCK:' + str(rid))]]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        self.bot.send_message(text=restaurant["link"], chat_id=-1001467998540, reply_markup=reply_markup)
+        self.bot.send_message(text=f"Registration:\n{name}\n{link}", chat_id=-1001467998540, reply_markup=reply_markup)
 
     def block(self, update, ctx):
         print("new block request")
