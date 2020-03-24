@@ -126,10 +126,10 @@ export default Vue.extend({
       }
     },
     trackRestaurantClick() {
-      sa_event('clicked_restaurant_link')
+      this.$sa_event('clicked_restaurant_link')
     },
     trackMarkerClick() {
-      sa_event('clicked_marker')
+      this.$sa_event('clicked_marker')
     }
   },
 
