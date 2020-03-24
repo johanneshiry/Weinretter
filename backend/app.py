@@ -122,7 +122,6 @@ def fetch_one_restaurant(rid):
         {"$and": [{"_id": ObjectId(rid)}, {"blocked": {"$not": {"$eq": True}}}]},
         {"_id": False, "blocked": False},
     )
-    print(one)
     return jsonify(one)
 
 

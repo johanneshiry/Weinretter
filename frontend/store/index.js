@@ -62,6 +62,9 @@ export default {
           lng: parseFloat(result[0].lon)
         };
       }
+    },
+    fetchOneRestaurant(context, restaurantId) {
+      return fetch(API_ENDPOINT + "/restaurant/" + restaurantId).then(res => res.json())
     }
   },
   mutations: {
