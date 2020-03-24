@@ -36,12 +36,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { VueTyper } from 'vue-typer';
 
 export default Vue.extend({
-  components: {
-    VueTyper
-  },
+  components: {},
 
   head() {
     return {
