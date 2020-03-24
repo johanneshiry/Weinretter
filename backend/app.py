@@ -1,14 +1,13 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-
-from schematics.exceptions import DataError
-
 from bson.objectid import ObjectId
 from db import collection, passcode_collection
 from telegram_bot import TelegramBot
 from validation import validate_captcha
 from schematics.models import Model
 from schematics.types import StringType, FloatType, URLType, ListType, ModelType
+from schematics.exceptions import DataError
+
 from secrets import token_hex
 
 app = Flask(__name__)
@@ -21,6 +20,16 @@ class LocationType(Model):
     lat = FloatType(required=True)
     lng = FloatType(required=True)
 
+    def to_document(self):
+        return (self.lng, self.lat)
+
+    @staticmethod
+    def from_document(doc):
+        loc = LocationType()
+        loc.lng = doc[0]
+        loc.lat = doc[1]
+        return loc
+
 
 class AddressType(Model):
     housenumber = StringType(required=True, max_length=5)
@@ -28,45 +37,72 @@ class AddressType(Model):
     city = StringType(required=True)
     plz = StringType(required=True, min_length=4, max_length=5)
 
+    def to_document(self):
+        return {
+            "housenumber": self.housenumber,
+            "street": self.street,
+            "plz": self.plz,
+            "city": self.city,
+        }
 
-class CreateRestaurantRequest(Model):
+    @staticmethod
+    def from_document(doc):
+        return AddressType(doc)
+
+
+class RestaurantModel(Model):
+    id = StringType()
     name = StringType(required=True)
     link = URLType(required=True)
     tags = ListType(StringType)
     telephone = StringType()
     description = StringType()
-    captcha = StringType(required=True, validators=[validate_captcha])
     location = ModelType(LocationType, required=True)
     address = ModelType(AddressType, required=True)
+
+    def to_document(r):
+        return {
+            "name": r.name,
+            "link": r.link,
+            "location": r.location.to_document(),
+            "address": r.address.to_document(),
+            "telephone": r.telephone,
+            "description": r.description,
+            "tags": r.tags,
+        }
+
+    @staticmethod
+    def from_document(doc):
+        r = RestaurantModel()
+        r.name = doc.get("name")
+        r.link = doc.get("link")
+        r.location = LocationType.from_document(doc.get("location"))
+        r.address = AddressType.from_document(doc.get("address"))
+        r.description = doc.get("description")
+        r.tags = doc.get("tags")
+        return r
+
+
+class CreateRestaurantModel(RestaurantModel):
+    captcha = StringType(required=True, validators=[validate_captcha])
 
 
 @app.route("/api/restaurants", methods=["POST"])
 def create_restaurant():
     try:
-        r = CreateRestaurantRequest(request.get_json())
+        r = CreateRestaurantModel(request.get_json())
         r.validate()
     except DataError as e:
         return jsonify(e.to_primitive()), 400
 
-    restaurant = {
-        "link": r.link,
-        "name": r.name,
-        "location": (r.location.lng, r.location.lat),
-        "address": {
-            "housenumber": r.address.housenumber,
-            "street": r.address.street,
-            "plz": r.address.plz,
-            "city": r.address.city,
-        },
-        "telephone": r.telephone,
-        "description": r.description,
-        "tags": r.tags,
-    }
-
-    result = collection.insert_one(restaurant)
-    rid = result.inserted_id
     passcode = token_hex(12)
-    passcode_collection.insert_one({"restaurant_id": str(rid), "passcode": passcode})
+
+    doc = r.to_document()
+    # store passcode "out-of-band"
+    doc['passcode'] = passcode
+    result = collection.insert_one(doc)
+
+    rid = result.inserted_id
 
     try:
         content_bot.notify(rid=rid, name=r.name, link=r.link)
@@ -101,28 +137,37 @@ def fetch_restaurants():
         }
     )
 
-    restaurants = [
-        {
-            "name": r["name"],
-            "link": r["link"],
-            "location": {"lat": r["location"][1], "lng": r["location"][0]},
-            "address": r["address"],
-            "telephone": r.get("telephone"),
-            "description": r.get("description"),
-            "tags": r.get("tags"),
-        }
-        for r in cursor
-    ]
+    restaurants = [RestaurantModel.from_document(r).to_document() for r in cursor]
     return jsonify(restaurants)
 
 
-@app.route("/api/restaurant/<rid>")
+@app.route("/api/restaurant/<rid>", methods=["GET"])
 def fetch_one_restaurant(rid):
-    one = collection.find_one(
+    r = collection.find_one(
         {"$and": [{"_id": ObjectId(rid)}, {"blocked": {"$not": {"$eq": True}}}]},
         {"_id": False, "blocked": False},
     )
-    return jsonify(one)
+
+    if not r:
+        return '', 404
+    return jsonify(RestaurantModel.from_document(r).to_primitive())
+
+
+@app.route("/api/restaurant/<rid>", methods=["PUT"])
+def update_one_restaurant(rid):
+    try:
+        r = RestaurantModel(request.get_json())
+        r.validate()
+    except DataError as e:
+        return jsonify(e.to_primitive()), 400
+
+    passcode = request.args.get("passcode")
+    result = collection.update_one({"$and": [{"_id": ObjectId(rid)}, {"passcode": passcode}]}, {'$set': r.to_document()})
+
+    if result.matched_count == 0:
+        return '', 404
+    else:
+        return '', 204
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
 <template>
   <div class="offer">
     <div class="container">
-      <restaurant-form :save-restaurant="submit" />
+      <restaurant-form :save-restaurant="submit" submit-text="Registrieren" />
       <b-alert
         v-model="error"
         class="position-fixed fixed-bottom m-0 rounded-0"

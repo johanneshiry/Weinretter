@@ -15,6 +15,15 @@ export default {
       }
     },
 
+    async updateRestaurant(context, {id, passcode ,restaurant}) {
+      const response = await fetch(`${API_ENDPOINT}/restaurant/${id}?passcode=${passcode}`, {
+        method: 'PUT', body: JSON.stringify(restaurant), headers: new Headers({'content-type': 'application/json'})
+      });
+      if(!response.ok) {
+        throw new Error(await response.json())
+      }
+    },
+
     fetchRestaurants(context, { leftLng, rightLng, bottomLat, topLat }) {
       // Divide area in tiles
       if (leftLng > rightLng || bottomLat > topLat) {

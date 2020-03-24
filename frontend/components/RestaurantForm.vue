@@ -133,7 +133,7 @@
       </div>
     </b-form-group>
     <b-button v-if="addressEntered" type="submit" class="submit">
-      <b>Registrieren</b>
+      <b>{{submitText}}</b>
     </b-button>
     <b-button v-else type="submit" class="submit">
       Weiter
@@ -157,8 +157,6 @@ import { OpenStreetMapProvider } from 'leaflet-geosearch';
 import 'leaflet-geosearch/assets/css/leaflet.css';
 
 export default Vue.extend({
-  components: {
-  },
   props: {
     restaurant: {
       type: Object,
@@ -166,6 +164,10 @@ export default Vue.extend({
     },
     saveRestaurant: {
       type: Function,
+      required: true
+    },
+    submitText: {
+      type: String,
       required: true
     }
   },
