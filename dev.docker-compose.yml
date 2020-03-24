@@ -8,8 +8,8 @@ services:
     environment:
       - TELEGRAM_TOKEN # Variable is provided by host
     ports:
-      - "127.0.0.1:5000:5005"
-      - "127.0.0.1:5001:5006"
+      - "127.0.0.1:5005:5000"
+      - "127.0.0.1:5006:5001"
     depends_on:
       - mongo
 
@@ -19,7 +19,7 @@ services:
       context: ./frontend
     restart: unless-stopped
     ports:
-      - "127.0.0.1:3000:3001"
+      - "127.0.0.1:3001:3000"
     
   mongo:
     image: mongo
