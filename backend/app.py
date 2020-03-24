@@ -137,7 +137,7 @@ def fetch_restaurants():
         }
     )
 
-    restaurants = [RestaurantModel.from_document(r).to_document() for r in cursor]
+    restaurants = [RestaurantModel.from_document(r).to_primitive() for r in cursor]
     return jsonify(restaurants)
 
 
