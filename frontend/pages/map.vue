@@ -12,7 +12,7 @@
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
       >
-        <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
+        <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
         <v-geosearch :options="geosearchOptions" />
         <v-marker-cluster>
           <l-marker
@@ -20,6 +20,7 @@
             :key="'' + restaurant.location.lat + restaurant.location.lng"
             :icon="icon"
             :lat-lng="[restaurant.location.lat, restaurant.location.lng]"
+            @click="trackMarkerClick"
           >
             <l-popup>
               <b>{{ restaurant.name }}</b>
@@ -52,7 +53,11 @@
                   {{ restaurant.address.city }} {{ restaurant.address.plz }}
                 </template>
               </p>
-              <a :href="restaurant.link" target="_blank">Angebot ansehen &#8594;</a>
+              <a
+                :href="restaurant.link + '?ref=weinretter.de'"
+                target="_blank"
+                @click="trackRestaurantClick"
+              >Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
         </v-marker-cluster>
@@ -116,6 +121,12 @@ export default Vue.extend({
           topLat: bounds.getNorth()
         });
       }
+    },
+    trackRestaurantClick() {
+      sa_event('clicked_restaurant_link')
+    },
+    trackMarkerClick() {
+      sa_event('clicked_marker')
     }
   },
 

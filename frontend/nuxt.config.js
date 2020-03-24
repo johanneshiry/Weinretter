@@ -17,12 +17,16 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }],
     script: [
       {
-        src: 'https://sa.weinretter.de/app.js',
+        src: 'https://sa.weinretter.de/latest.js',
         body: true
       },
       {
         src: 'https://webcomponent.coverified.info/build/embed.js',
         body: true
+      },
+      {
+        innerHTML:
+          'window.sa_event=window.sa_event||function(){a=[].slice.call(arguments);sa_event.q?sa_event.q.push(a):sa_event.q=[a]};'
       }
     ],
     noscript: [

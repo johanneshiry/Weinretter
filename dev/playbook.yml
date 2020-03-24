@@ -1,0 +1,64 @@
+- hosts: 127.0.0.1
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
+      become: yes
+  tasks:
+    - name: install snakeoil cert
+      apt:
+        name: ssl-cert
+      become: yes
+
+    - name: install nginx
+      apt:
+        name: nginx
+      become: yes
+
+    - name: copy config
+      copy:
+        src: nginx.conf
+        dest: /etc/nginx/sites-available/default
+      notify:
+        - restart nginx
+      become: yes
+
+    - name: install python deps
+      apt:
+        name:
+          - python3-pip
+          - python3-setuptools
+      become: yes
+
+    - name: install ansible in python3
+      pip:
+        name: ansible
+        executable: pip3
+      become: yes
+
+    - command: update-alternatives --install /usr/bin/python python /usr/bin/python3 9
+      become: yes
+      # this currently destroys pip2 functionality
+    
+
+
+    - name: pip packages for docker
+      pip:
+        name:
+          - docker-compose
+          - docker
+        executable: pip3
+      become: yes
+  
+    - name: start services
+      docker_compose:
+        project_src: /vagrant
+        files:
+          - docker-compose.yml
+        recreate: always
+      register: output
+      become: yes
+    - debug:
+        var: output
+
