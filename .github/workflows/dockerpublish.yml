@@ -48,7 +48,7 @@ jobs:
     # needs: test
 
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && contains(github.ref, "release")
 
     steps:
       - uses: actions/checkout@v2
