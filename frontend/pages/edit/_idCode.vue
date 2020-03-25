@@ -1,6 +1,6 @@
 <template>
   <div class="edit container">
-    <restaurant-form v-if="restaurant" :save-restaurant="submit" :restaurant="restaurant" submit-text="Daten ändern"/>
+    <restaurant-form v-if="restaurant" :save-restaurant="submit" :restaurant="restaurant" submit-text="Daten ändern" />
     <b-alert
       v-model="error"
       class="position-fixed fixed-bottom m-0 rounded-0"

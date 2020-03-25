@@ -114,7 +114,7 @@
 
     <b-form-group id="input-group-tags" label="Tags:">
       <div>
-        <b-badge v-for="tag in availableTags" :key="tag" variant="info" class="tag" @click="addTag(tag)">
+        <b-badge v-for="tag in availableTags" :key="tag" variant="info" class="tag" href="#" @click="addTag(tag)">
           {{ tag }} +
         </b-badge>
       </div>
@@ -133,7 +133,7 @@
       </div>
     </b-form-group>
     <b-button v-if="addressEntered" type="submit" class="submit">
-      <b>{{submitText}}</b>
+      <b>{{ submitText }}</b>
     </b-button>
     <b-button v-else type="submit" class="submit">
       Weiter
@@ -283,6 +283,8 @@ export default Vue.extend({
   padding: 6px;
   background-color: transparent;
   color: var(--highlight-red);
+  margin-right: 5px;
+  margin-bottom: 5px;
 }
 
 #input-group-address-inner {
@@ -324,10 +326,4 @@ export default Vue.extend({
     background-color: var(--highlight-red);
     color: var(--light-grey);
   }
-
-  .tag {
-    margin-right: 5px;
-    margin-bottom: 5px;
-  }
-
 </style>
