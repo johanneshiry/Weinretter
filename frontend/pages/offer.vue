@@ -57,7 +57,7 @@ export default Vue.extend({
           ...restaurant,
           captcha
         });
-          this.$root.$bvToast.toast('Dein Restaurant wurde gespeichert', {
+        this.$root.$bvToast.toast('Dein Restaurant wurde gespeichert', {
           title: 'Vielen Dank',
           autoHideDelay: 5000,
           variant: 'success'
@@ -66,7 +66,7 @@ export default Vue.extend({
       } catch (e) {
         this.error = true;
       }
-    },
+    }
   },
   head() {
     return {
@@ -77,10 +77,9 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-  .container {
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-  }
+.container {
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+}
 </style>
-

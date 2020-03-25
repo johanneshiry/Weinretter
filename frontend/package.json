@@ -11,7 +11,8 @@
     "generate": "nuxt generate",
     "test": "jest",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
+    "format": "prettier --write '{assests,components,layouts,pages,plugins,static,static,store}/**/*.{json,css,ts,tsx,js,vue}'"
   },
   "husky": {
     "hooks": {

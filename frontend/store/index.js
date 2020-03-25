@@ -7,20 +7,27 @@ export default {
   }),
   actions: {
     async createRestaurant(context, restaurant) {
-      const response = await fetch(API_ENDPOINT + "/restaurants", {
-        method: 'POST', body: JSON.stringify(restaurant), headers: new Headers({'content-type': 'application/json'})
+      const response = await fetch(API_ENDPOINT + '/restaurants', {
+        method: 'POST',
+        body: JSON.stringify(restaurant),
+        headers: new Headers({ 'content-type': 'application/json' })
       });
-      if(!response.ok) {
-        throw new Error(await response.json())
+      if (!response.ok) {
+        throw new Error(await response.json());
       }
     },
 
-    async updateRestaurant(context, {id, passcode ,restaurant}) {
-      const response = await fetch(`${API_ENDPOINT}/restaurant/${id}?passcode=${passcode}`, {
-        method: 'PUT', body: JSON.stringify(restaurant), headers: new Headers({'content-type': 'application/json'})
-      });
-      if(!response.ok) {
-        throw new Error(await response.json())
+    async updateRestaurant(context, { id, passcode, restaurant }) {
+      const response = await fetch(
+        `${API_ENDPOINT}/restaurant/${id}?passcode=${passcode}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(restaurant),
+          headers: new Headers({ 'content-type': 'application/json' })
+        }
+      );
+      if (!response.ok) {
+        throw new Error(await response.json());
       }
     },
 
@@ -73,7 +80,9 @@ export default {
       }
     },
     fetchOneRestaurant(context, restaurantId) {
-      return fetch(API_ENDPOINT + "/restaurant/" + restaurantId).then(res => res.json())
+      return fetch(API_ENDPOINT + '/restaurant/' + restaurantId).then(res =>
+        res.json()
+      );
     }
   },
   mutations: {

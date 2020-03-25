@@ -100,13 +100,10 @@
       label="Standort auf der Karte auswählen:"
       label-for="mapid"
     >
-      <l-map
-        id="mapid"
-        ref="map"
-        :zoom="7"
-        :center="[51.163375, 10.447683]"
-      >
-        <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
+      <l-map id="mapid" ref="map" :zoom="7" :center="[51.163375, 10.447683]">
+        <l-tile-layer
+          url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
+        />
         <v-geosearch :options="geosearchOptions" />
         <l-marker v-if="location" :lat-lng="location" />
       </l-map>
@@ -114,11 +111,17 @@
 
     <b-form-group id="input-group-tags" label="Tags:">
       <div>
-        <b-badge v-for="tag in availableTags" :key="tag" variant="info" class="tag" href="#" @click="addTag(tag)">
+        <b-badge
+          v-for="tag in availableTags"
+          :key="tag"
+          variant="info"
+          class="tag"
+          @click="addTag(tag)"
+        >
           {{ tag }} +
         </b-badge>
       </div>
-      <br>
+      <br />
       <div>
         <b-form-tag
           v-for="tag in selectedTags"
@@ -201,24 +204,24 @@ export default Vue.extend({
       selectedTags: this.restaurant.selectedTags || [],
       location: this.restaurant.location || null,
       addressEntered: false,
-      mapMarkerMissing: false,
+      mapMarkerMissing: false
     };
   },
   methods: {
     async submit() {
-      if(!this.addressEntered) {
+      if (!this.addressEntered) {
         this.addressEntered = true;
         Vue.nextTick(() =>
-          this.$refs['map'].mapObject.on(
-            'click',
-            e => {
-              this.location = e.latlng;
-              this.mapMarkerMissing = false;
-            }
-          )
+          this.$refs['map'].mapObject.on('click', e => {
+            this.location = e.latlng;
+            this.mapMarkerMissing = false;
+          })
         );
         if (!this.location) {
-          let result = await this.$store.dispatch('addressLookup', this.address);
+          let result = await this.$store.dispatch(
+            'addressLookup',
+            this.address
+          );
           if (result) {
             this.location = result;
             Vue.nextTick(() =>
@@ -226,7 +229,7 @@ export default Vue.extend({
             );
           }
         }
-        return
+        return;
       }
       if (this.addressEntered && !this.location) {
         this.mapMarkerMissing = true;
@@ -239,8 +242,8 @@ export default Vue.extend({
         location: this.location,
         telephone: this.telephone,
         address: this.address,
-        tags: this.selectedTags,
-      })
+        tags: this.selectedTags
+      });
     },
     addTag(tag) {
       this.availableTags = this.availableTags.filter(t => t !== tag);
@@ -250,7 +253,7 @@ export default Vue.extend({
       this.selectedTags = this.selectedTags.filter(t => t !== tag);
       this.availableTags.push(tag);
     }
-  },
+  }
 });
 </script>
 
@@ -270,12 +273,10 @@ export default Vue.extend({
   color: var(--highlight-red);
   background-color: transparent;
 }
-
-  .submit:hover {
-    background-color: var(--highlight-red);
-    color: var(--light-grey);
-  }
-
+.submit:hover {
+  background-color: var(--highlight-red);
+  color: var(--light-grey);
+}
 .tag {
   font-size: 15px;
   border: 2px solid var(--highlight-red);
@@ -283,8 +284,7 @@ export default Vue.extend({
   padding: 6px;
   background-color: transparent;
   color: var(--highlight-red);
-  margin-right: 5px;
-  margin-bottom: 5px;
+  margin: 5px;
 }
 
 #input-group-address-inner {
@@ -322,8 +322,8 @@ export default Vue.extend({
   grid-column-end: 4;
 }
 
-  .selected {
-    background-color: var(--highlight-red);
-    color: var(--light-grey);
-  }
+.selected {
+  background-color: var(--highlight-red);
+  color: var(--light-grey);
+}
 </style>
