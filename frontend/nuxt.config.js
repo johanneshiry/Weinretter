@@ -19,6 +19,10 @@ export default {
       {
         src: 'https://sa.weinretter.de/latest.js',
         body: true
+      },
+      {
+        src: 'https://webcomponent.coverified.info/build/embed.js',
+        body: true
       }
     ],
     noscript: [
