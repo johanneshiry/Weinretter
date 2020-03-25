@@ -15,8 +15,13 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lintfix"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "./**/*.{js,vue}": [
+      "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+    ]
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
@@ -47,6 +52,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "husky": "^4.2.3",
     "jest": "^24.1.0",
+    "lint-staged": "^10.0.9",
     "prettier": "^1.19.1",
     "ts-jest": "^25.0.0",
     "vue-jest": "^4.0.0-0"
