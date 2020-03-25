@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from bson.objectid import ObjectId
-from db import collection, passcode_collection
+from db import collection
 from telegram_bot import TelegramBot
 from validation import validate_captcha
 from schematics.models import Model
@@ -99,7 +99,7 @@ def create_restaurant():
 
     doc = r.to_document()
     # store passcode "out-of-band"
-    doc['passcode'] = passcode
+    doc["passcode"] = passcode
     result = collection.insert_one(doc)
 
     rid = result.inserted_id
@@ -149,7 +149,7 @@ def fetch_one_restaurant(rid):
     )
 
     if not r:
-        return '', 404
+        return "", 404
     return jsonify(RestaurantModel.from_document(r).to_primitive())
 
 
@@ -162,12 +162,15 @@ def update_one_restaurant(rid):
         return jsonify(e.to_primitive()), 400
 
     passcode = request.args.get("passcode")
-    result = collection.update_one({"$and": [{"_id": ObjectId(rid)}, {"passcode": passcode}]}, {'$set': r.to_document()})
+    result = collection.update_one(
+        {"$and": [{"_id": ObjectId(rid)}, {"passcode": passcode}]},
+        {"$set": r.to_document()},
+    )
 
     if result.matched_count == 0:
-        return '', 404
+        return "", 404
     else:
-        return '', 204
+        return "", 204
 
 
 if __name__ == "__main__":

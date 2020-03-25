@@ -49,20 +49,20 @@ export default Vue.extend({
     async submit(restaurant) {
       try {
         let grecaptcha = await window.recaptcha;
-      let captcha = await grecaptcha.execute(
-        '6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_',
-        { action: 'homepage' }
-      );
-      await this.$store.dispatch('createRestaurant', {
-        ...restaurant,
-        captcha
-      });
-        this.$root.$bvToast.toast('Dein Restaurant wurde gespeichert', {
-        title: 'Vielen Dank',
-        autoHideDelay: 5000,
-        variant: 'success'
-      });
-      this.$router.push('/');
+        let captcha = await grecaptcha.execute(
+          '6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_',
+          { action: 'homepage' }
+        );
+        await this.$store.dispatch('createRestaurant', {
+          ...restaurant,
+          captcha
+        });
+          this.$root.$bvToast.toast('Dein Restaurant wurde gespeichert', {
+          title: 'Vielen Dank',
+          autoHideDelay: 5000,
+          variant: 'success'
+        });
+        this.$router.push('/');
       } catch (e) {
         this.error = true;
       }
@@ -77,10 +77,10 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.container {
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-}
+  .container {
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
 
