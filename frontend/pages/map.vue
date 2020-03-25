@@ -12,7 +12,9 @@
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
       >
-        <l-tile-layer url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png" />
+        <l-tile-layer
+          url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
+        />
         <v-geosearch :options="geosearchOptions" />
         <v-marker-cluster>
           <l-marker
@@ -24,7 +26,7 @@
           >
             <l-popup>
               <b>{{ restaurant.name }}</b>
-              <br>
+              <br />
               <p v-if="restaurant.description">
                 {{ restaurant.description }}
               </p>
@@ -43,13 +45,13 @@
               </p>
               <p v-if="restaurant.address">
                 <i>Adresse: </i>
-                <br>
+                <br />
                 <template v-if="typeof restaurant.address === 'string'">
                   {{ restaurant.address }}
                 </template>
                 <template v-else>
                   {{ restaurant.address.street }}
-                  {{ restaurant.address.housenumber }} <br>
+                  {{ restaurant.address.housenumber }} <br />
                   {{ restaurant.address.city }} {{ restaurant.address.plz }}
                 </template>
               </p>
@@ -57,7 +59,8 @@
                 :href="restaurant.link + '?ref=weinretter.de'"
                 target="_blank"
                 @click="trackRestaurantClick"
-              >Angebot ansehen &#8594;</a>
+                >Angebot ansehen &#8594;</a
+              >
             </l-popup>
           </l-marker>
         </v-marker-cluster>
@@ -74,8 +77,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 export default Vue.extend({
-  components: {
-  },
+  components: {},
   data() {
     return {
       geosearchOptions: {
@@ -85,11 +87,13 @@ export default Vue.extend({
         style: 'bar'
       },
       zoom: 7,
-      icon: this.$L && this.$L.icon({
-        iconUrl: require('../assets/marker.png'),
-        iconSize: [50, 78],
-        iconAnchor: [25, 52]
-      })
+      icon:
+        this.$L &&
+        this.$L.icon({
+          iconUrl: require('../assets/marker.png'),
+          iconSize: [50, 78],
+          iconAnchor: [25, 52]
+        })
     };
   },
 
@@ -123,10 +127,10 @@ export default Vue.extend({
       }
     },
     trackRestaurantClick() {
-      this.$sa_event('clicked_restaurant_link')
+      this.$sa_event('clicked_restaurant_link');
     },
     trackMarkerClick() {
-      this.$sa_event('clicked_marker')
+      this.$sa_event('clicked_marker');
     }
   },
 

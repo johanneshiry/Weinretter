@@ -6,7 +6,7 @@
           <p class="title">
             Rette dein
             <span class="highlight">Lieblingsrestaurant</span>
-            <wbr>durch das Kaufen von
+            <wbr />durch das Kaufen von
             <vue-typer
               :text="[
                 'Wein',

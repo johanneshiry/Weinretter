@@ -6,12 +6,29 @@ export default {
     fetchedAreas: new Set()
   }),
   actions: {
-    createRestaurant(context, restaurant) {
-      return fetch(API_ENDPOINT + '/restaurant', {
+    async createRestaurant(context, restaurant) {
+      const response = await fetch(API_ENDPOINT + '/restaurants', {
         method: 'POST',
         body: JSON.stringify(restaurant),
         headers: new Headers({ 'content-type': 'application/json' })
       });
+      if (!response.ok) {
+        throw new Error(await response.json());
+      }
+    },
+
+    async updateRestaurant(context, { id, passcode, restaurant }) {
+      const response = await fetch(
+        `${API_ENDPOINT}/restaurant/${id}?passcode=${passcode}`,
+        {
+          method: 'PUT',
+          body: JSON.stringify(restaurant),
+          headers: new Headers({ 'content-type': 'application/json' })
+        }
+      );
+      if (!response.ok) {
+        throw new Error(await response.json());
+      }
     },
 
     fetchRestaurants(context, { leftLng, rightLng, bottomLat, topLat }) {
@@ -34,7 +51,7 @@ export default {
 
           fetch(
             API_ENDPOINT +
-              `/restaurant?left_lng=${lng}&right_lng=${lng +
+              `/restaurants?left_lng=${lng}&right_lng=${lng +
                 10}&bottom_lat=${lat}&top_lat=${lat + 10}`
           )
             .then(response => response.json())
@@ -61,6 +78,11 @@ export default {
           lng: parseFloat(result[0].lon)
         };
       }
+    },
+    fetchOneRestaurant(context, restaurantId) {
+      return fetch(API_ENDPOINT + '/restaurant/' + restaurantId).then(res =>
+        res.json()
+      );
     }
   },
   mutations: {

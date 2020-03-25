@@ -199,13 +199,13 @@
       </p>
 
       <p>
-        Decker Internet UG (haftungsbeschränkt)<br>
-        Habersaathstr. 17A<br>10115 Berlin
+        Decker Internet UG (haftungsbeschränkt)<br />
+        Habersaathstr. 17A<br />10115 Berlin
       </p>
       <p>
-        Telefon: +49 151 41 91 29 66<br>
+        Telefon: +49 151 41 91 29 66<br />
         E-Mail:
-        <a href="mailto:weinretterde@gmail.com">weinretterde@gmail.com</a><br>
+        <a href="mailto:weinretterde@gmail.com">weinretterde@gmail.com</a><br />
       </p>
 
       <h4>3. Cookies</h4>
@@ -834,9 +834,12 @@
         Datenschutz GmbH, die als
         <a
           href="https://dg-datenschutz.de/datenschutz-dienstleistungen/externer-datenschutzbeauftragter/"
-        >Externer Datenschutzbeauftragter Dortmund</a>
+          >Externer Datenschutzbeauftragter Dortmund</a
+        >
         tätig ist, in Kooperation mit dem
-        <a href="https://www.wbs-law.de/it-recht/datenschutzrecht/">Kölner Datenschutz Anwalt Christian Solmecke</a>
+        <a href="https://www.wbs-law.de/it-recht/datenschutzrecht/"
+          >Kölner Datenschutz Anwalt Christian Solmecke</a
+        >
         erstellt.
       </p>
     </div>

@@ -49,7 +49,7 @@
         class="wvvlogo"
         src="../assets/Logo_WirVsVirus.png"
         alt="#WirVsVirus Logo"
-      >
+      />
     </div>
   </div>
 </template>

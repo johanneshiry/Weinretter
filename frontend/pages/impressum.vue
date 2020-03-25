@@ -3,18 +3,18 @@
     <div class="container">
       <h2>Impressum</h2>
       <p>
-        Decker Internet UG (haftungsbeschränkt)<br>
-        Habersaathstr. 17A<br>10115 Berlin
+        Decker Internet UG (haftungsbeschränkt)<br />
+        Habersaathstr. 17A<br />10115 Berlin
       </p>
       <p>
-        Telefon: +49 151 41 91 29 66<br>
+        Telefon: +49 151 41 91 29 66<br />
         E-Mail:
-        <a href="mailto:weinretterde@gmail.com">weinretterde@gmail.com</a><br>
+        <a href="mailto:weinretterde@gmail.com">weinretterde@gmail.com</a><br />
       </p>
       <p>
-        <strong>Vertreten durch:</strong><br>Geschäftsführer Michael Decker
+        <strong>Vertreten durch:</strong><br />Geschäftsführer Michael Decker
       </p>
-      <br>
+      <br />
       <h2>Hinweis gem&auml;&szlig; Online-Streitbeilegungs-Verordnung</h2>
       <p>
         Nach geltendem Recht sind wir verpflichtet, Verbraucher auf die Existenz
@@ -23,7 +23,9 @@
         ein Gericht eingeschaltet werden muss. F&uuml;r die Einrichtung der
         Plattform ist die Europ&auml;ische Kommission zust&auml;ndig. Die
         Europ&auml;ische Online-Streitbeilegungs-Plattform ist hier zu finden:
-        <a href="http://ec.europa.eu/odr" target="_blank" rel="nofollow">http://ec.europa.eu/odr</a>. Unsere E-Mail lautet:
+        <a href="http://ec.europa.eu/odr" target="_blank" rel="nofollow"
+          >http://ec.europa.eu/odr</a
+        >. Unsere E-Mail lautet:
         <a href="mailto:weinretterde@gmail.com">weinretterde@gmail.com</a>
       </p>
       <p>
@@ -32,9 +34,9 @@
         Online-Streitbeilegungs-Plattform zu beteiligen. Nutzen Sie zur
         Kontaktaufnahme bitte unsere obige E-Mail und Telefonnummer.
       </p>
-      <br><br>
+      <br /><br />
       <h2>Disclaimer – rechtliche Hinweise</h2>
-      § 1 Warnhinweis zu Inhalten<br>
+      § 1 Warnhinweis zu Inhalten<br />
       Die kostenlosen und frei zugänglichen Inhalte dieser Webseite wurden mit
       größtmöglicher Sorgfalt erstellt. Der Anbieter dieser Webseite übernimmt
       jedoch keine Gewähr für die Richtigkeit und Aktualität der
@@ -44,9 +46,9 @@
       wieder. Allein durch den Aufruf der kostenlosen und frei zugänglichen
       Inhalte kommt keinerlei Vertragsverhältnis zwischen dem Nutzer und dem
       Anbieter zustande, insoweit fehlt es am Rechtsbindungswillen des
-      Anbieters.<br>
-      <br>
-      § 2 Externe Links<br>
+      Anbieters.<br />
+      <br />
+      § 2 Externe Links<br />
       Diese Website enthält Verknüpfungen zu Websites Dritter ("externe Links").
       Diese Websites unterliegen der Haftung der jeweiligen Betreiber. Der
       Anbieter hat bei der erstmaligen Verknüpfung der externen Links die
@@ -58,9 +60,9 @@
       Inhalte zu Eigen macht. Eine ständige Kontrolle der externen Links ist für
       den Anbieter ohne konkrete Hinweise auf Rechtsverstöße nicht zumutbar. Bei
       Kenntnis von Rechtsverstößen werden jedoch derartige externe Links
-      unverzüglich gelöscht.<br>
-      <br>
-      § 3 Urheber- und Leistungsschutzrechte<br>
+      unverzüglich gelöscht.<br />
+      <br />
+      § 3 Urheber- und Leistungsschutzrechte<br />
       Die auf dieser Website veröffentlichten Inhalte unterliegen dem deutschen
       Urheber- und Leistungsschutzrecht. Jede vom deutschen Urheber- und
       Leistungsschutzrecht nicht zugelassene Verwertung bedarf der vorherigen
@@ -72,22 +74,24 @@
       Vervielfältigung oder Weitergabe einzelner Inhalte oder kompletter Seiten
       ist nicht gestattet und strafbar. Lediglich die Herstellung von Kopien und
       Downloads für den persönlichen, privaten und nicht kommerziellen Gebrauch
-      ist erlaubt.<br>
-      <br>
+      ist erlaubt.<br />
+      <br />
       Die Darstellung dieser Website in fremden Frames ist nur mit schriftlicher
-      Erlaubnis zulässig.<br>
-      <br>
-      § 4 Besondere Nutzungsbedingungen<br>
+      Erlaubnis zulässig.<br />
+      <br />
+      § 4 Besondere Nutzungsbedingungen<br />
       Soweit besondere Bedingungen für einzelne Nutzungen dieser Website von den
       vorgenannten Paragraphen abweichen, wird an entsprechender Stelle
       ausdrücklich darauf hingewiesen. In diesem Falle gelten im jeweiligen
       Einzelfall die besonderen Nutzungsbedingungen.
 
-      <br>
-      <br>
+      <br />
+      <br />
       <p>
         Quelle:
-        <a href="https://www.juraforum.de/impressum-generator/">Impressum Muster von JuraForum.de</a>
+        <a href="https://www.juraforum.de/impressum-generator/"
+          >Impressum Muster von JuraForum.de</a
+        >
       </p>
     </div>
   </div>
