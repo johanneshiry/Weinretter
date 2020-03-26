@@ -101,9 +101,7 @@
       label-for="mapid"
     >
       <l-map id="mapid" ref="map" :zoom="7" :center="[51.163375, 10.447683]">
-        <l-tile-layer
-          url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
-        />
+        <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
         <v-geosearch :options="geosearchOptions" />
         <l-marker v-if="location" :lat-lng="location" />
       </l-map>
@@ -121,7 +119,7 @@
           {{ tag }} +
         </b-badge>
       </div>
-      <br />
+      <br>
       <div>
         <b-form-tag
           v-for="tag in selectedTags"

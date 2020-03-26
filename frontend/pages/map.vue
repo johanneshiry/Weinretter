@@ -12,9 +12,7 @@
         :zoom.sync="zoom"
         @update:bounds="fetchRestaurants"
       >
-        <l-tile-layer
-          url="https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
-        />
+        <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
         <v-geosearch :options="geosearchOptions" />
         <v-marker-cluster>
           <l-marker
@@ -26,7 +24,7 @@
           >
             <l-popup>
               <b>{{ restaurant.name }}</b>
-              <br />
+              <br>
               <p v-if="restaurant.description">
                 {{ restaurant.description }}
               </p>
@@ -45,13 +43,13 @@
               </p>
               <p v-if="restaurant.address">
                 <i>Adresse: </i>
-                <br />
+                <br>
                 <template v-if="typeof restaurant.address === 'string'">
                   {{ restaurant.address }}
                 </template>
                 <template v-else>
                   {{ restaurant.address.street }}
-                  {{ restaurant.address.housenumber }} <br />
+                  {{ restaurant.address.housenumber }} <br>
                   {{ restaurant.address.city }} {{ restaurant.address.plz }}
                 </template>
               </p>
@@ -59,8 +57,7 @@
                 :href="restaurant.link + '?ref=weinretter.de'"
                 target="_blank"
                 @click="trackRestaurantClick"
-                >Angebot ansehen &#8594;</a
-              >
+              >Angebot ansehen &#8594;</a>
             </l-popup>
           </l-marker>
         </v-marker-cluster>
