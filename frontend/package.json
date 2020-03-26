@@ -21,7 +21,7 @@
   },
   "lint-staged": {
     "./**/*.{js,vue}": [
-      "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
+      "eslint --fix --ext .js,.vue --ignore-path .gitignore"
     ]
   },
   "dependencies": {
