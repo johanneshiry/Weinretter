@@ -11,7 +11,7 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: 'Rette dein Lieblingsrestaurant durch das Kaufen von Wein und anderen Lebensmitteln'
       }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }],
