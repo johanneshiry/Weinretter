@@ -2,16 +2,13 @@
   <div class="map">
     <div class="container">
       <div v-if="zoomInRequired" class="zoom-notice">
-        Um dein <span class="highlight"><b>Lieblingsrestaurant</b></span> zu
+        Um dein
+        <span class="highlight">
+          <b>Lieblingsrestaurant</b>
+        </span> zu
         finden, zoome in die Karte
       </div>
-      <l-map
-        id="mapid"
-        ref="map"
-        :min-zoom="5"
-        :zoom.sync="zoom"
-        @update:bounds="fetchRestaurants"
-      >
+      <l-map id="mapid" ref="map" :min-zoom="5" :zoom.sync="zoom" @update:bounds="fetchRestaurants">
         <l-tile-layer url="https://{s}.tile.osm.org/{z}/{x}/{y}.png" />
         <v-geosearch :options="geosearchOptions" />
         <v-marker-cluster>
@@ -24,12 +21,10 @@
           >
             <l-popup>
               <b>{{ restaurant.name }}</b>
-              <br>
-              <p v-if="restaurant.description">
-                {{ restaurant.description }}
-              </p>
+              <br />
+              <p v-if="restaurant.description">{{ restaurant.description }}</p>
               <p v-if="restaurant.tags && restaurant.tags.length > 0">
-                <i>Angebot: </i>
+                <i>Angebot:</i>
                 <b-form-tag
                   v-for="tag in restaurant.tags"
                   :key="tag"
@@ -37,19 +32,16 @@
                   variant="dark"
                   disabled
                   class="mr-1 tag"
-                >
-                  {{ tag }}
-                </b-form-tag>
+                >{{ tag }}</b-form-tag>
               </p>
               <p v-if="restaurant.address">
-                <i>Adresse: </i>
-                <br>
-                <template v-if="typeof restaurant.address === 'string'">
-                  {{ restaurant.address }}
-                </template>
+                <i>Adresse:</i>
+                <br />
+                <template v-if="typeof restaurant.address === 'string'">{{ restaurant.address }}</template>
                 <template v-else>
                   {{ restaurant.address.street }}
-                  {{ restaurant.address.housenumber }} <br>
+                  {{ restaurant.address.housenumber }}
+                  <br />
                   {{ restaurant.address.city }} {{ restaurant.address.plz }}
                 </template>
               </p>
@@ -124,10 +116,10 @@ export default Vue.extend({
       }
     },
     trackRestaurantClick() {
-      this.$sa_event('clicked_restaurant_link');
+      sa_event('clicked_restaurant_link');
     },
     trackMarkerClick() {
-      this.$sa_event('clicked_marker');
+      sa_event('clicked_marker');
     }
   },
 
