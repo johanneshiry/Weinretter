@@ -238,7 +238,8 @@
         location: this.location,
         telephone: this.telephone,
         address: this.address,
-        tags: this.selectedTags
+        tags: this.selectedTags,
+        description: this.description
       });
     },
     addTag(tag) {
