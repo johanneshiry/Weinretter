@@ -4,7 +4,7 @@
       v-if="restaurant"
       :save-restaurant="submit"
       :restaurant="restaurant"
-      submit-text="Daten ändern"
+      submit-text="Diese Daten speichern"
     />
     <b-alert
       v-model="error"
@@ -57,7 +57,6 @@ export default Vue.extend({
           autoHideDelay: 5000,
           variant: 'success'
         });
-        this.$router.push('/');
       } catch (e) {
         this.error = true;
       }
