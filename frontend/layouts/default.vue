@@ -7,11 +7,11 @@
 </template>
 
 <script>
-import Footer from '../components/Footer';
-import Navigation from '../components/Navigation.vue';
-import Vue from 'vue';
+  import Footer from '../components/Footer';
+  import Navigation from '../components/Navigation.vue';
+  import Vue from 'vue';
 
-export default Vue.extend({
+  export default Vue.extend({
   components: {
     Footer,
     Navigation
@@ -37,7 +37,7 @@ html {
 :root {
   --highlight-red: #b12525;
   --light-grey: #d2d2d2;
-  --dark-grey: #5e5757;
+  --dark-grey: #3e3737;
 }
 
 coverified-widget {
