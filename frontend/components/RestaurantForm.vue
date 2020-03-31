@@ -31,7 +31,7 @@
 
     <b-form-group
       id="input-group-tel"
-      label="(Optional) Telefonnummer"
+      label="(Optional) Telefonnummer:"
       label-for="input-tel"
     >
       <b-form-input

@@ -1,5 +1,11 @@
 <template>
   <div class="edit container">
+    <h2>Deine bei WeinRetter eingetragenen Daten</h2>
+    <p>
+      Speichere dir die Addresse dieser Seite, um auch zukünftig die Daten anzupassen: <a
+        :href="this.$route.fullPath"
+      >{{ currentLocation }}</a>
+    </p>
     <restaurant-form
       v-if="restaurant"
       :save-restaurant="submit"
@@ -27,7 +33,7 @@ import RestaurantForm from '../../components/RestaurantForm';
 
 export default Vue.extend({
   components: {
-    RestaurantForm
+    RestaurantForm,
   },
   data() {
     return {
@@ -36,6 +42,11 @@ export default Vue.extend({
       id: null,
       passcode: null
     };
+  },
+  computed: {
+    currentLocation() {
+      return window && window.location.href
+    }
   },
   async mounted() {
     const [id] = this.$route.params.idCode.split(':');
