@@ -42,7 +42,7 @@ on the corner in these difficult times and this is our chance to do so.
 - Flask
 - VueJs/Nuxt
 - HTML/CSS
-- TypeScript 
+- JavaScript/TypeScript 
 - Python
 - Telegram Messenger API
 - MongoDB
