@@ -76,6 +76,7 @@
           class="input"
           required
           placeholder="5B"
+          maxlength="5"
         />
         <b-form-input
           id="input-plz"
@@ -84,6 +85,8 @@
           type="tel"
           required
           placeholder="10115"
+          maxlength="5"
+          minlength="4"
         />
         <b-form-input
           id="input-city"
