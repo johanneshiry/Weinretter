@@ -80,6 +80,7 @@ class RestaurantModel(Model):
         r.address = AddressType.from_document(doc.get("address"))
         r.description = doc.get("description")
         r.tags = doc.get("tags")
+        r.telephone = doc.get("telephone")
         return r
 
 

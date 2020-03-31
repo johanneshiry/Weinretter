@@ -6,6 +6,9 @@
       :restaurant="restaurant"
       submit-text="Daten ändern"
     />
+    <p v-else>
+      Lade Daten...
+    </p>
     <b-alert
       v-model="error"
       class="position-fixed fixed-bottom m-0 rounded-0"

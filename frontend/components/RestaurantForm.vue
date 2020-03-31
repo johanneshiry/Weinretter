@@ -196,8 +196,8 @@
         'Speisen',
         'Tee/Kaffee',
         'weitere Lebensmittel'
-      ].filter(tag => (this.restaurant.selectedTags || []).indexOf(tag) === -1),
-      selectedTags: this.restaurant.selectedTags || [],
+      ].filter(tag => (this.restaurant.tags || []).indexOf(tag) === -1),
+      selectedTags: this.restaurant.tags || [],
       location: this.restaurant.location || null,
       addressEntered: false,
       mapMarkerMissing: false
