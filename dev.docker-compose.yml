@@ -1,9 +1,7 @@
 version: "3"
 services:
-  backend:
-    container_name: wrbackend_dev
-    build: 
-      context: ./backend
+  wrbackend:
+    image: docker.pkg.github.com/johanneshiry/weinretter/wr_backend:dev
     restart: unless-stopped
     environment:
       - TELEGRAM_TOKEN # Variable is provided by host
@@ -11,22 +9,19 @@ services:
       - "127.0.0.1:5005:5000"
       - "127.0.0.1:5006:5001"
     depends_on:
-      - mongo
+      - mongocontainer
 
-  frontend: 
-    container_name: wrfrontend_dev
-    build: 
-      context: ./frontend
+  wrfrontend:
+    image: docker.pkg.github.com/johanneshiry/weinretter/wr_frontend:dev
     restart: unless-stopped
     ports:
       - "127.0.0.1:3001:3000"
-    
-  mongo:
+
+  mongocontainer:
     image: mongo
-    container_name: mongocontainer
     restart: unless-stopped
     ports:
-      - "127.0.0.1:27017:27017"
+      - "127.0.0.1:27018:27017"
     volumes:
-      - /data/db:/data/db
+      - /data/tempdatabase:/data/db
 
