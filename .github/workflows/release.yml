@@ -86,6 +86,6 @@ jobs:
                mkdir -p ~/.ssh
                eval $(ssh-agent -s)
                bash -c 'ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}")'
-               ssh deploy@ec2-54-86-155-155.compute-1.amazonaws.com -o StrictHostKeyChecking=no "cd Weinretter && git fetch && git fetch --tags && git checkout -f ${{ github.ref }} && git pull && docker-compose up -d --force-recreate --build"
+               ssh deploy@ec2-54-86-155-155.compute-1.amazonaws.com -o StrictHostKeyChecking=no "cd Weinretter && git fetch && git fetch --tags && git checkout master && git pull && git checkout `git describe --tags` && docker-compose up -d --force-recreate --build"
 
   
