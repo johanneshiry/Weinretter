@@ -99,6 +99,3 @@ jobs:
                     docker-compose --project-name $compose_project --file $compose_file up -d --force-recreate --build && \
                     docker image prune -f \
                 "
-                # TODO: docker image prune -f
-
-
