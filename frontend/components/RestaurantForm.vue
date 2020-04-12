@@ -57,7 +57,7 @@
     </b-form-group>
 
     <b-form-group
-      v-if="!addressEntered"
+      v-if="addressEmpty"
       id="input-group-address"
       label="Addresse:"
       label-for="input-2"
@@ -137,7 +137,7 @@
       </div>
     </b-form-group>
     <b-button type="submit" class="submit wr-button main">
-      <span v-if="!addressEntered">Weiter</span>
+      <span v-if="addressEmpty">Weiter</span>
       <b v-else>{{ submitText }}</b>
     </b-button>
 
@@ -202,14 +202,14 @@
       ].filter(tag => (this.restaurant.tags || []).indexOf(tag) === -1),
       selectedTags: this.restaurant.tags || [],
       location: this.restaurant.location || null,
-      addressEntered: false,
+      addressEmpty: true,
       mapMarkerMissing: false
     };
   },
   methods: {
     async submit() {
-      if (!this.addressEntered) {
-        this.addressEntered = true;
+      if (this.addressEmpty) {
+        this.addressEmpty = false;
         Vue.nextTick(() =>
           this.$refs['map'].mapObject.on('click', e => {
             this.location = e.latlng;
@@ -230,7 +230,7 @@
         }
         return;
       }
-      if (this.addressEntered && !this.location) {
+      if (!this.addressEmpty && !this.location) {
         this.mapMarkerMissing = true;
         return;
       }
