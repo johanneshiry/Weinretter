@@ -31,7 +31,7 @@
 
     <b-form-group
       id="input-group-tel"
-      label="(Optional) Telefonnummer"
+      label="(Optional) Telefonnummer:"
       label-for="input-tel"
     >
       <b-form-input
@@ -76,6 +76,7 @@
           class="input"
           required
           placeholder="5B"
+          maxlength="5"
         />
         <b-form-input
           id="input-plz"
@@ -84,6 +85,8 @@
           type="tel"
           required
           placeholder="10115"
+          maxlength="5"
+          minlength="4"
         />
         <b-form-input
           id="input-city"
@@ -112,8 +115,8 @@
         <b-badge
           v-for="tag in availableTags"
           :key="tag"
-          variant="info"
-          class="tag"
+          href="#"
+          class="wr-button tag secondary"
           @click="addTag(tag)"
         >
           {{ tag }} +
@@ -126,18 +129,16 @@
           :key="tag"
           :title="tag"
           variant="dark"
-          class="mr-1 tag selected"
+          class="mr-1 tag wr-button main"
           @remove="removeTag(tag)"
         >
           <b>{{ tag }}</b>
         </b-form-tag>
       </div>
     </b-form-group>
-    <b-button v-if="addressEntered" type="submit" class="submit">
-      <b>{{ submitText }}</b>
-    </b-button>
-    <b-button v-else type="submit" class="submit">
-      Weiter
+    <b-button type="submit" class="submit wr-button main">
+      <span v-if="!addressEntered">Weiter</span>
+      <b v-else>{{ submitText }}</b>
     </b-button>
 
     <b-alert
@@ -153,11 +154,11 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import { OpenStreetMapProvider } from 'leaflet-geosearch';
-import 'leaflet-geosearch/assets/css/leaflet.css';
+  import Vue from 'vue';
+  import { OpenStreetMapProvider } from 'leaflet-geosearch';
+  import 'leaflet-geosearch/assets/css/leaflet.css';
 
-export default Vue.extend({
+  export default Vue.extend({
   props: {
     restaurant: {
       type: Object,
@@ -198,8 +199,8 @@ export default Vue.extend({
         'Speisen',
         'Tee/Kaffee',
         'weitere Lebensmittel'
-      ].filter(tag => (this.restaurant.selectedTags || []).indexOf(tag) === -1),
-      selectedTags: this.restaurant.selectedTags || [],
+      ].filter(tag => (this.restaurant.tags || []).indexOf(tag) === -1),
+      selectedTags: this.restaurant.tags || [],
       location: this.restaurant.location || null,
       addressEntered: false,
       mapMarkerMissing: false
@@ -240,7 +241,8 @@ export default Vue.extend({
         location: this.location,
         telephone: this.telephone,
         address: this.address,
-        tags: this.selectedTags
+        tags: this.selectedTags,
+        description: this.description
       });
     },
     addTag(tag) {
@@ -268,20 +270,10 @@ export default Vue.extend({
   margin: 10px auto;
   width: 100%;
   font-weight: bold;
-  color: var(--highlight-red);
-  background-color: transparent;
-}
-.submit:hover {
-  background-color: var(--highlight-red);
-  color: var(--light-grey);
 }
 .tag {
   font-size: 15px;
-  border: 2px solid var(--highlight-red);
-  cursor: pointer;
   padding: 6px;
-  background-color: transparent;
-  color: var(--highlight-red);
   margin: 5px;
 }
 
@@ -318,10 +310,5 @@ export default Vue.extend({
   grid-row-end: 2;
   grid-column-start: 2;
   grid-column-end: 4;
-}
-
-.selected {
-  background-color: var(--highlight-red);
-  color: var(--light-grey);
 }
 </style>

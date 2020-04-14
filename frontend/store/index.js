@@ -15,6 +15,7 @@ export default {
       if (!response.ok) {
         throw new Error(await response.json());
       }
+      return response.json()
     },
 
     async updateRestaurant(context, { id, passcode, restaurant }) {

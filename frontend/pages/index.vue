@@ -6,7 +6,7 @@
           <p class="title">
             Rette dein
             <span class="highlight">Lieblingsrestaurant</span>
-            <wbr />durch das Kaufen von
+            <wbr>durch das Kaufen von
             <vue-typer
               :text="[
                 'Wein',
@@ -21,10 +21,10 @@
             />
           </p>
           <div class="links">
-            <nuxt-link to="/map" class="weinretter-button prominent">
+            <nuxt-link to="/map" class="big-button wr-button main">
               Karte ansehen
             </nuxt-link>
-            <nuxt-link to="/offer" class="weinretter-button">
+            <nuxt-link to="/offer" class="big-button wr-button secondary">
               Restaurant eintragen
             </nuxt-link>
           </div>
@@ -36,9 +36,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+  import Vue from 'vue';
 
-export default Vue.extend({
+  export default Vue.extend({
   components: {},
 
   head() {
@@ -66,22 +66,28 @@ html,
   visibility: collapse !important;
 }
 
-.weinretter-button {
+.big-button {
   padding: 10px 20px;
-  border: 3px solid var(--highlight-red);
   border-radius: 10px;
-  color: var(--dark-grey);
   margin-right: 20px;
   margin-bottom: 20px;
 }
 
-.weinretter-button:hover {
-  text-decoration: none;
-  color: var(--light-grey);
+.wr-button {
+  border: 3px solid var(--highlight-red);
 }
 
-.prominent {
-  background: var(--highlight-red);
+.wr-button:hover {
+  text-decoration: none;
+}
+
+.wr-button.secondary, .wr-button.main:hover, .wr-button.main:focus {
+  background-color: white;
+  color: var(--dark-grey);
+}
+
+.wr-button.secondary:hover, .wr-button.secondary:focus, .wr-button.main {
+  background-color: var(--highlight-red);
   color: white;
 }
 

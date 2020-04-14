@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import RestaurantForm from '../components/RestaurantForm';
+  import Vue from 'vue';
+  import RestaurantForm from '../components/RestaurantForm';
 
-export default Vue.extend({
+  export default Vue.extend({
   components: {
     RestaurantForm
   },
@@ -53,7 +53,7 @@ export default Vue.extend({
           '6Le3Kp4UAAAAADWlhb5dUD-FSDe7YpSr0p5rdLt_',
           { action: 'homepage' }
         );
-        await this.$store.dispatch('createRestaurant', {
+        const {restaurant_id, passcode} = await this.$store.dispatch('createRestaurant', {
           ...restaurant,
           captcha
         });
@@ -62,7 +62,7 @@ export default Vue.extend({
           autoHideDelay: 5000,
           variant: 'success'
         });
-        this.$router.push('/');
+        this.$router.push(`/edit/${restaurant_id}:${passcode}`);
       } catch (e) {
         this.error = true;
       }

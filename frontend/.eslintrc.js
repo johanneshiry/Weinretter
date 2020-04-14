@@ -21,5 +21,8 @@ module.exports = {
   // add your custom rules here
   rules: {
     'vue/max-attributes-per-line': 'off'
+  },
+  globals: {
+    'sa_event': 'readonly'
   }
-}
+};
