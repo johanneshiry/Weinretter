@@ -1,0 +1,101 @@
+name: Docker
+
+on:
+  push:
+    branches:
+      - "master"
+
+env:
+  FRONTEND_IMAGE_NAME: wr_frontend
+  BACKEND_IMAGE_NAME: wr_backend
+
+
+jobs:
+
+  build_backend:
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build backend image
+        run: docker build backend --file backend/Dockerfile --tag wr_backend:dev
+
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Push image wr_backend:dev
+        run: |
+          IMAGE_ID=docker.pkg.github.com/johanneshiry/weinretter/$BACKEND_IMAGE_NAME
+
+          VERSION=dev
+
+          echo IMAGE_ID=$IMAGE_ID
+          echo VERSION=$VERSION
+
+          docker tag $BACKEND_IMAGE_NAME:dev $IMAGE_ID:$VERSION
+          docker push $IMAGE_ID:$VERSION
+
+
+  build_frontend:
+
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build frontend image
+        run: docker build frontend --file frontend/Dockerfile --tag wr_frontend:dev
+
+      - name: Log into registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
+
+      - name: Push image wr_frontend:dev
+        run: |
+            IMAGE_ID=docker.pkg.github.com/johanneshiry/weinretter/$FRONTEND_IMAGE_NAME    
+            VERSION=dev
+  
+            echo IMAGE_ID=$IMAGE_ID
+            echo VERSION=$VERSION
+  
+            docker tag $FRONTEND_IMAGE_NAME:dev $IMAGE_ID:$VERSION
+            docker push $IMAGE_ID:$VERSION
+            
+
+
+
+  deploy:
+       needs:
+        - build_backend
+        - build_frontend
+       runs-on: ubuntu-latest
+       if: github.event_name == 'push'
+
+       steps:
+
+         - name: ssh
+           env:
+            envi: staging
+            branch: master
+            compose_file: dev.docker-compose.yml
+            compose_project: dev
+           run: |
+                mkdir -p ~/.ssh
+                eval $(ssh-agent -s)
+                bash -c 'ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}")'
+                ssh deploy@ec2-54-86-155-155.compute-1.amazonaws.com -o StrictHostKeyChecking=no " \
+                    rm -rf temp_$envi && \
+                    git clone https://github.com/johanneshiry/Weinretter temp_$envi
+                    cd temp_$envi && \
+                    git fetch && \
+                    git fetch --tags && \
+                    git checkout -b $branch origin/$branch && \
+                    git pull && \
+                    echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin && \
+                    sudo /data/copy-db.sh && \
+                    docker-compose --project-name $compose_project --file $compose_file up -d --force-recreate --build && \
+                    docker image prune -f \
+                "

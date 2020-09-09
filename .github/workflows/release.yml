@@ -2,17 +2,10 @@ name: Docker
 
 on:
   push:
-    # Publish `master` as Docker `latest` image.
-    branches:
-      - master
-      - deploy
-
     # Publish `v1.2.3` tags as releases.
     tags:
       - v*
 
-  # Run tests for any PRs.
-  pull_request:
 
 env:
   # TODO: Change variable to your image's name.
@@ -21,26 +14,6 @@ env:
 
 
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  # test:
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@v2
-
-  #     # - name: Run tests
-  #     #   run: |
-  #     #     if [ -f docker-compose.test.yml ]; then
-  #     #       docker-compose --file docker-compose.test.yml build
-  #     #       docker-compose --file docker-compose.test.yml run sut
-  #     #     else
-  #     #       docker build . --file Dockerfile
-  #     #     fi
-      
-  #     - name: test build
-  #       run: |
-  #         docker-compose build
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
@@ -69,11 +42,11 @@ jobs:
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
+          # ensure there is a tag
+          [[ "${{ github.ref }}" == "refs/tags/"* ]] || false
+          
           # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
+          VERSION=$(echo $VERSION | sed -e 's/^v//')
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
@@ -89,11 +62,11 @@ jobs:
             # Strip git ref prefix from version
             VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
   
+            # ensure there is a tag
+            [[ "${{ github.ref }}" == "refs/tags/"* ]] || false
+            
             # Strip "v" prefix from tag name
-            [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-  
-            # Use Docker `latest` tag convention
-            [ "$VERSION" == "master" ] && VERSION=latest
+            VERSION=$(echo $VERSION | sed -e 's/^v//')
   
             echo IMAGE_ID=$IMAGE_ID
             echo VERSION=$VERSION
@@ -113,6 +86,6 @@ jobs:
                mkdir -p ~/.ssh
                eval $(ssh-agent -s)
                bash -c 'ssh-add <(echo "${{ secrets.SSH_PRIVATE_KEY }}")'
-               ssh deploy@ec2-54-86-155-155.compute-1.amazonaws.com -o StrictHostKeyChecking=no "cd Weinretter && git pull && docker-compose up -d --force-recreate --build"
+               ssh deploy@ec2-54-86-155-155.compute-1.amazonaws.com -o StrictHostKeyChecking=no "cd Weinretter && git fetch && git fetch --tags && git checkout master && git pull && git checkout `git describe --tags` && docker-compose up -d --force-recreate --build"
 
   

@@ -1,0 +1,27 @@
+version: "3"
+services:
+  wrbackend:
+    image: docker.pkg.github.com/johanneshiry/weinretter/wr_backend:dev
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_TOKEN # Variable is provided by host
+    ports:
+      - "127.0.0.1:5005:5000"
+      - "127.0.0.1:5006:5001"
+    depends_on:
+      - mongocontainer
+
+  wrfrontend:
+    image: docker.pkg.github.com/johanneshiry/weinretter/wr_frontend:dev
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3001:3000"
+
+  mongocontainer:
+    image: mongo
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27018:27017"
+    volumes:
+      - /data/tempdatabase:/data/db
+

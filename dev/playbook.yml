@@ -57,6 +57,8 @@
         files:
           - docker-compose.yml
         recreate: always
+        build: yes
+        nocache: yes
       register: output
       become: yes
     - debug:
